@@ -17,6 +17,6 @@ export const auth = getAuth(app);
 export const firestore = getFirestore(app);
 
 export const appCheck = initializeAppCheck(app, {
-  provider: new ReCaptchaV3Provider("6LdNN1EkAAAAAJ5QSOTk7Axpw-6eGTD1ApBN9Sms"),
+  provider: new ReCaptchaV3Provider(import.meta.env.VITE_FIREBASE_APPCHECKKEY),
   isTokenAutoRefreshEnabled: true,
 });

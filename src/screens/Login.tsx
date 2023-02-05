@@ -26,12 +26,10 @@ const Login = () => {
     if (!checkEmailValidity(email) || !checkPasswordValidity(password)) {
       setError(true);
       setErrorMessage("invalid");
-      console.log("Failed!");
     } else {
       await login(email, password)
         .then((response) => {
           setError(false);
-          console.log(response);
         })
         .catch((error) => {
           setError(true);

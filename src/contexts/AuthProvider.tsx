@@ -1,3 +1,7 @@
+// React
+import React, { createContext, useContext, useEffect, useState } from "react";
+
+// Firebase
 import {
   Auth,
   sendPasswordResetEmail,
@@ -6,10 +10,12 @@ import {
   User,
   UserCredential,
 } from "firebase/auth";
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { Loading } from "../components";
 import { auth } from "../firebase-config";
 
+// Components
+import { Loading } from "../components";
+
+// Types
 type AuthContextModel = {
   auth: Auth;
   user: User | null;
@@ -31,7 +37,7 @@ export const useAuth = (): AuthContextModel => useContext(AuthContext);
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  
+
   const login = async (
     email: string,
     password: string
@@ -40,8 +46,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const logout = async (): Promise<void> => signOut(auth);
 
-  const resetPassword = async (email: string): Promise<void> =>
-    sendPasswordResetEmail(auth, email);
+  const resetPassword = async (email: string): Promise<void> => {
+    setLoading(true);
+    return sendPasswordResetEmail(auth, email);
+  };
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {

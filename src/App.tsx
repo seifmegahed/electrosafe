@@ -1,18 +1,16 @@
-import { Box } from "@mui/material";
+import { useEffect } from "react";
+import { Topbar } from "./components";
+import { useAuth } from "./contexts/AuthProvider";
+
 import Login from "./screens/Login";
 
 const App = () => {
+  const { user } = useAuth();
+
   return (
     <div className="App">
-      <Box
-        display="flex"
-        width="100%"
-        height="100vh"
-        alignItems="center"
-        justifyContent="center"
-      >
-        <Login />
-      </Box>
+      <Topbar showMenu={true} />
+      <Login />
     </div>
   );
 };

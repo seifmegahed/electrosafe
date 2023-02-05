@@ -7,6 +7,7 @@ import {
   UserCredential,
 } from "firebase/auth";
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { Loading } from "../components";
 import { auth } from "../firebase-config";
 
 type AuthContextModel = {
@@ -17,30 +18,20 @@ type AuthContextModel = {
   resetPassword: (email: string) => Promise<void>;
 };
 
-type UserContextState = {
-  isAuthenticated: boolean;
-  isLoading: boolean;
-  id?: string;
-};
-
 type AuthProviderProps = {
   children: React.ReactNode;
 };
 
-export const UserStateContext = createContext<UserContextState>(
-  {} as UserContextState
+export const AuthContext = createContext<AuthContextModel>(
+  {} as AuthContextModel
 );
-
-export const useAuthContext = (): UserContextState =>
-  useContext(UserStateContext);
-
-export const AuthContext = createContext<AuthContextModel>({} as AuthContextModel);
 
 export const useAuth = (): AuthContextModel => useContext(AuthContext);
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
-
+  const [loading, setLoading] = useState(true);
+  
   const login = async (
     email: string,
     password: string
@@ -55,6 +46,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user);
+      setLoading(false);
     });
     return () => unsubscribe();
   }, []);
@@ -67,5 +59,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     resetPassword,
   };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {loading ? <Loading /> : children}
+    </AuthContext.Provider>
+  );
 };

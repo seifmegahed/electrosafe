@@ -7,26 +7,38 @@ import { useState } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 
 // Functions
-import { checkEmailValidity, checkPasswordValidity } from "../utils/validation";
-import { useAuth } from "../contexts/AuthProvider";
+import { checkEmailValidity, checkPasswordValidity } from "../../utils/validation";
+import { useAuth } from "../../contexts/AuthProvider";
 
 // Components
-import { PasswordField, FormContainer, Topbar } from "../components";
+import { PasswordField, FormContainer, Topbar, Loading } from "../../components";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<"wrong" | "invalid">(
     "invalid"
   );
   const { login } = useAuth();
+  
+  const handleKeyboard = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const key = event.key;
+    const element = event.target;
+    if(key === "Enter") handleSubmit();
+    if(key === "Escape") {
+      if((element as HTMLInputElement).id === "email") setEmail("");
+      if((element as HTMLInputElement).id === "password") setPassword("");
+    }
+  }
 
   const handleSubmit = async () => {
     if (!checkEmailValidity(email) || !checkPasswordValidity(password)) {
       setError(true);
       setErrorMessage("invalid");
     } else {
+      setLoading(true);
       await login(email, password)
         .then((response) => {
           setError(false);
@@ -34,6 +46,7 @@ const Login = () => {
         .catch((error) => {
           setError(true);
           setErrorMessage("wrong");
+          setLoading(false);
           console.log(error);
         });
     }
@@ -47,12 +60,15 @@ const Login = () => {
       alignItems="center"
       justifyContent="center"
     >
+      <Loading state={loading} />
       <form>
         <FormContainer padding="50px 50px">
           <Typography mb="20px" variant="h3">
             Login
           </Typography>
           <TextField
+            autoFocus
+            id="email"
             label="Email"
             type="email"
             autoComplete="email"
@@ -61,12 +77,15 @@ const Login = () => {
             onChange={(event) => setEmail(event.target.value)}
             error={error}
             sx={{ gridColumn: "span 4" }}
-          />
+            onKeyDown={handleKeyboard}
+            />
           <PasswordField
+            id="password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
             span={4}
             error={error}
+            onKeyDown={handleKeyboard}
           />
           <Box sx={{ gridColumn: "span 4" }} textAlign="center">
             {error && (

@@ -4,7 +4,9 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 // Firebase
 import {
   Auth,
+  browserSessionPersistence,
   sendPasswordResetEmail,
+  setPersistence,
   signInWithEmailAndPassword,
   signOut,
   User,
@@ -42,14 +44,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     email: string,
     password: string
   ): Promise<UserCredential> =>
-    signInWithEmailAndPassword(auth, email, password);
+    setPersistence(auth, browserSessionPersistence).then(() =>
+      signInWithEmailAndPassword(auth, email, password)
+    )
 
   const logout = async (): Promise<void> => signOut(auth);
 
-  const resetPassword = async (email: string): Promise<void> => {
-    setLoading(true);
-    return sendPasswordResetEmail(auth, email);
-  };
+  const resetPassword = async (email: string): Promise<void> =>
+    sendPasswordResetEmail(auth, email);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {

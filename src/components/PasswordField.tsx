@@ -9,15 +9,17 @@ import {
 import { useState } from "react";
 
 type PasswordFieldProps = {
+  id: string;
   value: string;
   onChange: (
     event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => void;
   span?: number;
   error: boolean
+  onKeyDown: React.KeyboardEventHandler<HTMLElement>
 };
 
-const PasswordField = ({ value, onChange, span, error}: PasswordFieldProps) => {
+const PasswordField = ({ value, onChange, span, error, onKeyDown, id}: PasswordFieldProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleShowPassword = () => setShowPassword((show) => !show);
@@ -29,9 +31,9 @@ const PasswordField = ({ value, onChange, span, error}: PasswordFieldProps) => {
   };
   return (
     <FormControl sx={{gridColumn: `span ${span || 4}`}}>
-      <InputLabel error={error} htmlFor="outlined-adornment-password">Password</InputLabel>
+      <InputLabel error={error} htmlFor={id}>Password</InputLabel>
       <OutlinedInput
-        id="outlined-adornment-password"
+        id={id}
         type={showPassword ? "text" : "password"}
         endAdornment={
           <InputAdornment position="end">
@@ -50,6 +52,7 @@ const PasswordField = ({ value, onChange, span, error}: PasswordFieldProps) => {
         autoComplete="password"
         onChange={(event) => onChange(event)}
         error={error}
+        onKeyDown={onKeyDown}
       />
     </FormControl>
   );

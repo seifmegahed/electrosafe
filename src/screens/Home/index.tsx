@@ -3,8 +3,8 @@
 // MUI
 import { Typography, Box } from "@mui/material";
 // Components
-import { FormContainer } from "../components";
-import { useAuth } from "../contexts/AuthProvider";
+import { FormContainer } from "../../components/";
+import { useAuth } from "../../contexts/AuthProvider";
 // Types
 
 const Home = () => {

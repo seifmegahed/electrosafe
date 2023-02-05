@@ -10,6 +10,7 @@ import { Menu, Person } from "@mui/icons-material";
 // Components
 import { useAuth } from "../contexts/AuthProvider";
 import PopperMenu from "./PopperMenu";
+import { useNavigate } from "react-router-dom";
 
 // Types
 type TopbarProps = {
@@ -21,6 +22,7 @@ const Topbar = ({ showMenu }: TopbarProps) => {
   const [userMenuElement, setUserMenuElement] = useState<HTMLElement | null>(
     null
   );
+  const navigate = useNavigate();
 
   const closeUserMenu = () => {
     setUserMenuElement(null);
@@ -36,7 +38,7 @@ const Topbar = ({ showMenu }: TopbarProps) => {
       disabled: false,
       arabic: false,
       callback: () => {
-        console.log("Account Pressed");
+        navigate("user-account");
       },
     },
     {
@@ -68,22 +70,24 @@ const Topbar = ({ showMenu }: TopbarProps) => {
             Electrosafe
           </Typography>
           {!!user && (
-            <IconButton
-              onClick={openUserMenu}
-              size="large"
-              edge="end"
-              color="inherit"
-              aria-label="user"
-            >
-              <Person />
-            </IconButton>
+            <>
+              <IconButton
+                onClick={openUserMenu}
+                size="large"
+                edge="end"
+                color="inherit"
+                aria-label="user"
+              >
+                <Person />
+              </IconButton>
+              <PopperMenu
+                menuItems={userMenuItems}
+                element={userMenuElement}
+                handleClose={closeUserMenu}
+                placement="bottom-end"
+              />
+            </>
           )}
-          <PopperMenu
-            menuItems={userMenuItems}
-            element={userMenuElement}
-            handleClose={closeUserMenu}
-            placement="bottom-end"
-          />
         </Toolbar>
       </AppBar>
     </Box>

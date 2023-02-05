@@ -2,7 +2,7 @@ import { Box, useMediaQuery } from "@mui/material";
 import { ReactElement } from "react";
 
 type FormContainerProps = {
-  children: ReactElement[];
+  children: ReactElement[] | ReactElement;
   padding?: string;
 };
 

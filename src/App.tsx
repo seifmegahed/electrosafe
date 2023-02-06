@@ -34,7 +34,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <Topbar showMenu={false} />
+      <Topbar />
       <Routes>
         <Route path="/*" element={<Login />} />
       </Routes>

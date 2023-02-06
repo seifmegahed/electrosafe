@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 // Types
 type TopbarProps = {
-  openSideNav: () => void;
+  openSideNav?: () => void;
 };
 
 const Topbar = ({ openSideNav }: TopbarProps) => {

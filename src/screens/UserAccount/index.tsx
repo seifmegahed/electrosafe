@@ -1,13 +1,14 @@
 // React
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 // Firebase
 
 // MUI
 import { Typography, Box, Divider, Button } from "@mui/material";
 
 // Components
-import { FormContainer } from "../../components";
+import { FormContainer, Loading } from "../../components";
 import { useAuth } from "../../contexts/AuthProvider";
+import { updateProfile, User } from "firebase/auth";
 
 // Types
 type UserAccountProps = {
@@ -15,12 +16,10 @@ type UserAccountProps = {
 };
 const UserAccount = ({ span }: UserAccountProps) => {
   const { user } = useAuth();
-  const initialValues = {
-    displayName: user?.displayName || "",
-    phoneNumber: user?.phoneNumber || "",
-  };
+  let initialValues = user?.displayName || "";
   const [change, setChange] = useState(false);
   const [userData, setUserData] = useState(initialValues);
+  const [loading, setLoading] = useState(false);
 
   const resetValues = () => {
     setUserData(initialValues);
@@ -28,24 +27,32 @@ const UserAccount = ({ span }: UserAccountProps) => {
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { value, name } = event.target;
-    setUserData((prev) => {
-      const newValues = {
-        ...prev,
-        [name as "displayName" | "phoneNumber"]: value,
-      };
+    const { value } = event.target;
+    setChange(value !== initialValues);
+    setUserData(value);
+  };
 
-      console.log(user?.displayName);
-      setChange(
-        newValues.displayName !== initialValues.displayName ||
-          newValues.phoneNumber !== initialValues.phoneNumber
-      );
-      return newValues;
-    });
+  useEffect(() => {
+    console.log(userData);
+  }, [userData]);
+
+  const saveData = async () => {
+    setLoading(true);
+    await updateProfile(user as User, { displayName: userData })
+      .then(() => {
+        setChange(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
     <FormContainer>
+      <Loading state={loading} />
       <Box
         display="flex"
         width="100%"
@@ -77,7 +84,7 @@ const UserAccount = ({ span }: UserAccountProps) => {
                 <input
                   className="editable-text-display"
                   name="displayName"
-                  value={userData.displayName}
+                  value={userData}
                   onChange={handleChange}
                 />
               </Box>
@@ -85,16 +92,6 @@ const UserAccount = ({ span }: UserAccountProps) => {
               <Box display="flex" justifyContent="space-between" mt="30px">
                 <Typography>Email</Typography>
                 <Typography>{user?.email}</Typography>
-              </Box>
-              <Divider />
-              <Box display="flex" justifyContent="space-between" mt="30px">
-                <Typography>Phone Number</Typography>
-                <input
-                  className="editable-text-display"
-                  name="phoneNumber"
-                  value={userData.phoneNumber}
-                  onChange={handleChange}
-                />
               </Box>
               <Divider />
             </Box>
@@ -106,12 +103,23 @@ const UserAccount = ({ span }: UserAccountProps) => {
           alignItems="flex-end"
           display="flex"
           justifyContent="space-between"
-          visibility={change ? "visible" : "hidden"}
         >
-          <Button onClick={resetValues} variant="contained">
+          <Button
+            disabled={!change}
+            onClick={resetValues}
+            variant="contained"
+            sx={{ width: "100px" }}
+          >
             Cancel
           </Button>
-          <Button variant="contained">Save</Button>
+          <Button
+            disabled={!change}
+            onClick={saveData}
+            variant="contained"
+            sx={{ width: "100px" }}
+          >
+            Save
+          </Button>
         </Box>
       </Box>
     </FormContainer>

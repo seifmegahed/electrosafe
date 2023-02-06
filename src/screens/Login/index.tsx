@@ -56,7 +56,7 @@ const Login = () => {
     <Box
       display="flex"
       width="100%"
-      height="calc(100vh - 165px)"
+      height="calc(100vh - 65px)"
       alignItems="center"
       justifyContent="center"
     >

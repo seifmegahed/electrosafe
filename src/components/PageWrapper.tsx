@@ -1,28 +1,24 @@
 import { Box, useMediaQuery } from "@mui/material";
 import { ReactElement } from "react";
 
-type FormContainerProps = {
+type PageWrapperProps = {
   children: ReactElement[] | ReactElement;
-  padding?: string;
-  span?: number;
 };
 
-const FormContainer = ({ children, padding, span }: FormContainerProps) => {
+const PageWrapper = ({ children }: PageWrapperProps) => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   return (
     <Box
       display="grid"
-      p={isNonMobile ? !!padding ? padding : "30px" : "15px"}
-      boxShadow="rgba(0, 0, 0, 0.24) 0px 3px 8px"
+      p="30px"
       borderRadius="10px"
       gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-      minWidth="300px"
-      gap="20px"
+      height="calc(100vh - 200px)"
+      gap="40px"
       sx={{
-        gridColumn: `span ${!!span ? span : "4"}`,
-        backgroundColor: "#fefefe",
         "& > div": {
           gridColumn: isNonMobile ? undefined : "span 4",
+          ml: {md: "240px"}
         },
       }}
     >
@@ -31,4 +27,4 @@ const FormContainer = ({ children, padding, span }: FormContainerProps) => {
   );
 };
 
-export default FormContainer;
+export default PageWrapper;

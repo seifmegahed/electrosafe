@@ -2,8 +2,10 @@
 import { lazy, Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
+import { Box } from "@mui/material";
+
 // Components
-import { Loading, Topbar } from "./components";
+import { Loading, PageWrapper, NavComponents, Topbar } from "./components";
 import { useAuth } from "./contexts/AuthProvider";
 import Login from "./screens/Login";
 
@@ -17,13 +19,15 @@ const App = () => {
   if (!!user)
     return (
       <div className="App">
-        <Topbar showMenu={true} />
+        <NavComponents />
         <Suspense fallback={<Loading />}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/user-account" element={<UserAccount />} />
-            <Route path="/*" element={<Navigate to="/" />} />
-          </Routes>
+          <PageWrapper>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/user-account" element={<UserAccount />} />
+              <Route path="/*" element={<Navigate to="/" />} />
+            </Routes>
+          </PageWrapper>
         </Suspense>
       </div>
     );

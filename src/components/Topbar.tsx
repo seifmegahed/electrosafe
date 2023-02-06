@@ -14,10 +14,10 @@ import { useNavigate } from "react-router-dom";
 
 // Types
 type TopbarProps = {
-  showMenu: boolean;
+  openSideNav: () => void;
 };
 
-const Topbar = ({ showMenu }: TopbarProps) => {
+const Topbar = ({ openSideNav }: TopbarProps) => {
   const { logout, user } = useAuth();
   const [userMenuElement, setUserMenuElement] = useState<HTMLElement | null>(
     null
@@ -52,21 +52,32 @@ const Topbar = ({ showMenu }: TopbarProps) => {
   ];
 
   return (
-    <Box mb="65px" sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed">
+    <Box mb="64px" sx={{ flexGrow: 1 }}>
+      <AppBar
+        position="fixed"
+        sx={{
+          height: "64px",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <Toolbar>
-          {showMenu && !!user && (
+          {!!user && (
             <IconButton
               size="large"
               edge="start"
               color="inherit"
               aria-label="menu"
-              sx={{ mr: 2 }}
+              onClick={openSideNav}
+              sx={{
+                display: { sm: "block", md: "none" },
+                borderRadius: "50%",
+              }}
             >
               <Menu />
             </IconButton>
           )}
-          <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="h4" component="div" sx={{ ml: 2, flexGrow: 1 }}>
             Electrosafe
           </Typography>
           {!!user && (

@@ -4,3 +4,18 @@ body,
   margin: 0;
   background-color: #efefef;
 }
+
+.editable-text-display {
+  width: 60%;
+  text-align: end;
+  border: none;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.00938em;
+}
+
+.editable-text-display:focus {
+  outline: none;
+}

@@ -1,59 +1,118 @@
 // React
+import { ChangeEvent, useState } from "react";
 // Firebase
 
 // MUI
-import { Typography, Box, Table } from "@mui/material";
-import { height } from "@mui/system";
-import { User } from "firebase/auth";
-import { useEffect } from "react";
+import { Typography, Box, Divider, Button } from "@mui/material";
 
 // Components
-import { FormContainer, ScreenNavigator } from "../../components";
-import DataDisplay from "../../components/DataDisplay";
+import { FormContainer } from "../../components";
 import { useAuth } from "../../contexts/AuthProvider";
 
 // Types
 type UserAccountProps = {
-  span?: number;
+  span: 1 | 2;
 };
 const UserAccount = ({ span }: UserAccountProps) => {
   const { user } = useAuth();
-  useEffect(() => {
-    console.log(user);
-  }, []);
+  const initialValues = {
+    displayName: user?.displayName || "",
+    phoneNumber: user?.phoneNumber || "",
+  };
+  const [change, setChange] = useState(false);
+  const [userData, setUserData] = useState(initialValues);
+
+  const resetValues = () => {
+    setUserData(initialValues);
+    setChange(false);
+  };
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = event.target;
+    setUserData((prev) => {
+      const newValues = {
+        ...prev,
+        [name as "displayName" | "phoneNumber"]: value,
+      };
+
+      console.log(user?.displayName);
+      setChange(
+        newValues.displayName !== initialValues.displayName ||
+          newValues.phoneNumber !== initialValues.phoneNumber
+      );
+      return newValues;
+    });
+  };
+
   return (
-    <FormContainer span={!!span ? span : 4}>
-      <Box width="100%" sx={{ gridColumn: "span 4" }}>
-        <Typography variant="h3"> User Profile</Typography>
-      </Box>
+    <FormContainer>
       <Box
         display="flex"
-        alignItems="flex-start"
-        justifyContent="center"
-        width="fit-content"
-        mr="20px"
-        sx={{ gridColumn: "span 1", gridRow: "span 3" }}
+        width="100%"
+        flexDirection="column"
+        justifyContent="space-between"
+        sx={{ gridColumn: "span 4" }}
       >
-        <img
-          src="../../assets/images/user.png"
-          style={{ maxWidth: "150px" }}
-        ></img>
-      </Box>
-      <Box display="flex" justifyContent="flex-end" sx={{ gridColumn: "span 3" }}>
-        <Table>
-          <DataDisplay
-            details={{ label: "Name" }}
-            data={(user as User).displayName || ""}
-          />
-          <DataDisplay
-            details={{ label: "Email" }}
-            data={(user as User).email || ""}
-          />
-          <DataDisplay
-            details={{ label: "Phone Number" }}
-            data={(user as User).phoneNumber || ""}
-          />
-        </Table>
+        <Box display="flex" width="100%" flexDirection="column">
+          <Typography variant="h3"> User Profile</Typography>
+          <Box
+            display="flex"
+            gap="30px"
+            mt="30px"
+            sx={
+              span === 2
+                ? { flexDirection: { xs: "column", sm: "row" } }
+                : { flexDirection: "column" }
+            }
+          >
+            <Box display="flex" height="fit-content" justifyContent="center">
+              <img
+                src="../../assets/images/user.png"
+                style={{ maxWidth: "140px" }}
+              ></img>
+            </Box>
+            <Box display="flex" flexDirection="column" width="100%">
+              <Box display="flex" justifyContent="space-between">
+                <Typography>Name</Typography>
+                <input
+                  className="editable-text-display"
+                  name="displayName"
+                  value={userData.displayName}
+                  onChange={handleChange}
+                />
+              </Box>
+              <Divider />
+              <Box display="flex" justifyContent="space-between" mt="30px">
+                <Typography>Email</Typography>
+                <Typography>{user?.email}</Typography>
+              </Box>
+              <Divider />
+              <Box display="flex" justifyContent="space-between" mt="30px">
+                <Typography>Phone Number</Typography>
+                <input
+                  className="editable-text-display"
+                  name="phoneNumber"
+                  value={userData.phoneNumber}
+                  onChange={handleChange}
+                />
+              </Box>
+              <Divider />
+            </Box>
+          </Box>
+        </Box>
+
+        <Box
+          m="30px 0"
+          alignItems="flex-end"
+          display="flex"
+          justifyContent="space-between"
+          visibility={change ? "visible" : "hidden"}
+        >
+          <Button onClick={resetValues} variant="contained">
+            Cancel
+          </Button>
+          <Button variant="contained">Save</Button>
+        </Box>
       </Box>
     </FormContainer>
   );

@@ -1,9 +1,9 @@
 // React
 // Firebase
 // MUI
-import { Typography, Box } from "@mui/material";
+import { Typography } from "@mui/material";
 // Components
-import { FormContainer, ScreenNavigator } from "../../components/";
+import { FormContainer } from "../../components/";
 import { useAuth } from "../../contexts/AuthProvider";
 import UserAccount from "../UserAccount";
 // Types
@@ -13,7 +13,7 @@ const Home = () => {
 
   return (
     <>
-      <FormContainer span={4}>
+      <FormContainer>
         <Typography sx={{ gridColumn: "span 4" }} variant="h2">
           Home
         </Typography>
@@ -23,6 +23,7 @@ const Home = () => {
           color="primary"
         >{`Welcome ${user?.email}`}</Typography>
       </FormContainer>
+      <UserAccount span={1}/>
     </>
   );
 };

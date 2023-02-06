@@ -6,20 +6,16 @@ type PageWrapperProps = {
 };
 
 const PageWrapper = ({ children }: PageWrapperProps) => {
-  const isNonMobile = useMediaQuery("(min-width:600px)");
+  const isNonMobile = useMediaQuery("(min-width:1000px)");
   return (
     <Box
-      display="grid"
-      p="30px"
-      borderRadius="10px"
-      gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-      height="calc(100vh - 200px)"
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
       gap="40px"
       sx={{
-        "& > div": {
-          gridColumn: isNonMobile ? undefined : "span 4",
-          ml: {md: "240px"}
-        },
+        p: { xs: "50px 0", sm: "50px", md: "50px" },
+        ml: { md: "240px" },
       }}
     >
       {children}

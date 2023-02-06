@@ -24,7 +24,7 @@ const App = () => {
           <PageWrapper>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/user-account" element={<UserAccount />} />
+              <Route path="/user-account" element={<UserAccount span={2} />} />
               <Route path="/*" element={<Navigate to="/" />} />
             </Routes>
           </PageWrapper>

@@ -4,10 +4,9 @@ import { ReactElement } from "react";
 type FormContainerProps = {
   children: ReactElement[] | ReactElement;
   padding?: string;
-  span?: number;
 };
 
-const FormContainer = ({ children, padding, span }: FormContainerProps) => {
+const FormContainer = ({ children, padding }: FormContainerProps) => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   return (
     <Box
@@ -17,9 +16,11 @@ const FormContainer = ({ children, padding, span }: FormContainerProps) => {
       borderRadius="10px"
       gridTemplateColumns="repeat(4, minmax(0, 1fr))"
       minWidth="300px"
+      maxWidth="700px"
+      height="fit-content"
       gap="20px"
+      width="90%"
       sx={{
-        gridColumn: `span ${!!span ? span : "4"}`,
         backgroundColor: "#fefefe",
         "& > div": {
           gridColumn: isNonMobile ? undefined : "span 4",

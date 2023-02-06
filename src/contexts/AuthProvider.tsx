@@ -44,9 +44,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     email: string,
     password: string
   ): Promise<UserCredential> =>
-    setPersistence(auth, browserSessionPersistence).then(() =>
-      signInWithEmailAndPassword(auth, email, password)
-    )
+    signInWithEmailAndPassword(auth, email, password);
 
   const logout = async (): Promise<void> => signOut(auth);
 

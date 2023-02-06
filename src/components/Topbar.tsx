@@ -70,7 +70,7 @@ const Topbar = ({ openSideNav }: TopbarProps) => {
               aria-label="menu"
               onClick={openSideNav}
               sx={{
-                display: { sm: "block", md: "none" },
+                display: { sm: "flex", md: "none" },
                 borderRadius: "50%",
               }}
             >

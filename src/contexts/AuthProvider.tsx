@@ -4,9 +4,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 // Firebase
 import {
   Auth,
-  browserSessionPersistence,
   sendPasswordResetEmail,
-  setPersistence,
   signInWithEmailAndPassword,
   signOut,
   User,

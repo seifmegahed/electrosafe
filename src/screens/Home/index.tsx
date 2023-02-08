@@ -21,9 +21,9 @@ const Home = () => {
           sx={{ gridColumn: "span 4" }}
           variant="h6"
           color="primary"
-        >{`Welcome ${user?.email}`}</Typography>
+        >{`Welcome ${user?.displayName || user?.email}`}</Typography>
       </FormContainer>
-      <UserAccount span={1}/>
+      <UserAccount span={1} />
     </>
   );
 };

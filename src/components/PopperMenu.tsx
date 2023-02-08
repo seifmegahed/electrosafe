@@ -47,7 +47,7 @@ const PopperMenu = ({
       sx={{zIndex:1101}}
     >
       <ClickAwayListener onClickAway={handleClose}>
-        <Paper sx={{ width: "140px" }}>
+        <Paper sx={{ width: "180px" }}>
           {menuItems.map((item, index) => (
             <MenuItemSelector
               key={index}

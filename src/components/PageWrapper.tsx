@@ -11,10 +11,9 @@ const PageWrapper = ({ children }: PageWrapperProps) => {
     <Box
       display="flex"
       flexDirection="column"
-      alignItems="center"
       gap="40px"
       sx={{
-        p: { xs: "50px 0", sm: "50px", md: "50px" },
+        p: { xs: "50px 0px", sm: "50px", md: "50px" },
         ml: { md: "240px" },
       }}
     >

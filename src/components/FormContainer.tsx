@@ -1,12 +1,13 @@
-import { Box, useMediaQuery } from "@mui/material";
+import { Box, useMediaQuery, Typography } from "@mui/material";
 import { ReactElement } from "react";
 
 type FormContainerProps = {
   children: ReactElement[] | ReactElement;
   padding?: string;
+  title?: string;
 };
 
-const FormContainer = ({ children, padding }: FormContainerProps) => {
+const FormContainer = ({ children, padding, title }: FormContainerProps) => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   return (
     <Box
@@ -19,7 +20,6 @@ const FormContainer = ({ children, padding }: FormContainerProps) => {
       maxWidth="700px"
       height="fit-content"
       gap="20px"
-      width="90%"
       sx={{
         backgroundColor: "#fefefe",
         "& > div": {
@@ -27,6 +27,7 @@ const FormContainer = ({ children, padding }: FormContainerProps) => {
         },
       }}
     >
+      {title && <Typography mb="20px" sx={{ gridColumn: "span 4" }} variant="h3">{title}</Typography>}
       {children}
     </Box>
   );

@@ -42,6 +42,14 @@ const Topbar = ({ openSideNav }: TopbarProps) => {
       },
     },
     {
+      label: "Change Password",
+      disabled: false,
+      arabic: false,
+      callback: () => {
+        navigate("change-password");
+      },
+    },
+    {
       label: "logout",
       disabled: false,
       arabic: false,

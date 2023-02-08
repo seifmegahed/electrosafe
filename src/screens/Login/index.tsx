@@ -7,11 +7,19 @@ import { useState } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 
 // Functions
-import { checkEmailValidity, checkPasswordValidity } from "../../utils/validation";
+import {
+  checkEmailValidity,
+  checkPasswordValidity,
+} from "../../utils/validation";
 import { useAuth } from "../../contexts/AuthProvider";
 
 // Components
-import { PasswordField, FormContainer, Topbar, Loading } from "../../components";
+import {
+  PasswordField,
+  FormContainer,
+  Topbar,
+  Loading,
+} from "../../components";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -22,16 +30,16 @@ const Login = () => {
     "invalid"
   );
   const { login } = useAuth();
-  
+
   const handleKeyboard = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const key = event.key;
     const element = event.target;
-    if(key === "Enter") handleSubmit();
-    if(key === "Escape") {
-      if((element as HTMLInputElement).id === "email") setEmail("");
-      if((element as HTMLInputElement).id === "password") setPassword("");
+    if (key === "Enter") handleSubmit();
+    if (key === "Escape") {
+      if ((element as HTMLInputElement).id === "email") setEmail("");
+      if ((element as HTMLInputElement).id === "password") setPassword("");
     }
-  }
+  };
 
   const handleSubmit = async () => {
     if (!checkEmailValidity(email) || !checkPasswordValidity(password)) {
@@ -62,10 +70,7 @@ const Login = () => {
     >
       <Loading state={loading} />
       <form>
-        <FormContainer padding="50px 50px">
-          <Typography mb="20px" variant="h3">
-            Login
-          </Typography>
+        <FormContainer title="Login" padding="50px 50px">
           <TextField
             autoFocus
             id="email"
@@ -78,7 +83,7 @@ const Login = () => {
             error={error}
             sx={{ gridColumn: "span 4" }}
             onKeyDown={handleKeyboard}
-            />
+          />
           <PasswordField
             id="password"
             value={password}

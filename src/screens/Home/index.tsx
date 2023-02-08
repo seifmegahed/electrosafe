@@ -13,10 +13,7 @@ const Home = () => {
 
   return (
     <>
-      <FormContainer>
-        <Typography sx={{ gridColumn: "span 4" }} variant="h2">
-          Home
-        </Typography>
+      <FormContainer title="Home">
         <Typography
           sx={{ gridColumn: "span 4" }}
           variant="h6"

@@ -17,7 +17,7 @@ const FormContainer = ({ children, padding, title }: FormContainerProps) => {
       borderRadius="10px"
       gridTemplateColumns="repeat(4, minmax(0, 1fr))"
       minWidth="300px"
-      maxWidth="700px"
+      maxWidth="600px"
       height="fit-content"
       gap="20px"
       sx={{

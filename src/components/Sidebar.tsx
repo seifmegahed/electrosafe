@@ -3,14 +3,13 @@
 // MUI
 import {
   Box,
-  Divider,
   Drawer,
   List,
   ListItem,
   ListItemButton,
   ListItemText,
-  Toolbar,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 // Components
 
 // Types
@@ -20,21 +19,29 @@ type SidenavProps = {
   handleClose: () => void;
 };
 
-const pages = ["Home", "Inventory", "Sales", "Treasury", "Purchasing"];
-
-const navItems = (
-  <List>
-    {pages.map((item, index) => (
-      <ListItem key={index} disablePadding>
-        <ListItemButton>
-          <ListItemText primary={item} />
-        </ListItemButton>
-      </ListItem>
-    ))}
-  </List>
-);
+const pages = [
+  { label: "Home", path: "/" },
+  { label: "Inventory", path: "/inventory" },
+  { label: "Sales", path: "/sales" },
+  { label: "Treasury", path: "/treasury" },
+  { label: "Purchasing", path: "/purchasing" },
+];
 
 const Sidenav = ({ navWidth, open, handleClose }: SidenavProps) => {
+  const navigate = useNavigate();
+
+  const navItems = (
+    <List>
+      {pages.map((item, index) => (
+        <ListItem key={index} disablePadding>
+          <ListItemButton onClick={() => navigate(item.path)}>
+            <ListItemText primary={item.label} />
+          </ListItemButton>
+        </ListItem>
+      ))}
+    </List>
+  );
+
   return (
     <Box component="nav">
       <Drawer
@@ -47,7 +54,7 @@ const Sidenav = ({ navWidth, open, handleClose }: SidenavProps) => {
         }}
         sx={{
           display: { xs: "block", sm: "block", md: "none" },
-          zIndex:{md: 1000},
+          zIndex: { md: 1000 },
           borderRight: "none",
           "& .MuiDrawer-paper": {
             backgroundColor: "#fefefe",

@@ -19,10 +19,10 @@ type TopbarProps = {
 
 const Topbar = ({ openSideNav }: TopbarProps) => {
   const { logout, user } = useAuth();
+  const navigate = useNavigate();
   const [userMenuElement, setUserMenuElement] = useState<HTMLElement | null>(
     null
   );
-  const navigate = useNavigate();
 
   const closeUserMenu = () => {
     setUserMenuElement(null);
@@ -85,9 +85,14 @@ const Topbar = ({ openSideNav }: TopbarProps) => {
               <Menu />
             </IconButton>
           )}
-          <Typography variant="h4" component="div" sx={{ ml: 2, flexGrow: 1 }}>
-            Electrosafe
-          </Typography>
+          <Box
+            onClick={() => navigate("/")}
+            sx={{ cursor: "pointer", ml: 2, flexGrow: 1 }}
+          >
+            <Typography variant="h4">
+              Electrosafe
+            </Typography>
+          </Box>
           {!!user && (
             <>
               <IconButton

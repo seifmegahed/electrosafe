@@ -12,7 +12,7 @@ import Login from "./screens/Login";
 // Lazy Routes
 const Home = lazy(() => import("./screens/Home"));
 const UserAccount = lazy(() => import("./screens/UserAccount"));
-const ChangePassword = lazy(() => import("./screens/ChangePassword"))
+const ChangePassword = lazy(() => import("./screens/ChangePassword"));
 
 const App = () => {
   const { user } = useAuth();
@@ -27,7 +27,7 @@ const App = () => {
               <Route path="/" element={<Home />} />
               <Route path="/user-account" element={<UserAccount span={2} />} />
               <Route path="/change-password" element={<ChangePassword />} />
-              <Route path="/*" element={<Navigate to="/" />} />
+              {/* <Route path="/*" element={<Navigate to="/" />} /> */}
             </Routes>
           </PageWrapper>
         </Suspense>

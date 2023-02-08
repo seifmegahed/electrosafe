@@ -14,12 +14,7 @@ import {
 import { useAuth } from "../../contexts/AuthProvider";
 
 // Components
-import {
-  PasswordField,
-  FormContainer,
-  Topbar,
-  Loading,
-} from "../../components";
+import { Loading, FormContainer, PasswordField } from "../../components";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -63,14 +58,15 @@ const Login = () => {
   return (
     <Box
       display="flex"
-      width="100%"
-      height="calc(100vh - 65px)"
+      flexDirection="column"
       alignItems="center"
-      justifyContent="center"
+      sx={{
+        p: { xs: "50px 0px", sm: "50px", md: "50px" },
+      }}
     >
-      <Loading state={loading} />
-      <form>
-        <FormContainer title="Login" padding="50px 50px">
+      <form style={{ alignSelf: "center", width: "100%", maxWidth: "600px" }}>
+        <Loading state={loading} />
+        <FormContainer title="Login">
           <TextField
             autoFocus
             id="email"

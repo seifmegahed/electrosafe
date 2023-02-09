@@ -6,6 +6,7 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
+import { grey, red } from "@mui/material/colors";
 import zIndex from "@mui/material/styles/zIndex";
 
 type menuItem = {
@@ -47,7 +48,7 @@ const PopperMenu = ({
       sx={{zIndex:1101}}
     >
       <ClickAwayListener onClickAway={handleClose}>
-        <Paper sx={{ width: "180px" }}>
+        <Paper sx={{ width: "180px", backgroundColor: "background.paper"}}>
           {menuItems.map((item, index) => (
             <MenuItemSelector
               key={index}

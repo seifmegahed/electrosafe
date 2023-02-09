@@ -89,9 +89,7 @@ const Topbar = ({ openSideNav }: TopbarProps) => {
             onClick={() => navigate("/")}
             sx={{ cursor: "pointer", ml: 2, flexGrow: 1 }}
           >
-            <Typography variant="h4">
-              Electrosafe
-            </Typography>
+            <Typography variant="h4">Electrosafe</Typography>
           </Box>
           {!!user && (
             <>

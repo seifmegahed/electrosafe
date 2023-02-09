@@ -51,7 +51,7 @@ const UserAccount = ({ span }: UserAccountProps) => {
   };
 
   return (
-    <FormContainer>
+    <FormContainer title="User Profile">
       <Loading state={loading} />
       <Box
         display="flex"
@@ -61,11 +61,9 @@ const UserAccount = ({ span }: UserAccountProps) => {
         sx={{ gridColumn: "span 4" }}
       >
         <Box display="flex" width="100%" flexDirection="column">
-          <Typography variant="h3"> User Profile</Typography>
           <Box
             display="flex"
             gap="30px"
-            mt="30px"
             sx={
               span === 2
                 ? { flexDirection: { xs: "column", sm: "row" } }
@@ -99,7 +97,7 @@ const UserAccount = ({ span }: UserAccountProps) => {
         </Box>
 
         <Box
-          m="30px 0"
+          mt="30px"
           alignItems="flex-end"
           display="flex"
           justifyContent="space-between"

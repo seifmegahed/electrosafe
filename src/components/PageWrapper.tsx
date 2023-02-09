@@ -8,11 +8,13 @@ type PageWrapperProps = {
 const PageWrapper = ({ children }: PageWrapperProps) => {
   return (
     <Box
-      gap="40px"
       display="flex"
       flexDirection="column"
+      gap="30px"
       sx={{
-        p: { xs: "50px 0px", sm: "50px", md: "50px" },
+        alignSelf: "center",
+        alignItems: {sm: "center", md: "flex-start"},
+        p: { xs: "50px 5px", sm: "50px", md: "50px" },
         ml: { md: "240px" },
       }}
     >

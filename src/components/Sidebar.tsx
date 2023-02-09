@@ -3,6 +3,7 @@
 // MUI
 import {
   Box,
+  Divider,
   Drawer,
   List,
   ListItem,
@@ -33,11 +34,14 @@ const Sidenav = ({ navWidth, open, handleClose }: SidenavProps) => {
   const navItems = (
     <List>
       {pages.map((item, index) => (
-        <ListItem key={index} disablePadding>
-          <ListItemButton onClick={() => navigate(item.path)}>
-            <ListItemText primary={item.label} />
-          </ListItemButton>
-        </ListItem>
+        <>
+          <ListItem key={index} disablePadding>
+            <ListItemButton onClick={() => navigate(item.path)}>
+              <ListItemText primary={item.label} />
+            </ListItemButton>
+          </ListItem>
+          <Divider sx={{ color: "background.paper" }} />
+        </>
       ))}
     </List>
   );
@@ -57,7 +61,7 @@ const Sidenav = ({ navWidth, open, handleClose }: SidenavProps) => {
           zIndex: { md: 1000 },
           borderRight: "none",
           "& .MuiDrawer-paper": {
-            backgroundColor: "#fefefe",
+            backgroundColor: "background.default",
             width: navWidth,
             boxSizing: "border-box",
           },

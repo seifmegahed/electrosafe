@@ -1,8 +1,7 @@
 // React
-import { lazy, Suspense } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
-
 import { Box } from "@mui/material";
+import { lazy, Suspense } from "react";
+import { Routes, Route } from "react-router-dom";
 
 // Components
 import { Loading, PageWrapper, NavComponents, Topbar } from "./components";
@@ -19,7 +18,7 @@ const App = () => {
 
   if (!!user)
     return (
-      <div className="App">
+      <Box className="App" sx={{ backgroundColor: "backgroud.default" }}>
         <NavComponents />
         <Suspense fallback={<Loading />}>
           <PageWrapper>
@@ -31,7 +30,7 @@ const App = () => {
             </Routes>
           </PageWrapper>
         </Suspense>
-      </div>
+      </Box>
     );
   else
     return (

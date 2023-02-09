@@ -16,18 +16,18 @@ const FormContainer = ({ children, padding, title }: FormContainerProps) => {
       boxShadow="rgba(0, 0, 0, 0.24) 0px 3px 8px"
       borderRadius="10px"
       gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-      minWidth="300px"
       maxWidth="600px"
+      width="100%"
       height="fit-content"
       gap="20px"
       sx={{
-        backgroundColor: "#fefefe",
+        backgroundColor: "background.paper",
         "& > div": {
           gridColumn: isNonMobile ? undefined : "span 4",
         },
       }}
     >
-      {title && <Typography mb="20px" sx={{ gridColumn: "span 4" }} variant="h3">{title}</Typography>}
+      {title && <Typography sx={{ gridColumn: "span 4" }} variant="h3">{title}</Typography>}
       {children}
     </Box>
   );

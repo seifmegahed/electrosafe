@@ -5,27 +5,14 @@ import { Box, Drawer } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 // Components
 import NavItems from "./SideNavItems";
+import { pages } from "./pages";
+
 // Types
 type SidenavProps = {
   navWidth: number;
   open: boolean;
   handleClose: () => void;
 };
-
-const pages = [
-  { label: "Home", path: "/", subPages: null },
-  {
-    label: "Inventory",
-    path: "/inventory",
-    subPages: [
-      { label: "All Items", path: "/inventory" },
-      { label: "NewItem", path: "/inventory/new" },
-    ],
-  },
-  { label: "Sales", path: "/sales", subPages: null },
-  { label: "Treasury", path: "/treasury", subPages: null },
-  { label: "Purchasing", path: "/purchasing", subPages: null },
-];
 
 const Sidenav = ({ navWidth, open, handleClose }: SidenavProps) => {
   const navigate = useNavigate();

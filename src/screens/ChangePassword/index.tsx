@@ -21,6 +21,7 @@ import PasswordField from "../../components/PasswordField";
 import Loading from "../../components/Loading";
 
 import { useAuth } from "../../contexts/AuthProvider";
+import { componentMaxWidth } from "../../globalVariables";
 
 // Types
 
@@ -163,7 +164,7 @@ const ChangePassword = () => {
   };
 
   return (
-    <form>
+    <form style={{maxWidth: componentMaxWidth, width: "100%"}}>
       <Loading state={loading} />
       <FormContainer title="Change Password">
         <PasswordField

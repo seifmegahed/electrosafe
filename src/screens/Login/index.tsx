@@ -14,7 +14,10 @@ import {
 import { useAuth } from "../../contexts/AuthProvider";
 
 // Components
-import { Loading, FormContainer, PasswordField } from "../../components";
+// import { Loading, FormContainer, PasswordField } from "../../components";
+import Loading from "../../components/Loading";
+import FormContainer from "../../components/FormContainer";
+import PasswordField from "../../components/PasswordField";
 
 const Login = () => {
   const [email, setEmail] = useState("");

@@ -1,18 +1,10 @@
 // React
 // Firebase
 // MUI
-import {
-  Box,
-  Divider,
-  Drawer,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-} from "@mui/material";
+import { Box, Drawer } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 // Components
-
+import NavItems from "./SideNavItems";
 // Types
 type SidenavProps = {
   navWidth: number;
@@ -21,30 +13,22 @@ type SidenavProps = {
 };
 
 const pages = [
-  { label: "Home", path: "/" },
-  { label: "Inventory", path: "/inventory" },
-  { label: "Sales", path: "/sales" },
-  { label: "Treasury", path: "/treasury" },
-  { label: "Purchasing", path: "/purchasing" },
+  { label: "Home", path: "/", subPages: null },
+  {
+    label: "Inventory",
+    path: "/inventory",
+    subPages: [
+      { label: "All Items", path: "/inventory" },
+      { label: "NewItem", path: "/inventory/new" },
+    ],
+  },
+  { label: "Sales", path: "/sales", subPages: null },
+  { label: "Treasury", path: "/treasury", subPages: null },
+  { label: "Purchasing", path: "/purchasing", subPages: null },
 ];
 
 const Sidenav = ({ navWidth, open, handleClose }: SidenavProps) => {
   const navigate = useNavigate();
-
-  const navItems = (
-    <List>
-      {pages.map((item, index) => (
-        <>
-          <ListItem key={index} disablePadding>
-            <ListItemButton onClick={() => navigate(item.path)}>
-              <ListItemText primary={item.label} />
-            </ListItemButton>
-          </ListItem>
-          <Divider sx={{ color: "background.paper" }} />
-        </>
-      ))}
-    </List>
-  );
 
   return (
     <Box component="nav">
@@ -67,13 +51,14 @@ const Sidenav = ({ navWidth, open, handleClose }: SidenavProps) => {
           },
         }}
       >
-        {navItems}
+        <NavItems pages={pages} navigate={navigate} />
       </Drawer>
       <Drawer
         variant="permanent"
         sx={{
           display: { xs: "none", sm: "none", md: "block" },
           "& .MuiDrawer-paper": {
+            backgroundColor: "background.paper",
             boxSizing: "border-box",
             width: navWidth,
             mt: { md: "64px" },
@@ -81,7 +66,7 @@ const Sidenav = ({ navWidth, open, handleClose }: SidenavProps) => {
         }}
         open
       >
-        {navItems}
+        <NavItems pages={pages} navigate={navigate} />
       </Drawer>
     </Box>
   );

@@ -4,14 +4,19 @@ import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 
 // Components
-import { Loading, PageWrapper, NavComponents, Topbar } from "./components";
-import { useAuth } from "./contexts/AuthProvider";
-import Login from "./screens/Login";
+import Loading from "./components/Loading";
+import PageWrapper from "./components/PageWrapper";
+import NavComponents from "./components/NavComponents";
+import Topbar from "./components/Topbar";
 
-// Lazy Routes
+import { useAuth } from "./contexts/AuthProvider";
+
+// Lazy Loading
 const Home = lazy(() => import("./screens/Home"));
 const UserAccount = lazy(() => import("./screens/UserAccount"));
 const ChangePassword = lazy(() => import("./screens/ChangePassword"));
+const Login = lazy(() => import("./screens/Login"));
+const Inventory = lazy(() => import("./screens/Inventory"));
 
 const App = () => {
   const { user } = useAuth();
@@ -26,6 +31,7 @@ const App = () => {
               <Route path="/" element={<Home />} />
               <Route path="/user-account" element={<UserAccount span={2} />} />
               <Route path="/change-password" element={<ChangePassword />} />
+              <Route path="/inventory" element={<Inventory />} />
               {/* <Route path="/*" element={<Navigate to="/" />} /> */}
             </Routes>
           </PageWrapper>

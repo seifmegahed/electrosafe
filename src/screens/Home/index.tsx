@@ -3,7 +3,9 @@
 // MUI
 import { Typography } from "@mui/material";
 // Components
-import { FormContainer } from "../../components/";
+// import { FormContainer } from "../../components/";
+import FormContainer from "../../components/FormContainer";
+
 import { useAuth } from "../../contexts/AuthProvider";
 import UserAccount from "../UserAccount";
 // Types

@@ -13,8 +13,8 @@ import {
 import { auth } from "../firebase-config";
 
 // Components
-import { Loading } from "../components";
-
+// import { Loading } from "../components";
+import Loading from "../components/Loading";
 // Types
 type AuthContextModel = {
   auth: Auth;

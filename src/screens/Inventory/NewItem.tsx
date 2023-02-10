@@ -1,49 +1,27 @@
 // React
+import { useState } from "react";
 // Firebase
 // MUI
-// Components
-import { Add } from "@mui/icons-material";
-import {
-  Box,
-  Button,
-  FormControl,
-  InputLabel,
-  ListItemText,
-  MenuItem,
-  Select,
-} from "@mui/material";
-import { useState } from "react";
 
+// Components
 import FormContainer from "../../components/FormContainer";
-import ModalWrapper from "../../components/ModalWrapper";
+import CategoryInput from "./CategoryInput";
 
 // Types
 
 const NewItem = () => {
-  const [categoryModal, setCategoryModal] = useState(false);
+  const [category, setCategory] = useState("");
+  const [categories, setCategories] = useState<string[]>([]);
+
   return (
     <FormContainer title="New Item">
-      <ModalWrapper
-        id="new-category-modal"
-        title="New Category"
-        open={categoryModal}
-        handleClose={() => setCategoryModal(false)}
-      >
-        <Box display="flex" width="100%" justifyContent="flex-end">
-          <Button variant="contained" onClick={() => setCategoryModal(false)}>
-            Save
-          </Button>
-        </Box>
-      </ModalWrapper>
-      <FormControl fullWidth sx={{ gridColumn: "span 4" }}>
-        <InputLabel id="category-select-label">Category</InputLabel>
-        <Select labelId="category-select-label" label="Category">
-          <MenuItem onClick={() => setCategoryModal(true)}>
-            <ListItemText primary="Add Category" />
-            <Add />
-          </MenuItem>
-        </Select>
-      </FormControl>
+      <CategoryInput
+        span={4}
+        value={category}
+        setValue={(value) => setCategory(value)}
+        options={categories}
+        addOption={(option) => setCategories((prev) => [...prev, option])}
+      />
     </FormContainer>
   );
 };

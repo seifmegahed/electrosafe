@@ -21,12 +21,10 @@ const NestedItem = ({
   item,
   selected,
   navigate,
-  setSelected,
 }: {
   item: ItemType;
   selected: boolean;
   navigate: NavigateFunction;
-  setSelected: () => void;
 }) => {
   const [open, setOpen] = useState(false);
   useEffect(() => {
@@ -38,10 +36,7 @@ const NestedItem = ({
         <ListItemButton>
           <ListItemText
             primary={item.label}
-            onClick={() => {
-              setSelected();
-              navigate(item.path);
-            }}
+            onClick={() => navigate(item.path)}
           />
         </ListItemButton>
         <IconButton onClick={() => setOpen((prev) => !prev)}>
@@ -54,10 +49,7 @@ const NestedItem = ({
           {item.subPages?.map((subItem, index) => (
             <Box key={index}>
               <ListItemButton
-                onClick={() => {
-                  setSelected();
-                  navigate(subItem.path);
-                }}
+                onClick={() => navigate(subItem.path)}
                 sx={{ pl: 4, backgroundColor: "background.paper" }}
               >
                 <ListItemText primary={subItem.label} />

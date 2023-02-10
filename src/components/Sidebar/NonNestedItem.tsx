@@ -11,23 +11,16 @@ import { ItemType } from "./pages";
 const NonNestedItem = ({
   item,
   selected,
-  setSelected,
   navigate,
 }: {
   item: ItemType;
   selected: boolean;
-  setSelected: () => void;
   navigate: NavigateFunction;
 }) => {
   return (
     <>
       <ListItem selected={selected} disablePadding>
-        <ListItemButton
-          onClick={() => {
-            setSelected();
-            navigate(item.path);
-          }}
-        >
+        <ListItemButton onClick={() => navigate(item.path)}>
           <ListItemText primary={item.label} />
         </ListItemButton>
       </ListItem>

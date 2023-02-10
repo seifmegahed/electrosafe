@@ -16,12 +16,15 @@ const NavItems = ({
   const [selected, setSelected] = useState(0);
 
   useEffect(() => {
-    let notThere = true;
-    pages.forEach((page) => {
-      if (page.label === "Home") notThere &&= location.pathname !== page.path;
-      else notThere &&= !location.pathname.includes(page.path);
+    let selectedIndex = -1;
+    pages.forEach((page, index) => {
+      if (
+        (page.label !== "Home" && location.pathname.includes(page.path)) ||
+        location.pathname === page.path
+      )
+        selectedIndex = index;
     });
-    if(notThere) setSelected(-1)
+    setSelected(selectedIndex);
   }, [location.pathname]);
   return (
     <List>

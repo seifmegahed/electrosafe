@@ -17,6 +17,7 @@ const UserAccount = lazy(() => import("./screens/UserAccount"));
 const ChangePassword = lazy(() => import("./screens/ChangePassword"));
 const Login = lazy(() => import("./screens/Login"));
 const Inventory = lazy(() => import("./screens/Inventory"));
+const NewItem = lazy(() => import("./screens/Inventory/NewItem"));
 
 const App = () => {
   const { user } = useAuth();
@@ -32,7 +33,7 @@ const App = () => {
               <Route path="/user-account" element={<UserAccount span={2} />} />
               <Route path="/change-password" element={<ChangePassword />} />
               <Route path="/inventory" element={<Inventory />} />
-              {/* <Route path="/*" element={<Navigate to="/" />} /> */}
+              <Route path="/inventory/new" element={<NewItem />} />
             </Routes>
           </PageWrapper>
         </Suspense>

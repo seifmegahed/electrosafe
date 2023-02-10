@@ -1,16 +1,24 @@
 // React
+import { useNavigate } from "react-router-dom";
 // Firebase
 // MUI
 import { Box, Input, IconButton, Button, Typography } from "@mui/material";
 import { Search } from "@mui/icons-material";
 import FormContainer from "../../components/FormContainer";
-import { componentMaxWidth } from "../../globalVariables";
 // Components
+import { componentMaxWidth } from "../../globalVariables";
 // Types
 let x = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 const Inventory = () => {
+  const navigate = useNavigate();
   return (
-    <Box maxWidth={componentMaxWidth} width="100%" display="flex" flexDirection="column" gap="20px">
+    <Box
+      maxWidth={componentMaxWidth}
+      width="100%"
+      display="flex"
+      flexDirection="column"
+      gap="20px"
+    >
       <Box
         display="flex"
         justifyContent="space-between"
@@ -31,7 +39,12 @@ const Inventory = () => {
             <Search />
           </IconButton>
         </Box>
-        <Button sx={{ minWidth: "110px" }} variant="contained" size="large">
+        <Button
+          size="large"
+          variant="contained"
+          onClick={() => navigate("new")}
+          sx={{ minWidth: "110px" }}
+        >
           New Item
         </Button>
       </Box>

@@ -1,12 +1,11 @@
 // React
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 // Firebase
 
 // MUI
 import { Typography, Box, Divider, Button } from "@mui/material";
 
 // Components
-// import { FormContainer, Loading } from "../../components";
 import FormContainer from "../../components/FormContainer";
 import Loading from "../../components/Loading";
 
@@ -34,10 +33,6 @@ const UserAccount = ({ span }: UserAccountProps) => {
     setChange(value !== initialValues);
     setUserData(value);
   };
-
-  useEffect(() => {
-    console.log(userData);
-  }, [userData]);
 
   const saveData = async () => {
     setLoading(true);

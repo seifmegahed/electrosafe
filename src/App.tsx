@@ -23,11 +23,12 @@ const App = () => {
   const { user } = useAuth();
 
   return !!user ? (
-    <Box className="App" sx={{ backgroundColor: "backgroud.default" }}>
+    <Box className="App" sx={{ backgroundColor: "background.default" }}>
       <NavComponents />
       <PageWrapper>
         <Suspense fallback={<Loading />}>
           <Routes>
+            <Route path="/" element={<Navigate to="/home" />} />
             <Route path="/home" element={<Home />} />
             <Route path="/user-account" element={<UserAccount span={2} />} />
             <Route path="/change-password" element={<ChangePassword />} />
@@ -38,13 +39,15 @@ const App = () => {
       </PageWrapper>
     </Box>
   ) : (
-    <div className="App">
+    <Box className="App" sx={{ backgroundColor: "background.default" }}>
       <Topbar />
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/*" element={<Navigate to="/login" />} />
-      </Routes>
-    </div>
+      <Suspense fallback={<Loading />}>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/*" element={<Navigate to="/login" />} />
+        </Routes>
+      </Suspense>
+    </Box>
   );
 };
 

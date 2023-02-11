@@ -1,5 +1,5 @@
 import { Typography, TableRow, TableCell } from "@mui/material";
-import { getFormatedDate } from "../utils/dateFormatting";
+import { getFormattedDate } from "../utils/dateFormatting";
 import { Timestamp } from "@firebase/firestore";
 
 type DataDisplayProps = {
@@ -22,7 +22,7 @@ const DataDisplay = ({ details, data }: DataDisplayProps) => {
       <TableCell align="right">
         <Typography color="text.primary">
           {`${!!preFix ? preFix : ""}${
-            type === "date" ? getFormatedDate(data as Date | Timestamp) : data
+            type === "date" ? getFormattedDate(data as Date | Timestamp) : data
           }${!!postFix ? postFix : ""}`}
         </Typography>
       </TableCell>

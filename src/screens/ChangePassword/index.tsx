@@ -15,7 +15,6 @@ import { Box, Button, Typography } from "@mui/material";
 
 // Components
 import { checkPasswordValidity } from "../../utils/validation";
-// import { FormContainer, Loading, PasswordField } from "../../components";
 import FormContainer from "../../components/FormContainer";
 import PasswordField from "../../components/PasswordField";
 import Loading from "../../components/Loading";

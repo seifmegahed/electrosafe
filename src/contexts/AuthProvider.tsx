@@ -13,7 +13,6 @@ import {
 import { auth } from "../firebase-config";
 
 // Components
-// import { Loading } from "../components";
 import Loading from "../components/Loading";
 // Types
 type AuthContextModel = {
@@ -52,7 +51,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user);
-      console.log(user);
       setLoading(false);
     });
     return () => unsubscribe();

@@ -3,10 +3,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 // Mui
 import {
+  Box,
   Breadcrumbs,
   Link,
-  Box,
-  Typography,
   useMediaQuery,
 } from "@mui/material";
 

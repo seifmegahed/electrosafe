@@ -5,13 +5,13 @@ import { descendingSortArray } from "../utils/sortFunctions";
 const itemPrototypesCollectionName = "itemPrototypes";
 const categoriesDocumentName = "categories";
 
-const itemStructuresCollectionReferance = collection(
+const itemStructuresCollectionReference = collection(
   firestore,
   itemPrototypesCollectionName
 );
 
-const categoriesDocumentReferance = doc(
-  itemStructuresCollectionReferance,
+const categoriesDocumentReference = doc(
+  itemStructuresCollectionReference,
   categoriesDocumentName
 );
 
@@ -19,7 +19,7 @@ export const addCategory = async (name: string, categories: string[]) => {
   const newCategories = categories?.length
     ? (descendingSortArray([...categories, name]) as string[])
     : [name];
-  return await setDoc(categoriesDocumentReferance, {
+  return await setDoc(categoriesDocumentReference, {
     data: newCategories,
     count: newCategories.length,
   }).then(() => ({
@@ -29,5 +29,5 @@ export const addCategory = async (name: string, categories: string[]) => {
 };
 
 export const getCategories = async () => {
-  return await getDoc(categoriesDocumentReferance);
+  return await getDoc(categoriesDocumentReference);
 };

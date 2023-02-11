@@ -6,8 +6,6 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
-import { grey, red } from "@mui/material/colors";
-import zIndex from "@mui/material/styles/zIndex";
 
 type menuItem = {
   label: string;

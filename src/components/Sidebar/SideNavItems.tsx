@@ -18,11 +18,7 @@ const NavItems = ({
   useEffect(() => {
     let selectedIndex = -1;
     pages.forEach((page, index) => {
-      if (
-        (page.label !== "Home" && location.pathname.includes(page.path)) ||
-        location.pathname === page.path
-      )
-        selectedIndex = index;
+      if (location.pathname === page.path) selectedIndex = index;
     });
     setSelected(selectedIndex);
   }, [location.pathname]);

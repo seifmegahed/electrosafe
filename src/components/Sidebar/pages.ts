@@ -7,7 +7,7 @@ export type ItemType = {
 export type PagesType = ItemType[];
 
 export const pages: PagesType = [
-  { label: "Home", path: "/" },
+  { label: "Home", path: "/home" },
   {
     label: "Inventory",
     path: "/inventory",

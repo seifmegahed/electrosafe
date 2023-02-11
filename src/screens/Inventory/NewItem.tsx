@@ -1,11 +1,12 @@
 // React
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // Firebase
 // MUI
 
 // Components
 import FormContainer from "../../components/FormContainer";
-import CategoryInput from "./CategoryInput";
+import { addCategory, getCategories } from "../../firestore/ItemPrototypes";
+import SelectInput from "../../components/SelectInput";
 
 // Types
 
@@ -13,14 +14,28 @@ const NewItem = () => {
   const [category, setCategory] = useState("");
   const [categories, setCategories] = useState<string[]>([]);
 
+  useEffect(() => {
+    getCategories()
+      .catch((error) => console.log(error))
+      .then((value) => {
+        setCategories(value?.data()?.data);
+      });
+  }, []);
+
   return (
     <FormContainer title="New Item">
-      <CategoryInput
+      <SelectInput
         span={4}
+        id="category-select"
+        label="Category"
         value={category}
-        setValue={(value) => setCategory(value)}
         options={categories}
-        addOption={(option) => setCategories((prev) => [...prev, option])}
+        setValue={(value) => setCategory(value)}
+        addOption={(option) =>
+          addCategory(option, categories)
+            .catch((error) => console.log(error))
+            .then((value) => setCategories(value?.data as string[]))
+        }
       />
     </FormContainer>
   );

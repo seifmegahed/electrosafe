@@ -12,44 +12,50 @@ import {
 import { Add } from "@mui/icons-material";
 
 // Components
-import AddOptionModal from "../../components/Modals/AddOptionModal";
+import AddOptionModal from "./Modals/AddOptionModal";
 
 const CategoryInput = ({
+  id,
   span,
+  label,
   value,
   options,
   setValue,
   addOption,
 }: {
+  id: string;
   span: number;
+  label: string;
   value: string;
   options?: string[];
   setValue: (value: string) => void;
-  addOption: (value: string) => void;
+  addOption?: (value: string) => void;
 }) => {
   const [categoryModal, setCategoryModal] = useState(false);
 
   return (
     <div style={{ gridColumn: `span ${span}` }}>
       <AddOptionModal
-        id="category-option-modal"
+        id={`${id}-option-modal`}
         title="Add New Category"
         open={categoryModal}
         handleClose={() => setCategoryModal(false)}
-        addOption={addOption}
+        addOption={(value) => addOption && addOption(value)}
       />
       <FormControl fullWidth>
-        <InputLabel id="category-select-label">Category</InputLabel>
+        <InputLabel id={`${id}-select-label`}>Category</InputLabel>
         <Select
           value={value}
           onChange={(e) => setValue(e.target.value)}
-          labelId="category-select-label"
-          label="Category"
+          labelId={`${id}-select-label`}
+          label={label}
         >
-          <MenuItem value={""} onClick={() => setCategoryModal(true)}>
-            <ListItemText primary="Add Option" />
-            <Add />
-          </MenuItem>
+          {addOption && (
+            <MenuItem value={""} onClick={() => setCategoryModal(true)}>
+              <ListItemText primary="Add Option" />
+              <Add />
+            </MenuItem>
+          )}
           {options?.map((option) => (
             <MenuItem value={option}>
               <ListItemText primary={option} />

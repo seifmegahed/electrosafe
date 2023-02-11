@@ -1,9 +1,9 @@
-import { List } from "@mui/material";
-import { useEffect, useState } from "react";
 import { NavigateFunction, useLocation } from "react-router-dom";
-import NestedItem from "./NestedItem";
+import { useEffect, useState } from "react";
 import NonNestedItem from "./NonNestedItem";
+import NestedItem from "./NestedItem";
 import { PagesType } from "./pages";
+import { List } from "@mui/material";
 
 const NavItems = ({
   navigate,
@@ -26,24 +26,23 @@ const NavItems = ({
     });
     setSelected(selectedIndex);
   }, [location.pathname]);
+
   return (
     <List>
       {pages.map((item, index) =>
         !!item.subPages ? (
           <NestedItem
             key={index}
-            selected={selected === index}
-            setSelected={() => setSelected(index)}
             item={item}
             navigate={navigate}
+            selected={selected === index}
           />
         ) : (
           <NonNestedItem
-            key={index}
-            selected={selected === index}
-            setSelected={() => setSelected(index)}
             item={item}
+            key={index}
             navigate={navigate}
+            selected={selected === index}
           />
         )
       )}

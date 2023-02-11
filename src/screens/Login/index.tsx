@@ -18,8 +18,10 @@ import { useAuth } from "../../contexts/AuthProvider";
 import Loading from "../../components/Loading";
 import FormContainer from "../../components/FormContainer";
 import PasswordField from "../../components/PasswordField";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
@@ -48,6 +50,7 @@ const Login = () => {
       await login(email, password)
         .then((response) => {
           setError(false);
+          navigate("/home");
         })
         .catch((error) => {
           setError(true);

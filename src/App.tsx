@@ -1,7 +1,7 @@
 // React
 import { Box } from "@mui/material";
 import { lazy, Suspense } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 // Components
 import Loading from "./components/Loading";
@@ -22,32 +22,30 @@ const NewItem = lazy(() => import("./screens/Inventory/NewItem"));
 const App = () => {
   const { user } = useAuth();
 
-  if (!!user)
-    return (
-      <Box className="App" sx={{ backgroundColor: "backgroud.default" }}>
-        <NavComponents />
+  return !!user ? (
+    <Box className="App" sx={{ backgroundColor: "backgroud.default" }}>
+      <NavComponents />
+      <PageWrapper>
         <Suspense fallback={<Loading />}>
-          <PageWrapper>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/user-account" element={<UserAccount span={2} />} />
-              <Route path="/change-password" element={<ChangePassword />} />
-              <Route path="/inventory" element={<Inventory />} />
-              <Route path="/inventory/new" element={<NewItem />} />
-            </Routes>
-          </PageWrapper>
+          <Routes>
+            <Route path="/home" element={<Home />} />
+            <Route path="/user-account" element={<UserAccount span={2} />} />
+            <Route path="/change-password" element={<ChangePassword />} />
+            <Route path="/inventory" element={<Inventory />} />
+            <Route path="/inventory/new" element={<NewItem />} />
+          </Routes>
         </Suspense>
-      </Box>
-    );
-  else
-    return (
-      <div className="App">
-        <Topbar />
-        <Routes>
-          <Route path="/*" element={<Login />} />
-        </Routes>
-      </div>
-    );
+      </PageWrapper>
+    </Box>
+  ) : (
+    <div className="App">
+      <Topbar />
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/*" element={<Navigate to="/login" />} />
+      </Routes>
+    </div>
+  );
 };
 
 export default App;

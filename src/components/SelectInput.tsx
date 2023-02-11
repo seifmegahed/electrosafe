@@ -14,7 +14,7 @@ import { Add } from "@mui/icons-material";
 // Components
 import AddOptionModal from "./Modals/AddOptionModal";
 
-const CategoryInput = ({
+const SelectInput = ({
   id,
   span,
   label,
@@ -24,10 +24,10 @@ const CategoryInput = ({
   addOption,
 }: {
   id: string;
-  span: number;
+  span: 1 | 2 | 3 | 4;
   label: string;
   value: string;
-  options?: string[];
+  options?: { value: string; label: string }[];
   setValue: (value: string) => void;
   addOption?: (value: string) => void;
 }) => {
@@ -57,8 +57,8 @@ const CategoryInput = ({
             </MenuItem>
           )}
           {options?.map((option) => (
-            <MenuItem value={option}>
-              <ListItemText primary={option} />
+            <MenuItem value={option.value}>
+              <ListItemText primary={option.label} />
             </MenuItem>
           ))}
         </Select>
@@ -67,4 +67,4 @@ const CategoryInput = ({
   );
 };
 
-export default CategoryInput;
+export default SelectInput;

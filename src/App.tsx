@@ -1,5 +1,4 @@
 // React
-import { Box } from "@mui/material";
 import { lazy, Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
@@ -18,12 +17,13 @@ const ChangePassword = lazy(() => import("./screens/ChangePassword"));
 const Login = lazy(() => import("./screens/Login"));
 const Inventory = lazy(() => import("./screens/Inventory"));
 const NewItem = lazy(() => import("./screens/Inventory/NewItem"));
+const EditPrototype = lazy(() => import("./screens/Inventory/EditPrototype"));
 
 const App = () => {
   const { user } = useAuth();
 
   return !!user ? (
-    <Box className="App" sx={{ backgroundColor: "background.default" }}>
+    <div className="App">
       <NavComponents />
       <PageWrapper>
         <Suspense fallback={<Loading />}>
@@ -34,12 +34,16 @@ const App = () => {
             <Route path="/change-password" element={<ChangePassword />} />
             <Route path="/inventory" element={<Inventory />} />
             <Route path="/inventory/new" element={<NewItem />} />
+            <Route
+              path="/inventory/edit-prototype"
+              element={<EditPrototype />}
+            />
           </Routes>
         </Suspense>
       </PageWrapper>
-    </Box>
+    </div>
   ) : (
-    <Box className="App" sx={{ backgroundColor: "background.default" }}>
+    <div className="App">
       <Topbar />
       <Suspense fallback={<Loading />}>
         <Routes>
@@ -47,7 +51,7 @@ const App = () => {
           <Route path="/*" element={<Navigate to="/login" />} />
         </Routes>
       </Suspense>
-    </Box>
+    </div>
   );
 };
 

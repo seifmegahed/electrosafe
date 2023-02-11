@@ -1,4 +1,4 @@
-export const descendingSortObjectArray = (array: [], field: string) => {
+export const descendingSortObjectArray = (array: any[], field: string) => {
   return array.sort(function (a, b) {
     if (a[field] > b[field]) {
       return 1;

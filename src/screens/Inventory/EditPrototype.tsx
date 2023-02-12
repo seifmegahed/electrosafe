@@ -5,18 +5,21 @@ import { useLocation } from "react-router-dom";
 import { Button, TextField } from "@mui/material";
 // Components
 import FormContainer from "../../components/FormContainer";
-import FieldGenerator, { FieldGenerator2 } from "./FieldGenerator";
+import FieldGenerator from "./FieldGenerator";
 // Types
 // Constants
-import { formButtonStyle, singleButtonFormContainerStyle } from "../../globalConstants";
+import {
+  formButtonStyle,
+  singleButtonFormContainerStyle,
+} from "../../globalConstants";
 
 const EditPrototype = () => {
   const location = useLocation();
   return (
     <>
       <FormContainer title={`${location.state?.label} Form Test`}>
-        <TextField label="Name" sx={{ gridColumn: "span 2" }} />
-        <TextField label="Value " sx={{ gridColumn: "span 2" }} />
+        <TextField label="Name" sx={{ gridColumn: "span 2" }} draggable />
+        <TextField label="Make" sx={{ gridColumn: "span 2" }} draggable />
         <div style={singleButtonFormContainerStyle}>
           <Button variant="contained" sx={formButtonStyle}>
             Test
@@ -24,7 +27,6 @@ const EditPrototype = () => {
         </div>
       </FormContainer>
       <FieldGenerator />
-      <FieldGenerator2 />
     </>
   );
 };

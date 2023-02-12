@@ -1,3 +1,5 @@
+import { SpanType, TextFieldTypesType } from "./globalTypes";
+
 export const componentMaxWidth = "700px";
 export const formButtonStyle = { maxWidth: "120px", width: "100%" };
 export const singleButtonFormContainerStyle = {
@@ -10,63 +12,108 @@ export const FieldGeneratorFormFields = {
   text: [
     {
       name: "type",
-      input: "toggle",
+      input: "toggle" as "toggle",
       options: [
         { value: "text", label: "Text" },
         { value: "number", label: "Number" },
       ],
-      span: 2,
+      span: 2 as SpanType,
     },
-    { name: "name", label: "Name", input: "text", required: true, span: 2 },
-    { name: "label", label: "Label", input: "text", required: true, span: 2 },
+    {
+      name: "name",
+      label: "Name",
+      input: "text" as "text",
+      type: "text" as TextFieldTypesType,
+      required: true,
+      span: 2 as SpanType,
+    },
+    {
+      name: "label",
+      label: "Label",
+      input: "text" as "text",
+      type: "text" as TextFieldTypesType,
+      required: true,
+      span: 2 as SpanType,
+    },
     {
       name: "preFix",
       label: "Pre Fix",
-      input: "text",
+      input: "text" as "text",
+      type: "text" as TextFieldTypesType,
       required: true,
-      span: 2,
+      span: 2 as SpanType,
     },
     {
       name: "postFix",
       label: "Post Fix",
-      input: "text",
+      input: "text" as "text",
+      type: "text" as TextFieldTypesType,
       required: true,
-      span: 2,
+      span: 2 as SpanType,
     },
   ],
   select: [
-    { name: "name", label: "Name", input: "text", required: true, span: 2 },
-    { name: "label", label: "Label", input: "text", required: true, span: 2 },
+    {
+      name: "name",
+      label: "Name",
+      input: "text" as "text",
+      type: "text" as TextFieldTypesType,
+      required: true,
+      span: 2 as SpanType,
+    },
+    {
+      name: "label",
+      label: "Label",
+      input: "text" as "text",
+      type: "text" as TextFieldTypesType,
+      required: true,
+      span: 2 as SpanType,
+    },
     {
       name: "options",
       label: "Options",
-      input: "select",
+      input: "select" as "select",
       required: true,
-      span: 4,
+      span: 4 as SpanType,
     },
   ],
   toggle: [
-    { name: "name", label: "Name", input: "text", required: true, span: 2 },
     {
+      input: "text" as "text",
+      name: "name",
+      label: "Name",
+      span: 2 as SpanType,
+      type: "text" as TextFieldTypesType,
+      required: true,
+    },
+    {
+      input: "select" as "select",
       name: "options",
       label: "Options",
-      input: "select",
+      span: 2 as SpanType,
+      options: [],
       required: true,
-      span: 2,
     },
   ],
   file: [
-    { name: "name", label: "Name", input: "text", required: true, span: 2 },
+    {
+      name: "name",
+      label: "Name",
+      input: "text" as "text",
+      type: "text" as TextFieldTypesType,
+      required: true,
+      span: 2 as SpanType,
+    },
     {
       name: "type",
       label: "Type",
-      input: "toggle",
+      input: "toggle" as "toggle",
       options: [
         { value: "image", label: "Image" },
         { value: "document", label: "Document" },
       ],
       required: true,
-      span: 2,
+      span: 2 as SpanType,
     },
   ],
 };

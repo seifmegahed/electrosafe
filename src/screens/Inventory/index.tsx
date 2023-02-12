@@ -6,7 +6,7 @@ import { Box, Input, IconButton, Button, Typography } from "@mui/material";
 import { Search } from "@mui/icons-material";
 import FormContainer from "../../components/FormContainer";
 // Components
-import { componentMaxWidth } from "../../globalVariables";
+import { componentMaxWidth } from "../../globalConstants";
 // Types
 let x = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 const Inventory = () => {

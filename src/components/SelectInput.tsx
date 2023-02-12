@@ -3,9 +3,9 @@ import { useState } from "react";
 // Firebase
 // MUI
 import {
+  Box,
   FormControl,
   InputLabel,
-  ListItemText,
   MenuItem,
   Select,
 } from "@mui/material";
@@ -13,6 +13,7 @@ import { Add } from "@mui/icons-material";
 
 // Components
 import AddOptionModal from "./Modals/AddOptionModal";
+import { OptionType, SpanType } from "../globalTypes";
 
 const SelectInput = ({
   id,
@@ -24,26 +25,26 @@ const SelectInput = ({
   addOption,
 }: {
   id: string;
-  span: 1 | 2 | 3 | 4;
+  span: SpanType;
   label: string;
   value: string;
-  options?: { value: string; label: string }[];
+  options?: OptionType[];
   setValue: (value: string) => void;
   addOption?: (value: string) => void;
 }) => {
-  const [categoryModal, setCategoryModal] = useState(false);
+  const [Modal, setModal] = useState(false);
 
   return (
-    <div style={{ gridColumn: `span ${span}` }}>
+    <Box sx={{ gridColumn: `span ${span}` }}>
       <AddOptionModal
         id={`${id}-option-modal`}
-        title="Add New Category"
-        open={categoryModal}
-        handleClose={() => setCategoryModal(false)}
+        title={`Add New ${label}`}
+        open={Modal}
+        handleClose={() => setModal(false)}
         addOption={(value) => addOption && addOption(value)}
       />
       <FormControl fullWidth>
-        <InputLabel id={`${id}-select-label`}>Category</InputLabel>
+        <InputLabel id={`${id}-select-label`}>{label}</InputLabel>
         <Select
           value={value}
           onChange={(e) => setValue(e.target.value)}
@@ -51,19 +52,17 @@ const SelectInput = ({
           label={label}
         >
           {addOption && (
-            <MenuItem value={""} onClick={() => setCategoryModal(true)}>
-              <ListItemText primary="Add Option" />
+            <MenuItem value={""} onClick={() => setModal(true)}>
+              Add Option
               <Add />
             </MenuItem>
           )}
           {options?.map((option) => (
-            <MenuItem value={option.value}>
-              <ListItemText primary={option.label} />
-            </MenuItem>
+            <MenuItem value={option.value}>{option.label}</MenuItem>
           ))}
         </Select>
       </FormControl>
-    </div>
+    </Box>
   );
 };
 

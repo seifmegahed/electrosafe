@@ -20,7 +20,7 @@ import PasswordField from "../../components/PasswordField";
 import Loading from "../../components/Loading";
 
 import { useAuth } from "../../contexts/AuthProvider";
-import { componentMaxWidth } from "../../globalVariables";
+import { componentMaxWidth } from "../../globalConstants";
 
 // Types
 

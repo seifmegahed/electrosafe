@@ -1,1 +1,0 @@
-export const componentMaxWidth = "700px"

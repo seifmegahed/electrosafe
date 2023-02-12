@@ -1,26 +1,32 @@
 // React
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, ReactElement, useState } from "react";
 // Firebase
 // MUI
 import {
+  Box,
   Button,
   Checkbox,
   Divider,
   FormControlLabel,
+  Slider,
   TextField,
+  ToggleButton,
+  ToggleButtonGroup,
 } from "@mui/material";
 // Components
 import FormContainer from "../../components/FormContainer";
 import SelectInput from "../../components/SelectInput";
 import FieldSelector from "./FieldSelector";
 // Types
-import { InputType, SpanType } from "../../globalTypes";
+import { InputType, SpanType, TextFieldPropsType } from "../../globalTypes";
+import { FieldGeneratorFormFields } from "../../globalConstants";
+import { Add } from "@mui/icons-material";
 
 const inputOptions = [
   { value: "text", label: "Text" },
   { value: "select", label: "Select" },
   { value: "toggle", label: "Toggle" },
-  { value: "image", label: "Image" },
+  { value: "file", label: "File" },
 ];
 
 const fieldDisplayStyle = {
@@ -30,53 +36,122 @@ const fieldDisplayStyle = {
   gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
 };
 
-
 const FieldGenerator = () => {
-  const [fieldData, setFieldData] = useState<{
-    name: string;
-    label: string;
-    span: SpanType;
-    input: InputType;
-    required: boolean;
-    editable: boolean;
-  }>({
+  const [fieldData, setFieldData] = useState<TextFieldPropsType>({
+    // | ToggleFieldPropsType
+    // | SelectFieldPropsType
+    // | EmptyField
     name: "",
     span: 2,
     label: "",
     input: "text",
+    type: "text",
+    preFix: false,
+    postFix: false,
     required: false,
     editable: false,
   });
+  const labelToName = (value: string) => value.toLowerCase().replace(/ /g, "-");
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { value, name } = event.target;
-    setFieldData((prev) => ({ ...prev, [name]: value }));
+    if (
+      name === "label" &&
+      labelToName((fieldData as TextFieldPropsType).label) ===
+        (fieldData as TextFieldPropsType).name
+    )
+      setFieldData((prev) => ({
+        ...prev,
+        label: value,
+        name: labelToName(value),
+      }));
+    else setFieldData((prev) => ({ ...prev, [name]: value }));
   };
+
   const handleCheckedChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { checked, name } = event.target;
     setFieldData((prev) => ({ ...prev, [name]: checked }));
+  };
+
+  const handleAdornmentChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { value, name } = event.target;
+    setFieldData((prev) => ({ ...prev, preFix: false, postFix: false }));
+    if (value !== "")
+      setFieldData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
   };
 
   return (
     <FormContainer title="Field Generator">
       <div style={fieldDisplayStyle}>
         <FieldSelector
-          input={fieldData.input}
-          span={fieldData.span}
-          label={fieldData.label}
+          fieldData={fieldData}
         />
       </div>
       <Divider sx={{ gridColumn: "span 4" }} />
+      {/* {fieldData.input !== "image" && fieldData.input !== "" ? ( */}
+      <Slider
+        defaultValue={2}
+        value={fieldData.span}
+        name="span"
+        onChange={(e, value) =>
+          setFieldData((prev) => ({ ...prev, span: value as SpanType }))
+        }
+        step={null}
+        min={0}
+        max={4}
+        marks={[{ value: 1 }, { value: 2 }, { value: 3 }, { value: 4 }]}
+        sx={{ gridColumn: "span 4" }}
+      />
+      {/*}   ) : (
+        <></>
+      )} */}
       <SelectInput
         id="input-type"
         span={2}
         label="Input Type"
         value={fieldData.input}
         options={inputOptions}
-        setValue={(value) =>
-          setFieldData((prev) => ({ ...prev, input: value as InputType }))
+        setValue={
+          (value) => console.log(value)
+          // setFieldData((prev) => ({ ...prev, input: value as InputType }))
         }
       />
+      <Box
+        display="flex"
+        justifyContent={"flex-end"}
+        sx={{ gridColumn: `span 2` }}
+      >
+        <ToggleButtonGroup
+          exclusive
+          color="primary"
+          value={fieldData.type}
+          onChange={(event, value) =>
+            setFieldData((prev) => ({ ...prev, type: value }))
+          }
+          sx={{ width: "100%", maxWidth: 200 }}
+        >
+          {[
+            { label: "Text", value: "text" },
+            { label: "Number", value: "number" },
+          ].map((option) => (
+            <ToggleButton
+              key={option.label}
+              name="type"
+              value={option.value}
+              sx={{ minWidth: "70px", maxWidth: "100px", width: "100%" }}
+            >
+              {option.label}
+            </ToggleButton>
+          ))}
+        </ToggleButtonGroup>
+      </Box>
       <TextField
         name="name"
         label="Name"
@@ -92,11 +167,19 @@ const FieldGenerator = () => {
         sx={{ gridColumn: "span 2" }}
       />
       <TextField
-        name="span"
-        label="Default Span"
-        type="number"
-        value={fieldData.span}
-        onChange={handleChange}
+        name="preFix"
+        label="Pre Fix"
+        type="text"
+        value={fieldData.preFix || ""}
+        onChange={handleAdornmentChange}
+        sx={{ gridColumn: "span 2" }}
+      />
+      <TextField
+        name="postFix"
+        label="Post Fix"
+        type="text"
+        value={fieldData.postFix || ""}
+        onChange={handleAdornmentChange}
         sx={{ gridColumn: "span 2" }}
       />
       <div
@@ -146,6 +229,29 @@ const FieldGenerator = () => {
           Add
         </Button>
       </div>
+    </FormContainer>
+  );
+};
+
+export const FieldGenerator2 = () => {
+  const [inputType, setInputType] = useState<InputType | "">("");
+  return (
+    <FormContainer title="Field Creator">
+      <SelectInput
+        id="input-type"
+        span={2}
+        label="Input Type"
+        value={inputType}
+        options={inputOptions}
+        setValue={(value) => setInputType(value as InputType)}
+      />
+      {inputType !== "" ? (
+        FieldGeneratorFormFields[inputType as InputType].map((field, index) => {
+          return <FieldSelector key={index} fieldData={field} />;
+        })
+      ) : (
+        <></>
+      )}
     </FormContainer>
   );
 };

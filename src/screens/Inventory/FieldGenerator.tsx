@@ -2,10 +2,7 @@
 import { useEffect, useState } from "react";
 // Firebase
 // MUI
-import {
-  Divider,
-  Slider,
-} from "@mui/material";
+import { Divider, Slider } from "@mui/material";
 // Components
 import FormContainer from "../../components/FormContainer";
 import SelectInput from "../../components/SelectInput";
@@ -46,10 +43,42 @@ const initValues = {
   postFix: "",
   options: "",
 };
+
+const labelToName = (value: string) => value.toLowerCase().replace(/ /g, "-");
+
 export const FieldGenerator = () => {
   const [inputType, setInputType] = useState<InputType | "">("");
   const [values, setValues] = useState<GenericObject | false>(false);
   const [span, setSpan] = useState<SpanType>(2);
+
+  const handleChange = (name: string, value: string | number | boolean) => {
+    switch (name) {
+      case "preFix":
+      case "postFix": {
+        setValues((prev) => ({ ...prev, postFix: false, preFix: false }));
+        if (value !== "") setValues((prev) => ({ ...prev, [name]: value }));
+      }
+      case "label": {
+        if (
+          (((values as GenericObject)?.name as string) || "") ===
+          labelToName(((values as GenericObject)?.label as string) || "")
+        )
+          setValues((prev) => ({
+            ...prev,
+            label: value,
+            name: labelToName((value as string) || ""),
+          }));
+        else
+          setValues((prev) => ({
+            ...prev,
+            label: value,
+          }));
+      }
+      default:
+        setValues((prev) => ({ ...prev, [name]: value }));
+    }
+  };
+
   useEffect(() => {
     setValues(false);
   }, [inputType]);
@@ -61,17 +90,19 @@ export const FieldGenerator = () => {
   }, [values]);
 
   return (
-    <FormContainer title="Field Creator">
-      <FieldSelector
-        fieldData={
-          { ...values, input: inputType, span } as
-            | TextFieldPropsType
-            | SelectFieldPropsType
-            | ToggleFieldPropsType
-        }
-      />
-      <Divider sx={{ gridColumn: "span 4" }} />
-      <Slider    
+    <FormContainer title="Field Maker">
+      <div style={fieldDisplayStyle}>
+        <FieldSelector
+          fieldData={
+            { ...values, input: inputType, span } as
+              | TextFieldPropsType
+              | SelectFieldPropsType
+              | ToggleFieldPropsType
+          }
+        />
+        <Divider sx={{ gridColumn: "span 4" }} />
+      </div>
+      <Slider
         value={span}
         name="span"
         onChange={(e, value) => setSpan(value as SpanType)}
@@ -79,7 +110,10 @@ export const FieldGenerator = () => {
         min={0}
         max={4}
         marks={[{ value: 1 }, { value: 2 }, { value: 3 }, { value: 4 }]}
-        sx={{ gridColumn: "span 4", display: `${inputType === "" ? "none" : "block"}` }}
+        sx={{
+          gridColumn: "span 4",
+          display: `${inputType === "" ? "none" : "block"}`,
+        }}
       />
       <SelectInput
         id="input-type"
@@ -99,9 +133,7 @@ export const FieldGenerator = () => {
                 (values as GenericObject)[field.name] ||
                 initValues[field.name as InitValuesTypes]
               }
-              onChange={(name, value) =>
-                setValues((prev) => ({ ...prev, [name]: value }))
-              }
+              onChange={handleChange}
             />
           );
         })

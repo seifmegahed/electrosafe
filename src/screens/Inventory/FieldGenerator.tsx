@@ -19,6 +19,8 @@ import {
   ToggleFieldPropsType,
 } from "../../globalTypes";
 import { FieldGeneratorFormFields } from "../../globalConstants";
+import SelectInputAdvanced from "../../components/SelectInputAdvanced";
+import { labelToName } from "../../utils/conversions";
 
 const inputOptions = [
   { value: "text", label: "Text" },
@@ -43,8 +45,6 @@ const initValues = {
   postFix: "",
   options: "",
 };
-
-const labelToName = (value: string) => value.toLowerCase().replace(/ /g, "-");
 
 export const FieldGenerator = () => {
   const [inputType, setInputType] = useState<InputType | "">("");
@@ -140,6 +140,7 @@ export const FieldGenerator = () => {
       ) : (
         <></>
       )}
+      <SelectInputAdvanced />
     </FormContainer>
   );
 };

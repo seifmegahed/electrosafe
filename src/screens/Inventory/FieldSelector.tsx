@@ -88,7 +88,6 @@ const FieldSelector = ({
     }
     case "toggle": {
       const { name, span, options } = fieldData as ToggleFieldPropsType;
-      // if (options.length)
         return (
           <Box
             display="flex"

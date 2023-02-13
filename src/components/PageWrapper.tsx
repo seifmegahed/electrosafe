@@ -16,6 +16,7 @@ const PageWrapper = ({ children }: PageWrapperProps) => {
         alignItems: {sm: "center", md: "flex-start"},
         p: { xs: "50px 5px", sm: "50px", md: "50px" },
         ml: { md: "240px" },
+        mb: "80px"
       }}
     >
       {children}

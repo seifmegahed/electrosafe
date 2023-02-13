@@ -1,9 +1,20 @@
 export type SpanType = 1 | 2 | 3 | 4;
-export type InputType = "text" | "select" | "toggle" | "file";
+export type InputType =
+  | "text"
+  | "select"
+  | "expandableSelect"
+  | "toggle"
+  | "file";
 export type TextFieldTypesType = "text" | "number";
 export type ChangeEventCallbackReturnType = { name: string; value: OptionType };
 export type ChangeEventCallbackType = () => ChangeEventCallbackReturnType;
-export type GenericObject = { [key: string]: string | number | boolean };
+export type ValueType = string | boolean | number | OptionType | OptionType[] | null;
+export type GenericObject = { [key: string]: ValueType };
+export type FieldsPropsTypes =
+  | TextFieldPropsType
+  | SelectFieldPropsType
+  | AdvancedSelectFieldPropsType
+  | ToggleFieldPropsType;
 
 export type InitValuesTypes =
   | "name"
@@ -32,7 +43,18 @@ export type SelectFieldPropsType = {
   name: string;
   label: string;
   span: SpanType;
-  options?: OptionType[];
+  options: OptionType[];
+  required?: boolean;
+  editable?: boolean;
+  draggable?: boolean | undefined;
+};
+
+export type AdvancedSelectFieldPropsType = {
+  input: "expandableSelect";
+  name: string;
+  label: string;
+  span: SpanType;
+  options: OptionType[];
   required?: boolean;
   editable?: boolean;
   draggable?: boolean | undefined;

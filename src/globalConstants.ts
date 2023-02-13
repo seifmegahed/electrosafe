@@ -1,4 +1,4 @@
-import { SpanType, TextFieldTypesType } from "./globalTypes";
+import { OptionType, SpanType, TextFieldTypesType } from "./globalTypes";
 
 export const componentMaxWidth = "700px";
 export const formButtonStyle = { maxWidth: "120px", width: "100%" };
@@ -72,7 +72,34 @@ export const FieldGeneratorFormFields = {
     {
       name: "options",
       label: "Options",
+      input: "expandableSelect" as "expandableSelect",
+      options: [] as OptionType[],
+      required: true,
+      span: 4 as SpanType,
+    },
+  ],
+  expandableSelect: [
+    {
+      name: "name",
+      label: "Name",
+      input: "text" as "text",
+      type: "text" as TextFieldTypesType,
+      required: true,
+      span: 2 as SpanType,
+    },
+    {
+      name: "label",
+      label: "Label",
+      input: "text" as "text",
+      type: "text" as TextFieldTypesType,
+      required: true,
+      span: 2 as SpanType,
+    },
+    {
+      name: "options",
+      label: "Options",
       input: "select" as "select",
+      options: [],
       required: true,
       span: 4 as SpanType,
     },
@@ -90,8 +117,8 @@ export const FieldGeneratorFormFields = {
       input: "select" as "select",
       name: "options",
       label: "Options",
-      span: 2 as SpanType,
       options: [],
+      span: 2 as SpanType,
       required: true,
     },
   ],

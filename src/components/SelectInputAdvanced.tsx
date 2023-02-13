@@ -30,7 +30,7 @@ type SelectInputAdvancedPropsType = {
   span: number;
   options: OptionType[];
   value: OptionType | null;
-  onChange: (value: OptionType | null) => void;
+  onChange: (name: string, value: OptionType | null) => void;
   onAddOption: (option: OptionType) => void;
 };
 
@@ -43,9 +43,6 @@ const SelectInputAdvanced = ({
   onChange,
   onAddOption,
 }: SelectInputAdvancedPropsType) => {
-  // const [value, setValue] = useState<OptionType | null>(null);
-  // const [options, setOptions] = useState<OptionType[]>([]);
-
   const handleChange = (
     event: SyntheticEvent<Element, Event>,
     value: OptionType | null
@@ -55,9 +52,9 @@ const SelectInputAdvanced = ({
         label: value.inputValue,
         name: labelToName(value.inputValue),
       };
-      onChange(newOption);
+      onChange(name, newOption);
       onAddOption(newOption);
-    } else onChange(value);
+    } else onChange(name, value);
   };
 
   return (
@@ -69,6 +66,7 @@ const SelectInputAdvanced = ({
       autoSelect
       clearOnBlur
       handleHomeEndKeys
+      getOptionLabel={(option) => (option.label || "")}
       options={options}
       sx={{ gridColumn: `span ${span}` }}
       renderInput={(params) => <TextField {...params} label={label} />}

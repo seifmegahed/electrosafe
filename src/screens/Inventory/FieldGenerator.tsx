@@ -3,10 +3,13 @@ import { useEffect, useState } from "react";
 // Firebase
 // MUI
 import { Divider, Slider } from "@mui/material";
+
 // Components
 import FormContainer from "../../components/FormContainer";
 import SelectInput from "../../components/SelectInput";
 import FieldSelector from "./FieldSelector";
+import SelectInputAdvanced from "../../components/SelectInputAdvanced";
+
 // Types
 import {
   TextFieldTypesType,
@@ -14,18 +17,21 @@ import {
   SpanType,
   GenericObject,
   InitValuesTypes,
-  TextFieldPropsType,
-  SelectFieldPropsType,
-  ToggleFieldPropsType,
   OptionType,
+  ValueType,
+  FieldsPropsTypes,
 } from "../../globalTypes";
-import { FieldGeneratorFormFields } from "../../globalConstants";
-import SelectInputAdvanced from "../../components/SelectInputAdvanced";
+
+// Util Functions
 import { labelToName } from "../../utils/conversions";
+
+// Constants
+import { FieldGeneratorFormFields } from "../../globalConstants";
 
 const inputOptions = [
   { name: "text", label: "Text" },
   { name: "select", label: "Select" },
+  { name: "expandableSelect", label: "Expandable Select" },
   { name: "toggle", label: "Toggle" },
   { name: "file", label: "File" },
 ];
@@ -44,18 +50,15 @@ const initValues = {
   span: 2 as SpanType,
   preFix: "",
   postFix: "",
-  options: "",
+  options: [] as OptionType[],
 };
 
 export const FieldGenerator = () => {
   const [inputType, setInputType] = useState<InputType | "">("");
-  const [values, setValues] = useState<GenericObject | false>(false);
+  const [values, setValues] = useState<GenericObject>();
   const [span, setSpan] = useState<SpanType>(2);
 
-  const [testValue, setTestValue] = useState<OptionType | null>(null);
-  const [testOptions, setTestOptions] = useState<OptionType[]>([]);
-
-  const handleChange = (name: string, value: string | number | boolean) => {
+  const handleChange = (name: string, value: ValueType) => {
     switch (name) {
       case "preFix":
       case "postFix": {
@@ -64,8 +67,8 @@ export const FieldGenerator = () => {
       }
       case "label": {
         if (
-          (((values as GenericObject)?.name as string) || "") ===
-          labelToName(((values as GenericObject)?.label as string) || "")
+          ((values?.name as string) || "") ===
+          labelToName((values?.label as string) || "")
         )
           setValues((prev) => ({
             ...prev,
@@ -78,25 +81,33 @@ export const FieldGenerator = () => {
             label: value,
           }));
       }
+      case "options":
+        break;
       default:
         setValues((prev) => ({ ...prev, [name]: value }));
     }
   };
+  
+  const addOption = (value: OptionType) => {
+    setValues((prev) => {
+      if (prev?.options)
+        return {
+          ...prev,
+          options: [...(prev.options as OptionType[]), value],
+        };
+      return { ...prev, options: [value] };
+    });
+  };
 
   useEffect(() => {
-    setValues(false);
+    setValues(undefined);
   }, [inputType]);
 
   return (
     <FormContainer title="Field Maker">
       <div style={fieldDisplayStyle}>
         <FieldSelector
-          fieldData={
-            { ...values, input: inputType, span } as
-              | TextFieldPropsType
-              | SelectFieldPropsType
-              | ToggleFieldPropsType
-          }
+          fieldData={{ ...values, input: inputType, span } as FieldsPropsTypes}
         />
         <Divider sx={{ gridColumn: "span 4" }} />
       </div>
@@ -128,25 +139,17 @@ export const FieldGenerator = () => {
               key={index}
               fieldData={field}
               value={
-                (values as GenericObject)[field.name] ||
+                values?.[field.name] ||
                 initValues[field.name as InitValuesTypes]
               }
               onChange={handleChange}
+              onAddOption={addOption}
             />
           );
         })
       ) : (
         <></>
       )}
-      <SelectInputAdvanced
-        name="test"
-        label="Test"
-        span={2}
-        value={testValue}
-        options={testOptions}
-        onChange={(value) => setTestValue(value)}
-        onAddOption={(value) => setTestOptions((prev) => [...prev, value])}
-      />
     </FormContainer>
   );
 };

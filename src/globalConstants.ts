@@ -14,8 +14,8 @@ export const FieldGeneratorFormFields = {
       name: "type",
       input: "toggle" as "toggle",
       options: [
-        { value: "text", label: "Text" },
-        { value: "number", label: "Number" },
+        { name: "text", label: "Text" },
+        { name: "number", label: "Number" },
       ],
       span: 2 as SpanType,
     },
@@ -109,8 +109,8 @@ export const FieldGeneratorFormFields = {
       label: "Type",
       input: "toggle" as "toggle",
       options: [
-        { value: "image", label: "Image" },
-        { value: "document", label: "Document" },
+        { name: "image", label: "Image" },
+        { name: "document", label: "Document" },
       ],
       required: true,
       span: 2 as SpanType,

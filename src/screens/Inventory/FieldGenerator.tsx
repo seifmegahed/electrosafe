@@ -17,16 +17,17 @@ import {
   TextFieldPropsType,
   SelectFieldPropsType,
   ToggleFieldPropsType,
+  OptionType,
 } from "../../globalTypes";
 import { FieldGeneratorFormFields } from "../../globalConstants";
 import SelectInputAdvanced from "../../components/SelectInputAdvanced";
 import { labelToName } from "../../utils/conversions";
 
 const inputOptions = [
-  { value: "text", label: "Text" },
-  { value: "select", label: "Select" },
-  { value: "toggle", label: "Toggle" },
-  { value: "file", label: "File" },
+  { name: "text", label: "Text" },
+  { name: "select", label: "Select" },
+  { name: "toggle", label: "Toggle" },
+  { name: "file", label: "File" },
 ];
 
 const fieldDisplayStyle = {
@@ -50,6 +51,9 @@ export const FieldGenerator = () => {
   const [inputType, setInputType] = useState<InputType | "">("");
   const [values, setValues] = useState<GenericObject | false>(false);
   const [span, setSpan] = useState<SpanType>(2);
+
+  const [testValue, setTestValue] = useState<OptionType | null>(null);
+  const [testOptions, setTestOptions] = useState<OptionType[]>([]);
 
   const handleChange = (name: string, value: string | number | boolean) => {
     switch (name) {
@@ -82,12 +86,6 @@ export const FieldGenerator = () => {
   useEffect(() => {
     setValues(false);
   }, [inputType]);
-
-  useEffect(() => {
-    console.log(
-      values as TextFieldPropsType | SelectFieldPropsType | ToggleFieldPropsType
-    );
-  }, [values]);
 
   return (
     <FormContainer title="Field Maker">
@@ -140,7 +138,15 @@ export const FieldGenerator = () => {
       ) : (
         <></>
       )}
-      <SelectInputAdvanced />
+      <SelectInputAdvanced
+        name="test"
+        label="Test"
+        span={2}
+        value={testValue}
+        options={testOptions}
+        onChange={(value) => setTestValue(value)}
+        onAddOption={(value) => setTestOptions((prev) => [...prev, value])}
+      />
     </FormContainer>
   );
 };

@@ -58,7 +58,7 @@ const SelectInput = ({
             </MenuItem>
           )}
           {options?.map((option, index) => (
-            <MenuItem key={index} value={option.value}>{option.label}</MenuItem>
+            <MenuItem key={index} value={option.name}>{option.label}</MenuItem>
           ))}
         </Select>
       </FormControl>

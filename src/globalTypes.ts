@@ -1,6 +1,5 @@
 export type SpanType = 1 | 2 | 3 | 4;
 export type InputType = "text" | "select" | "toggle" | "file";
-export type OptionType = { label: string; value: string };
 export type TextFieldTypesType = "text" | "number";
 export type ChangeEventCallbackReturnType = { name: string; value: OptionType };
 export type ChangeEventCallbackType = () => ChangeEventCallbackReturnType;
@@ -51,4 +50,10 @@ export type ToggleFieldPropsType = {
 
 export type EmptyField = {
   input: "";
+};
+
+export type OptionType = {
+  inputValue?: string;
+  name: string;
+  label: string;
 };

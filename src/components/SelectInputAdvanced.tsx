@@ -1,19 +1,14 @@
 import { TextField, FilterOptionsState } from "@mui/material";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
-import { ChangeEvent, SyntheticEvent, useState } from "react";
+import { SyntheticEvent } from "react";
 import { labelToName } from "../utils/conversions";
+import { OptionType } from "../globalTypes";
 
-type OptionsType = {
-  inputValue?: string;
-  name: string;
-  label: string;
-};
-
-const filter = createFilterOptions<OptionsType>();
+const filter = createFilterOptions<OptionType>();
 
 const filterOptions = (
-  options: OptionsType[],
-  params: FilterOptionsState<OptionsType>
+  options: OptionType[],
+  params: FilterOptionsState<OptionType>
 ) => {
   const filtered = filter(options, params);
   const { inputValue } = params;
@@ -29,27 +24,45 @@ const filterOptions = (
   return filtered;
 };
 
-const SelectInputAdvanced = () => {
-  const [value, setValue] = useState<OptionsType | null>(null);
-  const [options, setOptions] = useState<OptionsType[]>([]);
+type SelectInputAdvancedPropsType = {
+  name: string;
+  label: string;
+  span: number;
+  options: OptionType[];
+  value: OptionType | null;
+  onChange: (value: OptionType | null) => void;
+  onAddOption: (option: OptionType) => void;
+};
+
+const SelectInputAdvanced = ({
+  name,
+  label,
+  span,
+  options,
+  value,
+  onChange,
+  onAddOption,
+}: SelectInputAdvancedPropsType) => {
+  // const [value, setValue] = useState<OptionType | null>(null);
+  // const [options, setOptions] = useState<OptionType[]>([]);
 
   const handleChange = (
     event: SyntheticEvent<Element, Event>,
-    value: OptionsType | null
+    value: OptionType | null
   ) => {
     if (value && value.inputValue) {
       const newOption = {
         label: value.inputValue,
         name: labelToName(value.inputValue),
       };
-      setValue(newOption);
-      setOptions((prev) => [...prev, newOption]);
-    } else setValue(value);
+      onChange(newOption);
+      onAddOption(newOption);
+    } else onChange(value);
   };
 
   return (
     <Autocomplete
-      id="autocomplete"
+      id={name}
       value={value}
       onChange={handleChange}
       filterOptions={filterOptions}
@@ -57,8 +70,8 @@ const SelectInputAdvanced = () => {
       clearOnBlur
       handleHomeEndKeys
       options={options}
-      sx={{ gridColumn: "span 2" }}
-      renderInput={(params) => <TextField {...params} label="Autocomplete" />}
+      sx={{ gridColumn: `span ${span}` }}
+      renderInput={(params) => <TextField {...params} label={label} />}
     />
   );
 };

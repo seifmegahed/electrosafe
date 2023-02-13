@@ -103,7 +103,7 @@ const FieldSelector = ({
                 <ToggleButton
                   key={index}
                   name={name}
-                  value={option.value}
+                  value={option.name}
                   sx={{ minWidth: "70px", maxWidth: "100px", width: "100%" }}
                 >
                   {option.label}

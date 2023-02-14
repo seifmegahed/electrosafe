@@ -23,7 +23,8 @@ export type FieldsPropsTypes =
   | SelectFieldPropsType
   | AdvancedSelectFieldPropsType
   | ToggleFieldPropsType
-  | ListerFieldPropsType;
+  | ListerFieldPropsType
+  | CheckboxPropsType;
 
 export type InitValuesTypes =
   | "name"
@@ -84,6 +85,17 @@ export type ToggleFieldPropsType = {
   name: string;
   span: SpanType;
   options: OptionType[];
+  required?: boolean;
+  editable?: boolean;
+  draggable?: boolean | undefined;
+};
+
+export type CheckboxPropsType = {
+  input: "checkbox";
+  name: string;
+  label: string;
+  span: SpanType;
+  default: boolean;
   required?: boolean;
   editable?: boolean;
   draggable?: boolean | undefined;

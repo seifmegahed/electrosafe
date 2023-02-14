@@ -34,6 +34,22 @@ const options = {
   span: 4 as SpanType,
 };
 
+const required = {
+  name: "required",
+  input: "checkbox" as "checkbox",
+  label: "Required",
+  default: false,
+  span: 1 as SpanType,
+};
+
+const editable = {
+  name: "editable",
+  input: "checkbox" as "checkbox",
+  label: "Editable",
+  default: false,
+  span: 1 as SpanType,
+};
+
 export const FieldGeneratorFormFields = {
   text: [
     label,
@@ -45,8 +61,10 @@ export const FieldGeneratorFormFields = {
         { name: "text", label: "Text" },
         { name: "number", label: "Number" },
       ],
-      span: 4 as SpanType,
+      span: 2 as SpanType,
     },
+    required,
+    editable,
     {
       name: "preFix",
       label: "Pre Fix",
@@ -64,9 +82,9 @@ export const FieldGeneratorFormFields = {
       span: 2 as SpanType,
     },
   ],
-  select: [label, name, options],
-  expandableSelect: [label, name, options],
-  toggle: [name, options],
+  select: [label, name, required, editable, options],
+  expandableSelect: [label, name, required, editable, options],
+  toggle: [name, required, editable, options],
   file: [
     name,
     {
@@ -80,7 +98,21 @@ export const FieldGeneratorFormFields = {
       required: true,
       span: 2 as SpanType,
     },
+    required,
+    editable,
   ],
-  lister: [name, label],
-  checkbox: [name, label],
+  lister: [name, label, required, editable],
+  checkbox: [
+    name,
+    label,
+    required,
+    editable,
+    {
+      name: "default",
+      input: "checkbox" as "checkbox",
+      label: "Default Value",
+      default: false,
+      span: 2 as SpanType,
+    },
+  ],
 };

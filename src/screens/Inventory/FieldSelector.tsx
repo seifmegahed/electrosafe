@@ -4,7 +4,9 @@
 import { Add, Close } from "@mui/icons-material";
 import {
   Box,
+  Checkbox,
   FormControl,
+  FormControlLabel,
   IconButton,
   InputAdornment,
   InputLabel,
@@ -29,6 +31,7 @@ import {
   ToggleFieldPropsType,
   OptionType,
   ListerFieldPropsType,
+  CheckboxPropsType,
 } from "../../globalTypes";
 import { labelToName } from "../../utils/conversions";
 
@@ -223,6 +226,26 @@ const FieldSelector = ({
             ))}
           </div>
         </FormControl>
+      );
+    }
+    case "checkbox": {
+      const { name, span, label } = fieldData as CheckboxPropsType;
+
+      return (
+        <div
+          style={{
+            gridColumn: `span ${span}`,
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <FormControlLabel
+            control={
+              <Checkbox name={name} defaultChecked={fieldData.default} />
+            }
+            label={label}
+          />
+        </div>
       );
     }
     default:

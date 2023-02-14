@@ -8,8 +8,36 @@ export const singleButtonFormContainerStyle = {
   justifyContent: "flex-end",
 };
 
+const name = {
+  input: "text" as "text",
+  name: "name",
+  label: "Name",
+  span: 2 as SpanType,
+  type: "text" as TextFieldTypesType,
+  required: true,
+};
+
+const label = {
+  name: "label",
+  label: "Label",
+  input: "text" as "text",
+  type: "text" as TextFieldTypesType,
+  required: true,
+  span: 2 as SpanType,
+};
+
+const options = {
+  name: "options",
+  label: "Options",
+  input: "lister" as "lister",
+  required: true,
+  span: 4 as SpanType,
+};
+
 export const FieldGeneratorFormFields = {
   text: [
+    label,
+    name,
     {
       name: "type",
       input: "toggle" as "toggle",
@@ -17,23 +45,7 @@ export const FieldGeneratorFormFields = {
         { name: "text", label: "Text" },
         { name: "number", label: "Number" },
       ],
-      span: 2 as SpanType,
-    },
-    {
-      name: "name",
-      label: "Name",
-      input: "text" as "text",
-      type: "text" as TextFieldTypesType,
-      required: true,
-      span: 2 as SpanType,
-    },
-    {
-      name: "label",
-      label: "Label",
-      input: "text" as "text",
-      type: "text" as TextFieldTypesType,
-      required: true,
-      span: 2 as SpanType,
+      span: 4 as SpanType,
     },
     {
       name: "preFix",
@@ -52,85 +64,11 @@ export const FieldGeneratorFormFields = {
       span: 2 as SpanType,
     },
   ],
-  select: [
-    {
-      name: "name",
-      label: "Name",
-      input: "text" as "text",
-      type: "text" as TextFieldTypesType,
-      required: true,
-      span: 2 as SpanType,
-    },
-    {
-      name: "label",
-      label: "Label",
-      input: "text" as "text",
-      type: "text" as TextFieldTypesType,
-      required: true,
-      span: 2 as SpanType,
-    },
-    {
-      name: "options",
-      label: "Options",
-      input: "expandableSelect" as "expandableSelect",
-      options: [] as OptionType[],
-      required: true,
-      span: 4 as SpanType,
-    },
-  ],
-  expandableSelect: [
-    {
-      name: "name",
-      label: "Name",
-      input: "text" as "text",
-      type: "text" as TextFieldTypesType,
-      required: true,
-      span: 2 as SpanType,
-    },
-    {
-      name: "label",
-      label: "Label",
-      input: "text" as "text",
-      type: "text" as TextFieldTypesType,
-      required: true,
-      span: 2 as SpanType,
-    },
-    {
-      name: "options",
-      label: "Options",
-      input: "select" as "select",
-      options: [],
-      required: true,
-      span: 4 as SpanType,
-    },
-  ],
-  toggle: [
-    {
-      input: "text" as "text",
-      name: "name",
-      label: "Name",
-      span: 2 as SpanType,
-      type: "text" as TextFieldTypesType,
-      required: true,
-    },
-    {
-      input: "select" as "select",
-      name: "options",
-      label: "Options",
-      options: [],
-      span: 2 as SpanType,
-      required: true,
-    },
-  ],
+  select: [label, name, options],
+  expandableSelect: [label, name, options],
+  toggle: [name, options],
   file: [
-    {
-      name: "name",
-      label: "Name",
-      input: "text" as "text",
-      type: "text" as TextFieldTypesType,
-      required: true,
-      span: 2 as SpanType,
-    },
+    name,
     {
       name: "type",
       label: "Type",
@@ -143,4 +81,6 @@ export const FieldGeneratorFormFields = {
       span: 2 as SpanType,
     },
   ],
+  lister: [name, label],
+  checkbox: [name, label],
 };

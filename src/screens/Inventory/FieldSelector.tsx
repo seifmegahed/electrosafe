@@ -1,12 +1,18 @@
 // React
 // Firebase
 // MUI
+import { Add, Close } from "@mui/icons-material";
 import {
   Box,
+  FormControl,
+  IconButton,
   InputAdornment,
+  InputLabel,
+  OutlinedInput,
   TextField,
   ToggleButton,
   ToggleButtonGroup,
+  Typography,
 } from "@mui/material";
 import { ChangeEvent, ReactElement, useEffect, useState } from "react";
 // Components
@@ -22,11 +28,14 @@ import {
   TextFieldPropsType,
   ToggleFieldPropsType,
   OptionType,
+  ListerFieldPropsType,
 } from "../../globalTypes";
+import { labelToName } from "../../utils/conversions";
 
 type FieldSelectorPropsType = {
   fieldData: FieldsPropsTypes;
   value?: ValueType;
+  index?: number;
   onChange?: (name: string, value: ValueType) => void;
   onAddOption?: (value: OptionType) => void;
 };
@@ -34,51 +43,53 @@ type FieldSelectorPropsType = {
 const FieldSelector = ({
   fieldData,
   value,
+  index,
   onChange,
   onAddOption,
 }: FieldSelectorPropsType) => {
+  const [localOptions, setLocalOptions] = useState<OptionType[]>([]);
+  const [localValue, setLocalValue] = useState<string>("");
+  const [inputProps, setInputProps] = useState<
+    | { endAdornment: ReactElement }
+    | { startAdornment: ReactElement }
+    | undefined
+  >(undefined);
+
+  useEffect(() => {
+    if (fieldData.input === "text") {
+      const { preFix, postFix } = fieldData;
+      if (postFix)
+        setInputProps({
+          endAdornment: (
+            <InputAdornment position="end">{postFix}</InputAdornment>
+          ),
+        });
+      else if (preFix)
+        setInputProps({
+          startAdornment: (
+            <InputAdornment position="start">{preFix}</InputAdornment>
+          ),
+        });
+      else setInputProps(undefined);
+    }
+  }, [fieldData]);
+
   switch (fieldData.input) {
     case "text": {
-      const { label, span, preFix, postFix, type, name } =
-        fieldData as TextFieldPropsType;
-      const [inputProps, setInputProps] = useState<
-        | false
-        | { endAdornment: ReactElement }
-        | { startAdornment: ReactElement }
-      >(false);
+      const { label, span, type, name } = fieldData as TextFieldPropsType;
 
       const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         onChange?.(name, event.target.value);
       };
 
-      useEffect(() => {
-        if (postFix)
-          setInputProps({
-            endAdornment: (
-              <InputAdornment position="end">{postFix}</InputAdornment>
-            ),
-          });
-        else if (preFix)
-          setInputProps({
-            startAdornment: (
-              <InputAdornment position="start">{preFix}</InputAdornment>
-            ),
-          });
-        else setInputProps(false);
-      }, [postFix, preFix]);
-
       return (
         <TextField
           label={label}
           sx={{ gridColumn: `span ${span}` }}
-          type={type ?? "text"}
+          type={type ? (typeof type === "string" ? type : type?.name) : "text"}
           value={value}
           onChange={handleChange}
-          InputProps={
-            (inputProps as
-              | { endAdornment: ReactElement }
-              | { startAdornment: ReactElement }) || undefined
-          }
+          InputProps={inputProps}
         />
       );
     }
@@ -86,12 +97,12 @@ const FieldSelector = ({
       const { name, label, span, options } = fieldData as SelectFieldPropsType;
       return (
         <SelectInput
-          id={name}
+          name={name}
           label={label}
           span={span}
           options={options}
-          value={""}
-          setValue={(value) => console.log(value)}
+          onChange={onChange}
+          value={value || ""}
         />
       );
     }
@@ -100,20 +111,24 @@ const FieldSelector = ({
       return (
         <Box
           display="flex"
-          justifyContent={"flex-end"}
+          justifyContent={
+            index ? (index % 2 === 0 ? "flex-start" : "flex-end") : "flex-start"
+          }
           sx={{ gridColumn: `span ${span}` }}
         >
           <ToggleButtonGroup
             exclusive
             color="primary"
-            sx={{ width: "100%", maxWidth: 200 }}
+            value={value}
+            onChange={(event, value) => onChange?.(name, value)}
+            sx={{ width: "100%" }}
           >
             {options?.map((option, index) => (
               <ToggleButton
                 key={index}
                 name={name}
-                value={option.name}
-                sx={{ minWidth: "70px", maxWidth: "100px", width: "100%" }}
+                value={option}
+                sx={{ minWidth: "70px", maxWidth: "150px", width: "100%" }}
               >
                 {option.label}
               </ToggleButton>
@@ -125,6 +140,11 @@ const FieldSelector = ({
     case "expandableSelect": {
       const { name, label, span, options } =
         fieldData as AdvancedSelectFieldPropsType;
+      const handleKeyboard = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        const key = event.key;
+        const value = event.target;
+        if (key === "Enter") console.log(event);
+      };
       return (
         <SelectInputAdvanced
           name={name}
@@ -132,12 +152,79 @@ const FieldSelector = ({
           span={span}
           options={options || []}
           value={(value as OptionType) || null}
+          onKeyDown={handleKeyboard}
           onChange={(name, value) => onChange?.(name, value)}
           onAddOption={(value) => onAddOption?.(value)}
         />
       );
     }
+    case "lister": {
+      const { name, label, span } = fieldData as ListerFieldPropsType;
 
+      const handleSubmit = () => {
+        let isNotIncluded = true;
+        const newOption = { label: localValue, name: labelToName(label) };
+        localOptions.forEach(
+          (option) => (isNotIncluded &&= option.name !== newOption.name)
+        );
+        if (isNotIncluded)
+          setLocalOptions((prev) => {
+            const newOptions = [...prev, newOption];
+            onChange?.(name, newOptions);
+            setLocalValue("");
+            return newOptions;
+          });
+        else setLocalValue("");
+      };
+
+      return (
+        <FormControl sx={{ gridColumn: `span ${span}` }}>
+          <InputLabel htmlFor={name}>{label}</InputLabel>
+          <OutlinedInput
+            name={name}
+            label={label}
+            onKeyDown={(event) => {
+              if (event.key === "Enter") handleSubmit();
+            }}
+            value={localValue}
+            onChange={(event) => setLocalValue(event.target.value)}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton onClick={handleSubmit}>
+                  <Add />
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+          <div style={{ paddingTop: "10px" }}>
+            {localOptions?.map((option) => (
+              <div
+                style={{
+                  display: "flex",
+                  gap: "5px",
+                  alignItems: "center",
+                }}
+              >
+                <IconButton
+                  onClick={() =>
+                    setLocalOptions((prev) => {
+                      const newOptions = prev.filter(
+                        (item) => item.name !== option.name
+                      );
+                      onChange?.(name, newOptions);
+                      return newOptions;
+                    })
+                  }
+                >
+                  <Close fontSize="small" />
+                </IconButton>
+                <Typography>{option.label}</Typography>
+              </div>
+            ))}
+          </div>
+        </FormControl>
+      );
+    }
     default:
       return <></>;
   }

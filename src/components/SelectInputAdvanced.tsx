@@ -30,6 +30,7 @@ type SelectInputAdvancedPropsType = {
   span: number;
   options: OptionType[];
   value: OptionType | null;
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   onChange: (name: string, value: OptionType | null) => void;
   onAddOption: (option: OptionType) => void;
 };
@@ -40,6 +41,7 @@ const SelectInputAdvanced = ({
   span,
   options,
   value,
+  onKeyDown,
   onChange,
   onAddOption,
 }: SelectInputAdvancedPropsType) => {
@@ -64,6 +66,7 @@ const SelectInputAdvanced = ({
       onChange={handleChange}
       filterOptions={filterOptions}
       autoSelect
+      onKeyDown={onKeyDown}
       clearOnBlur
       handleHomeEndKeys
       getOptionLabel={(option) => (option.label || "")}

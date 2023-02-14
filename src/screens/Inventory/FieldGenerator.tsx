@@ -2,13 +2,12 @@
 import { useEffect, useState } from "react";
 // Firebase
 // MUI
-import { Divider, Slider } from "@mui/material";
+import { Button, Divider, IconButton, Slider, Typography } from "@mui/material";
 
 // Components
 import FormContainer from "../../components/FormContainer";
 import SelectInput from "../../components/SelectInput";
 import FieldSelector from "./FieldSelector";
-import SelectInputAdvanced from "../../components/SelectInputAdvanced";
 
 // Types
 import {
@@ -26,7 +25,12 @@ import {
 import { labelToName } from "../../utils/conversions";
 
 // Constants
-import { FieldGeneratorFormFields } from "../../globalConstants";
+import {
+  FieldGeneratorFormFields,
+  formButtonStyle,
+  singleButtonFormContainerStyle,
+} from "../../globalConstants";
+import { Add, Close } from "@mui/icons-material";
 
 const inputOptions = [
   { name: "text", label: "Text" },
@@ -64,6 +68,7 @@ export const FieldGenerator = () => {
       case "postFix": {
         setValues((prev) => ({ ...prev, postFix: false, preFix: false }));
         if (value !== "") setValues((prev) => ({ ...prev, [name]: value }));
+        break;
       }
       case "label": {
         if (
@@ -80,23 +85,11 @@ export const FieldGenerator = () => {
             ...prev,
             label: value,
           }));
-      }
-      case "options":
         break;
+      }
       default:
         setValues((prev) => ({ ...prev, [name]: value }));
     }
-  };
-  
-  const addOption = (value: OptionType) => {
-    setValues((prev) => {
-      if (prev?.options)
-        return {
-          ...prev,
-          options: [...(prev.options as OptionType[]), value],
-        };
-      return { ...prev, options: [value] };
-    });
   };
 
   useEffect(() => {
@@ -125,31 +118,38 @@ export const FieldGenerator = () => {
         }}
       />
       <SelectInput
-        id="input-type"
-        span={2}
+        span={4}
+        name="input-type"
         label="Input Type"
         value={inputType}
         options={inputOptions}
         setValue={(value) => setInputType(value as InputType)}
       />
       {inputType !== "" ? (
-        FieldGeneratorFormFields[inputType as InputType].map((field, index) => {
-          return (
-            <FieldSelector
-              key={index}
-              fieldData={field}
-              value={
-                values?.[field.name] ||
-                initValues[field.name as InitValuesTypes]
-              }
-              onChange={handleChange}
-              onAddOption={addOption}
-            />
-          );
-        })
+        FieldGeneratorFormFields[inputType as InputType]?.map(
+          (field, index) => {
+            return (
+              <FieldSelector
+                key={index}
+                fieldData={field}
+                index={index}
+                value={
+                  values?.[field.name] ||
+                  initValues[field.name as InitValuesTypes]
+                }
+                onChange={handleChange}
+              />
+            );
+          }
+        )
       ) : (
         <></>
       )}
+      <div style={singleButtonFormContainerStyle}>
+        <Button variant="contained" sx={formButtonStyle} endIcon={<Add />}>
+          ADD
+        </Button>
+      </div>
     </FormContainer>
   );
 };

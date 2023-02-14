@@ -4,17 +4,26 @@ export type InputType =
   | "select"
   | "expandableSelect"
   | "toggle"
+  | "lister"
+  | "checkbox"
   | "file";
-export type TextFieldTypesType = "text" | "number";
+export type TextFieldTypesType = "text" | "number" | OptionType;
 export type ChangeEventCallbackReturnType = { name: string; value: OptionType };
 export type ChangeEventCallbackType = () => ChangeEventCallbackReturnType;
-export type ValueType = string | boolean | number | OptionType | OptionType[] | null;
+export type ValueType =
+  | string
+  | boolean
+  | number
+  | OptionType
+  | OptionType[]
+  | null;
 export type GenericObject = { [key: string]: ValueType };
 export type FieldsPropsTypes =
   | TextFieldPropsType
   | SelectFieldPropsType
   | AdvancedSelectFieldPropsType
-  | ToggleFieldPropsType;
+  | ToggleFieldPropsType
+  | ListerFieldPropsType;
 
 export type InitValuesTypes =
   | "name"
@@ -55,6 +64,16 @@ export type AdvancedSelectFieldPropsType = {
   label: string;
   span: SpanType;
   options: OptionType[];
+  required?: boolean;
+  editable?: boolean;
+  draggable?: boolean | undefined;
+};
+
+export type ListerFieldPropsType = {
+  input: "lister";
+  name: string;
+  label: string;
+  span: SpanType;
   required?: boolean;
   editable?: boolean;
   draggable?: boolean | undefined;

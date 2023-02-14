@@ -163,7 +163,7 @@ const FieldSelector = ({
 
       const handleSubmit = () => {
         let isNotIncluded = true;
-        const newOption = { label: localValue, name: labelToName(label) };
+        const newOption = { label: localValue, name: labelToName(localValue) };
         localOptions.forEach(
           (option) => (isNotIncluded &&= option.name !== newOption.name)
         );

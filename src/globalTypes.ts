@@ -6,7 +6,7 @@ export type InputType =
   | "lister"
   | "checkbox"
   | "file";
-  
+
 export type TextFieldTypesType = "text" | "number" | OptionType;
 export type ChangeEventCallbackReturnType = { name: string; value: OptionType };
 export type ChangeEventCallbackType = () => ChangeEventCallbackReturnType;
@@ -29,6 +29,7 @@ export type FieldsPropsTypes =
 export type OptionsChangeCallback = (name: string, value: OptionType[]) => void;
 export type OptionChangeCallback = (name: string, value: OptionType) => void;
 export type TextChangeCallback = (name: string, value: string | number) => void;
+export type BooleanChangeCallback = (name: string, value: boolean) => void;
 
 export type InitValuesTypes =
   | "name"

@@ -1,5 +1,6 @@
 // MUI
 import { Checkbox, FormControlLabel } from "@mui/material";
+import CheckboxInput from "../../components/InputFields/CheckboxInput";
 
 // Components
 import Lister from "../../components/InputFields/ListerInput";
@@ -9,6 +10,7 @@ import ToggleInput from "../../components/InputFields/ToggleInput";
 
 // Types
 import {
+  BooleanChangeCallback,
   CheckboxPropsType,
   FieldsPropsTypes,
   ListerFieldPropsType,
@@ -82,24 +84,13 @@ const FieldSelector = ({
       );
     }
     case "checkbox": {
-      // TODO Make Clean Component
-      const { name, span, label } = fieldData as CheckboxPropsType;
-
       return (
-        <div
-          style={{
-            gridColumn: `span ${span}`,
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <FormControlLabel
-            control={
-              <Checkbox name={name} defaultChecked={fieldData.default} />
-            }
-            label={label}
-          />
-        </div>
+        <CheckboxInput
+          fieldData={fieldData as CheckboxPropsType}
+          onChange={handleChange as BooleanChangeCallback}
+          value={value as boolean}
+          error={error}
+        />
       );
     }
     default:

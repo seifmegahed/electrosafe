@@ -63,7 +63,8 @@ export const FieldGenerator = () => {
   const [inputType, setInputType] = useState<InputType | "">("");
   const [values, setValues] = useState<GenericObject>();
   const [span, setSpan] = useState<SpanType>(2);
-
+  const [errors, setErrors] = useState<{ [key: string]: boolean }>();
+  const fields = FieldGeneratorFormFields[inputType as InputType];
   const handleChange = (name: string, value: ValueType) => {
     switch (name) {
       case "preFix":
@@ -92,6 +93,18 @@ export const FieldGenerator = () => {
       default:
         setValues((prev) => ({ ...prev, [name]: value }));
     }
+  };
+  const resetErrors = () => {
+    fields?.forEach((field) =>
+      setErrors((prev) => ({ ...prev, [field.name]: true }))
+    );
+  };
+  const checkValidity = () => {
+    resetErrors();
+  };
+
+  const handleSubmit = () => {
+    checkValidity();
   };
 
   useEffect(() => {
@@ -133,27 +146,31 @@ export const FieldGenerator = () => {
         setValue={(value) => setInputType(value as InputType)}
       />
       {inputType !== "" ? (
-        FieldGeneratorFormFields[inputType as InputType]?.map(
-          (field, index) => {
-            return (
-              <FieldSelector
-                key={index}
-                fieldData={field}
-                index={index}
-                value={
-                  values?.[field.name] ||
-                  initValues[field.name as InitValuesTypes]
-                }
-                onChange={handleChange}
-              />
-            );
-          }
-        )
+        fields?.map((field, index) => {
+          return (
+            <FieldSelector
+              key={index}
+              fieldData={field}
+              index={index}
+              error={errors?.[field.name]}
+              value={
+                values?.[field.name] ||
+                initValues[field.name as InitValuesTypes]
+              }
+              onChange={handleChange}
+            />
+          );
+        })
       ) : (
         <></>
       )}
       <div style={singleButtonFormContainerStyle}>
-        <Button variant="contained" sx={formButtonStyle} endIcon={<Add />}>
+        <Button
+          variant="contained"
+          sx={formButtonStyle}
+          endIcon={<Add />}
+          onClick={handleSubmit}
+        >
           ADD
         </Button>
       </div>

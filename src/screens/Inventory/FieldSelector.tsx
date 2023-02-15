@@ -1,25 +1,20 @@
 // React
 // Firebase
 // MUI
-import { Add, Close } from "@mui/icons-material";
 import {
   Box,
   Checkbox,
-  FormControl,
   FormControlLabel,
-  IconButton,
   InputAdornment,
-  InputLabel,
-  OutlinedInput,
   TextField,
   ToggleButton,
   ToggleButtonGroup,
-  Typography,
 } from "@mui/material";
 import { ChangeEvent, ReactElement, useEffect, useState } from "react";
 // Components
 import SelectInput from "../../components/SelectInput";
 import SelectInputAdvanced from "../../components/SelectInputAdvanced";
+import Lister from "../../components/InputFields/ListerInput";
 
 // Types
 import {
@@ -33,12 +28,14 @@ import {
   ListerFieldPropsType,
   CheckboxPropsType,
 } from "../../globalTypes";
-import { labelToName } from "../../utils/conversions";
+
+type ListerChangeCallback = (name: string, value: OptionType[]) => void;
 
 type FieldSelectorPropsType = {
   fieldData: FieldsPropsTypes;
   value?: ValueType;
   index?: number;
+  error?: boolean | undefined;
   onChange?: (name: string, value: ValueType) => void;
   onAddOption?: (value: OptionType) => void;
 };
@@ -47,11 +44,11 @@ const FieldSelector = ({
   fieldData,
   value,
   index,
+  error,
   onChange,
   onAddOption,
 }: FieldSelectorPropsType) => {
-  const [localOptions, setLocalOptions] = useState<OptionType[]>([]);
-  const [localValue, setLocalValue] = useState<string>("");
+  const handleChange = onChange;
   const [inputProps, setInputProps] = useState<
     | { endAdornment: ReactElement }
     | { startAdornment: ReactElement }
@@ -91,6 +88,7 @@ const FieldSelector = ({
           sx={{ gridColumn: `span ${span}` }}
           type={type ? (typeof type === "string" ? type : type?.name) : "text"}
           value={value}
+          error={error ?? false}
           onChange={handleChange}
           InputProps={inputProps}
         />
@@ -161,73 +159,15 @@ const FieldSelector = ({
         />
       );
     }
-    case "lister": {
-      const { name, label, span } = fieldData as ListerFieldPropsType;
-
-      const handleSubmit = () => {
-        let isNotIncluded = true;
-        const newOption = { label: localValue, name: labelToName(localValue) };
-        localOptions.forEach(
-          (option) => (isNotIncluded &&= option.name !== newOption.name)
-        );
-        if (isNotIncluded)
-          setLocalOptions((prev) => {
-            const newOptions = [...prev, newOption];
-            onChange?.(name, newOptions);
-            setLocalValue("");
-            return newOptions;
-          });
-        else setLocalValue("");
-      };
-
+    case "lister":
       return (
-        <FormControl sx={{ gridColumn: `span ${span}` }}>
-          <InputLabel htmlFor={name}>{label}</InputLabel>
-          <OutlinedInput
-            name={name}
-            label={label}
-            onKeyDown={(event) => {
-              if (event.key === "Enter") handleSubmit();
-            }}
-            value={localValue}
-            onChange={(event) => setLocalValue(event.target.value)}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton onClick={handleSubmit}>
-                  <Add />
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-          <div style={{ paddingTop: "10px" }}>
-            {localOptions?.map((option) => (
-              <div
-                style={{
-                  display: "flex",
-                  gap: "5px",
-                  alignItems: "center",
-                }}
-              >
-                <IconButton
-                  onClick={() =>
-                    setLocalOptions((prev) => {
-                      const newOptions = prev.filter(
-                        (item) => item.name !== option.name
-                      );
-                      onChange?.(name, newOptions);
-                      return newOptions;
-                    })
-                  }
-                >
-                  <Close fontSize="small" />
-                </IconButton>
-                <Typography>{option.label}</Typography>
-              </div>
-            ))}
-          </div>
-        </FormControl>
+        <Lister
+          fieldData={fieldData as ListerFieldPropsType}
+          value={value as OptionType[]}
+          onChange={handleChange as ListerChangeCallback}
+          error={error ?? false}
+        />
       );
-    }
     case "checkbox": {
       const { name, span, label } = fieldData as CheckboxPropsType;
 

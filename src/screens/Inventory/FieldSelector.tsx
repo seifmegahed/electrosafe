@@ -28,8 +28,10 @@ import {
   ListerFieldPropsType,
   CheckboxPropsType,
 } from "../../globalTypes";
+import ToggleInput from "../../components/InputFields/ToggleInput";
 
 type ListerChangeCallback = (name: string, value: OptionType[]) => void;
+type ToggleChangeCallback = (name: string, value: OptionType) => void;
 
 type FieldSelectorPropsType = {
   fieldData: FieldsPropsTypes;
@@ -108,34 +110,12 @@ const FieldSelector = ({
       );
     }
     case "toggle": {
-      const { name, span, options } = fieldData as ToggleFieldPropsType;
       return (
-        <Box
-          display="flex"
-          justifyContent={
-            index ? (index % 2 === 0 ? "flex-start" : "flex-end") : "flex-start"
-          }
-          sx={{ gridColumn: `span ${span}` }}
-        >
-          <ToggleButtonGroup
-            exclusive
-            color="primary"
-            value={value}
-            onChange={(event, value) => onChange?.(name, value)}
-            sx={{ width: "100%" }}
-          >
-            {options?.map((option, index) => (
-              <ToggleButton
-                key={index}
-                name={name}
-                value={option}
-                sx={{ minWidth: "70px", maxWidth: "150px", width: "100%" }}
-              >
-                {option.label}
-              </ToggleButton>
-            ))}
-          </ToggleButtonGroup>
-        </Box>
+        <ToggleInput
+          fieldData={fieldData as ToggleFieldPropsType}
+          value={value as OptionType}
+          onChange={handleChange as ToggleChangeCallback}
+        />
       );
     }
     case "expandableSelect": {

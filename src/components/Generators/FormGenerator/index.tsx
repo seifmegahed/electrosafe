@@ -2,22 +2,23 @@
 import { useLocation } from "react-router-dom";
 // Firebase
 // MUI
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, Typography } from "@mui/material";
 // Components
-import FormContainer from "../../components/Containers/FormContainer";
-import FieldGenerator from "../../components/Generators/FieldGenerator";
+import FormContainer from "../../Containers/FormContainer";
+import FieldGenerator from "../FieldGenerator";
 // Types
 // Constants
 import {
   formButtonStyle,
   singleButtonFormContainerStyle,
-} from "../../globalConstants";
+} from "../../../globalConstants";
 
 const EditPrototype = () => {
   const location = useLocation();
   return (
     <>
-      <FormContainer title={`${location.state?.label} Form Test`}>
+      <Typography variant="h3">{`${location.state?.label} Form Test}`}</Typography>
+      <FormContainer title="Form Tester">
         <TextField label="Name" sx={{ gridColumn: "span 2" }} draggable />
         <TextField label="Make" sx={{ gridColumn: "span 2" }} draggable />
         <div style={singleButtonFormContainerStyle}>

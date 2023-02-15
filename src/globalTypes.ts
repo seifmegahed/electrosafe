@@ -26,10 +26,12 @@ export type FieldsPropsTypes =
   | ListerFieldPropsType
   | CheckboxPropsType;
 
-export type OptionsChangeCallback = (name: string, value: OptionType[]) => void;
-export type OptionChangeCallback = (name: string, value: OptionType) => void;
-export type TextChangeCallback = (name: string, value: string | number) => void;
-export type BooleanChangeCallback = (name: string, value: boolean) => void;
+
+  export type OptionsChangeCallback = (name: string, value: OptionType[]) => void;
+  export type OptionChangeCallback = (name: string, value: OptionType) => void;
+  export type TextChangeCallback = (name: string, value: string | number) => void;
+  export type BooleanChangeCallback = (name: string, value: boolean) => void;
+  export type ChangeCallbackTypes = OptionsChangeCallback | OptionChangeCallback | TextChangeCallback | BooleanChangeCallback
 
 export type InitValuesTypes =
   | "name"

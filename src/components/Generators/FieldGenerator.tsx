@@ -2,21 +2,18 @@
 import { useEffect, useState } from "react";
 // Firebase
 // MUI
-import { Button, Divider, Slider } from "@mui/material";
+import { Button, Divider } from "@mui/material";
 
 // Components
-import FormContainer from "../../components/Containers/FormContainer";
-import SelectInput from "../../components/InputFields/SelectInput";
-import FieldSelector from "./FieldSelector";
+import FormContainer from "../Containers/FormContainer";
+import SelectInput from "../InputFields/SelectInput";
+import FieldSelector from "../InputFields/FieldSelector";
 
 // Types
 import {
-  TextFieldTypesType,
   InputType,
   SpanType,
   GenericObject,
-  InitValuesTypes,
-  OptionType,
   ValueType,
   FieldsPropsTypes,
 } from "../../globalTypes";
@@ -30,7 +27,9 @@ import {
   formButtonStyle,
   singleButtonFormContainerStyle,
 } from "../../globalConstants";
-import { Add, Close } from "@mui/icons-material";
+import { Add } from "@mui/icons-material";
+import AutoForm from "../Forms/AutoForm";
+import SpanSlider from "../InputFields/SpanSlider";
 
 const inputOptions = [
   { name: "text", label: "Text" },
@@ -48,19 +47,9 @@ const fieldDisplayStyle = {
   gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
 };
 
-const initValues = {
-  name: "",
-  label: "",
-  type: "text" as TextFieldTypesType,
-  span: 2 as SpanType,
-  preFix: "",
-  postFix: "",
-  options: [] as OptionType[],
-};
-
 export const FieldGenerator = () => {
-  const [inputType, setInputType] = useState<InputType | "">("");
-  const [values, setValues] = useState<GenericObject>();
+  const [inputType, setInputType] = useState<InputType>();
+  const [values, setValues] = useState<GenericObject>({});
   const [span, setSpan] = useState<SpanType>(2);
   const [errors, setErrors] = useState<{ [key: string]: boolean }>();
   const fields = FieldGeneratorFormFields[inputType as InputType];
@@ -111,7 +100,7 @@ export const FieldGenerator = () => {
   };
 
   useEffect(() => {
-    setValues(undefined);
+    setValues({});
   }, [inputType]);
 
   return (
@@ -127,45 +116,21 @@ export const FieldGenerator = () => {
         )}
         <Divider sx={{ gridColumn: "span 4" }} />
       </div>
-      <Slider
+      <SpanSlider
         value={span}
-        name="span"
-        onChange={(e, value) => setSpan(value as SpanType)}
-        step={null}
-        min={0}
-        max={4}
-        marks={[{ value: 1 }, { value: 2 }, { value: 3 }, { value: 4 }]}
-        sx={{
-          gridColumn: "span 4",
-          display: `${inputType === "" ? "none" : "block"}`,
-        }}
+        onChange={(value) => setSpan(value)}
+        display={!!inputType}
       />
       <SelectInput
         span={4}
         name="input-type"
         label="Input Type"
-        value={inputType}
+        value={inputType || ""}
         options={inputOptions}
         setValue={(value) => setInputType(value as InputType)}
       />
-      {inputType !== "" ? (
-        fields?.map((field, index) => {
-          return (
-            <FieldSelector
-              key={index}
-              fieldData={field}
-              index={index}
-              error={errors?.[field.name]}
-              value={
-                values?.[field.name] ||
-                initValues[field.name as InitValuesTypes]
-              }
-              onChange={handleChange}
-            />
-          );
-        })
-      ) : (
-        <></>
+      {!!inputType && (
+        <AutoForm fields={fields} values={values} onChange={handleChange} />
       )}
       <div style={singleButtonFormContainerStyle}>
         <Button

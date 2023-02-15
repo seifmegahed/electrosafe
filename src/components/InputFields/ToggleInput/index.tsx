@@ -37,7 +37,7 @@ const ToggleInput = ({
         onChange={(event, value) => handleChange(name, value)}
         sx={{ width: "100%" }}
       >
-        {options.map((option, index) => (
+        {options?.map((option, index) => (
           <ToggleButton
             key={index}
             name={name}

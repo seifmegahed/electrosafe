@@ -1,15 +1,16 @@
 // MUI
-import AutoSelectInput from "../../components/InputFields/AutoSelectInput";
-import CheckboxInput from "../../components/InputFields/CheckboxInput";
+import AutoSelectInput from "./AutoSelectInput";
+import CheckboxInput from "./CheckboxInput";
 
 // Components
-import Lister from "../../components/InputFields/ListerInput";
-import TextInput from "../../components/InputFields/TextInput";
-import ToggleInput from "../../components/InputFields/ToggleInput";
+import Lister from "./ListerInput";
+import TextInput from "./TextInput";
+import ToggleInput from "./ToggleInput";
 
 // Types
 import {
   BooleanChangeCallback,
+  ChangeCallbackTypes,
   CheckboxPropsType,
   FieldsPropsTypes,
   ListerFieldPropsType,
@@ -28,7 +29,7 @@ type FieldSelectorPropsType = {
   value?: ValueType;
   error?: boolean;
   fieldData: FieldsPropsTypes;
-  onChange?: (name: string, value: ValueType) => void;
+  onChange?: ChangeCallbackTypes;
 };
 
 const FieldSelector = ({

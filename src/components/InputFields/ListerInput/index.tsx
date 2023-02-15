@@ -5,13 +5,13 @@ import { useState } from "react";
 import { FormControl, InputLabel, OutlinedInput } from "@mui/material";
 
 // Types
-import { OptionType, ListerFieldPropsType } from "../../../globalTypes";
+import { OptionType, ListerFieldPropsType, OptionsChangeCallback } from "../../../globalTypes";
 
 type ListerPropsType = {
   fieldData: ListerFieldPropsType;
   value: OptionType[];
   error?: boolean;
-  onChange: (name: string, value: OptionType[]) => void;
+  onChange?: OptionsChangeCallback;
 };
 
 import { labelToOption } from "../../../utils/conversions";
@@ -38,12 +38,12 @@ const ListerInput = ({ fieldData, value, onChange }: ListerPropsType) => {
   const passChange = onChange;
 
   const handleAdd = () => {
-    passChange(name, addOption(labelToOption(inputValue), options));
+    passChange?.(name, addOption(labelToOption(inputValue), options));
     setInputValue("");
   };
 
   const handleRemove = (option: OptionType) => {
-    passChange(name, removeOption(option, options));
+    passChange?.(name, removeOption(option, options));
   };
 
   return (

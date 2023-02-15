@@ -15,9 +15,9 @@ import { useAuth } from "../../contexts/AuthProvider";
 
 // Components
 // import { Loading, FormContainer, PasswordField } from "../../components";
-import Loading from "../../components/Loading";
-import FormContainer from "../../components/FormContainer";
-import PasswordField from "../../components/PasswordField";
+import Loading from "../../components/Modals/Loading";
+import FormContainer from "../../components/Containers/FormContainer";
+import PasswordField from "../../components/InputFields/PasswordField";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {

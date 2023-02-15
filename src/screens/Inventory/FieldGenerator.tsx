@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 import { Button, Divider, Slider } from "@mui/material";
 
 // Components
-import FormContainer from "../../components/FormContainer";
-import SelectInput from "../../components/SelectInput";
+import FormContainer from "../../components/Containers/FormContainer";
+import SelectInput from "../../components/InputFields/SelectInput";
 import FieldSelector from "./FieldSelector";
 
 // Types

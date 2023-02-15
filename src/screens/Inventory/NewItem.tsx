@@ -8,8 +8,8 @@ import { Button, IconButton } from "@mui/material";
 import { Edit } from "@mui/icons-material";
 
 // Components
-import SelectInput from "../../components/SelectInput";
-import FormContainer from "../../components/FormContainer";
+import SelectInput from "../../components/InputFields/SelectInput";
+import FormContainer from "../../components/Containers/FormContainer";
 
 // Types
 

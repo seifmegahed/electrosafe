@@ -1,6 +1,6 @@
 import { Box, useMediaQuery, Typography } from "@mui/material";
 import { ReactElement } from "react";
-import { componentMaxWidth } from "../globalConstants";
+import { componentMaxWidth } from "../../globalConstants";
 
 type FormContainerProps = {
   children: ReactElement[] | ReactElement | any;

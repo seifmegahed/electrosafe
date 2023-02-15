@@ -3,10 +3,10 @@ import { lazy, Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 // Components
-import Loading from "./components/Loading";
-import PageWrapper from "./components/PageWrapper";
-import NavComponents from "./components/NavComponents";
-import Topbar from "./components/Topbar";
+import Loading from "./components/Modals/Loading";
+import PageWrapper from "./components/Containers/PageWrapper";
+import NavComponents from "./components/Navigation/NavComponents";
+import Topbar from "./components/Navigation/Topbar";
 
 import { useAuth } from "./contexts/AuthProvider";
 

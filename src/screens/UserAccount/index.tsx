@@ -6,8 +6,8 @@ import { ChangeEvent, useState } from "react";
 import { Typography, Box, Divider, Button } from "@mui/material";
 
 // Components
-import FormContainer from "../../components/FormContainer";
-import Loading from "../../components/Loading";
+import FormContainer from "../../components/Containers/FormContainer";
+import Loading from "../../components/Modals/Loading";
 
 import { useAuth } from "../../contexts/AuthProvider";
 import { updateProfile, User } from "firebase/auth";

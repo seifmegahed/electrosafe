@@ -8,8 +8,8 @@ import { AppBar, Box, IconButton, Toolbar, Typography } from "@mui/material";
 import { Menu, Person } from "@mui/icons-material";
 
 // Components
-import { useAuth } from "../contexts/AuthProvider";
-import PopperMenu from "./PopperMenu";
+import { useAuth } from "../../contexts/AuthProvider";
+import PopperMenu from "../Menus/PopperMenu";
 import { useNavigate } from "react-router-dom";
 
 // Types

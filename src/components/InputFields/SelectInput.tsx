@@ -6,8 +6,8 @@ import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { Add } from "@mui/icons-material";
 
 // Components
-import AddOptionModal from "./Modals/AddOptionModal";
-import { OptionType, SpanType, ValueType } from "../globalTypes";
+import AddOptionModal from "../Modals/AddOptionModal";
+import { OptionType, SpanType, ValueType } from "../../globalTypes";
 
 const SelectInput = ({
   id,

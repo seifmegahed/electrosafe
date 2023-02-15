@@ -1,8 +1,8 @@
 import { TextField, FilterOptionsState } from "@mui/material";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import { SyntheticEvent } from "react";
-import { labelToName } from "../utils/conversions";
-import { OptionType } from "../globalTypes";
+import { labelToName } from "../../utils/conversions";
+import { OptionType } from "../../globalTypes";
 
 const filter = createFilterOptions<OptionType>();
 

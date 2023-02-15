@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 // MUI
 import { Button, TextField } from "@mui/material";
 // Components
-import FormContainer from "../../components/FormContainer";
+import FormContainer from "../../components/Containers/FormContainer";
 import FieldGenerator from "./FieldGenerator";
 // Types
 // Constants

@@ -1,28 +1,26 @@
-// React
-// Firebase
 // MUI
 import { Checkbox, FormControlLabel } from "@mui/material";
+
 // Components
-import SelectInput from "../../components/SelectInput";
 import Lister from "../../components/InputFields/ListerInput";
+import SelectInput from "../../components/InputFields/SelectInput";
+import TextInput from "../../components/InputFields/TextInput";
+import ToggleInput from "../../components/InputFields/ToggleInput";
 
 // Types
 import {
+  CheckboxPropsType,
   FieldsPropsTypes,
-  ValueType,
+  ListerFieldPropsType,
+  OptionChangeCallback,
+  OptionsChangeCallback,
+  OptionType,
   SelectFieldPropsType,
+  TextChangeCallback,
   TextFieldPropsType,
   ToggleFieldPropsType,
-  OptionType,
-  ListerFieldPropsType,
-  CheckboxPropsType,
-  OptionsChangeCallback,
-  OptionChangeCallback,
-  TextChangeCallback,
+  ValueType,
 } from "../../globalTypes";
-
-import ToggleInput from "../../components/InputFields/ToggleInput";
-import TextInput from "../../components/InputFields/TextInput";
 
 type FieldSelectorPropsType = {
   fieldData: FieldsPropsTypes;
@@ -50,19 +48,6 @@ const FieldSelector = ({
           onChange={handleChange as TextChangeCallback}
         />
       );
-    case "select": {
-      const { name, label, span, options } = fieldData as SelectFieldPropsType;
-      return (
-        <SelectInput
-          name={name}
-          label={label}
-          span={span}
-          options={options}
-          onChange={onChange}
-          value={value || ""}
-        />
-      );
-    }
     case "toggle": {
       return (
         <ToggleInput
@@ -82,7 +67,22 @@ const FieldSelector = ({
           error={error ?? false}
         />
       );
+    case "select": {
+      // TODO Make Clean Component
+      const { name, label, span, options } = fieldData as SelectFieldPropsType;
+      return (
+        <SelectInput
+          name={name}
+          label={label}
+          span={span}
+          options={options}
+          onChange={onChange}
+          value={value || ""}
+        />
+      );
+    }
     case "checkbox": {
+      // TODO Make Clean Component
       const { name, span, label } = fieldData as CheckboxPropsType;
 
       return (

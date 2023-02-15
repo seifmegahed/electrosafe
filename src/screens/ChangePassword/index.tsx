@@ -15,9 +15,9 @@ import { Box, Button, Typography } from "@mui/material";
 
 // Components
 import { checkPasswordValidity } from "../../utils/validation";
-import FormContainer from "../../components/FormContainer";
-import PasswordField from "../../components/PasswordField";
-import Loading from "../../components/Loading";
+import FormContainer from "../../components/Containers/FormContainer";
+import PasswordField from "../../components/InputFields/PasswordField";
+import Loading from "../../components/Modals/Loading";
 
 import { useAuth } from "../../contexts/AuthProvider";
 import { componentMaxWidth } from "../../globalConstants";

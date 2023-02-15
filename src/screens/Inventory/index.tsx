@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 // MUI
 import { Box, Input, IconButton, Button, Typography } from "@mui/material";
 import { Search } from "@mui/icons-material";
-import FormContainer from "../../components/FormContainer";
+import FormContainer from "../../components/Containers/FormContainer";
 // Components
 import { componentMaxWidth } from "../../globalConstants";
 // Types

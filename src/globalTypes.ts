@@ -17,6 +17,7 @@ export type ValueType =
   | OptionType
   | OptionType[]
   | null;
+  
 export type GenericObject = { [key: string]: ValueType };
 export type FieldsPropsTypes =
   | TextFieldPropsType
@@ -41,11 +42,11 @@ export type TextFieldPropsType = {
   label: string;
   span: SpanType;
   type: TextFieldTypesType;
-  preFix?: string | false;
-  postFix?: string | false;
+  preFix?: string;
+  postFix?: string;
   required?: boolean;
   editable?: boolean;
-  draggable?: boolean | undefined;
+  draggable?: boolean;
 };
 
 export type SelectFieldPropsType = {
@@ -56,7 +57,7 @@ export type SelectFieldPropsType = {
   options: OptionType[];
   required?: boolean;
   editable?: boolean;
-  draggable?: boolean | undefined;
+  draggable?: boolean;
 };
 
 export type AdvancedSelectFieldPropsType = {
@@ -67,7 +68,7 @@ export type AdvancedSelectFieldPropsType = {
   options: OptionType[];
   required?: boolean;
   editable?: boolean;
-  draggable?: boolean | undefined;
+  draggable?: boolean;
 };
 
 export type ListerFieldPropsType = {
@@ -77,7 +78,7 @@ export type ListerFieldPropsType = {
   span: SpanType;
   required?: boolean;
   editable?: boolean;
-  draggable?: boolean | undefined;
+  draggable?: boolean;
 };
 
 export type ToggleFieldPropsType = {
@@ -87,7 +88,7 @@ export type ToggleFieldPropsType = {
   options: OptionType[];
   required?: boolean;
   editable?: boolean;
-  draggable?: boolean | undefined;
+  draggable?: boolean;
 };
 
 export type CheckboxPropsType = {
@@ -98,7 +99,7 @@ export type CheckboxPropsType = {
   default: boolean;
   required?: boolean;
   editable?: boolean;
-  draggable?: boolean | undefined;
+  draggable?: boolean;
 };
 
 export type EmptyField = {

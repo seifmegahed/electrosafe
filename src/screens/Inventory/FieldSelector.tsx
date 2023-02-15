@@ -2,13 +2,10 @@
 // Firebase
 // MUI
 import {
-  Box,
   Checkbox,
   FormControlLabel,
   InputAdornment,
   TextField,
-  ToggleButton,
-  ToggleButtonGroup,
 } from "@mui/material";
 import { ChangeEvent, ReactElement, useEffect, useState } from "react";
 // Components
@@ -29,15 +26,17 @@ import {
   CheckboxPropsType,
 } from "../../globalTypes";
 import ToggleInput from "../../components/InputFields/ToggleInput";
+import TextInput from "../../components/InputFields/TextInput";
 
-type ListerChangeCallback = (name: string, value: OptionType[]) => void;
-type ToggleChangeCallback = (name: string, value: OptionType) => void;
+type OptionsChangeCallback = (name: string, value: OptionType[]) => void;
+type OptionChangeCallback = (name: string, value: OptionType) => void;
+type TextChangeCallback = (name: string, value: string | number) => void;
 
 type FieldSelectorPropsType = {
   fieldData: FieldsPropsTypes;
   value?: ValueType;
   index?: number;
-  error?: boolean | undefined;
+  error?: boolean;
   onChange?: (name: string, value: ValueType) => void;
   onAddOption?: (value: OptionType) => void;
 };
@@ -77,25 +76,15 @@ const FieldSelector = ({
   }, [fieldData]);
 
   switch (fieldData.input) {
-    case "text": {
-      const { label, span, type, name } = fieldData as TextFieldPropsType;
-
-      const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        onChange?.(name, event.target.value);
-      };
-
+    case "text":
       return (
-        <TextField
-          label={label}
-          sx={{ gridColumn: `span ${span}` }}
-          type={type ? (typeof type === "string" ? type : type?.name) : "text"}
-          value={value}
-          error={error ?? false}
-          onChange={handleChange}
-          InputProps={inputProps}
+        <TextInput
+          value={value as string | number}
+          error={error}
+          fieldData={fieldData as TextFieldPropsType}
+          onChange={handleChange as TextChangeCallback}
         />
       );
-    }
     case "select": {
       const { name, label, span, options } = fieldData as SelectFieldPropsType;
       return (
@@ -112,30 +101,10 @@ const FieldSelector = ({
     case "toggle": {
       return (
         <ToggleInput
+          index={index}
           fieldData={fieldData as ToggleFieldPropsType}
           value={value as OptionType}
-          onChange={handleChange as ToggleChangeCallback}
-        />
-      );
-    }
-    case "expandableSelect": {
-      const { name, label, span, options } =
-        fieldData as AdvancedSelectFieldPropsType;
-      const handleKeyboard = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        const key = event.key;
-        const value = event.target;
-        if (key === "Enter") console.log(event);
-      };
-      return (
-        <SelectInputAdvanced
-          name={name}
-          label={label}
-          span={span}
-          options={options || []}
-          value={(value as OptionType) || null}
-          onKeyDown={handleKeyboard}
-          onChange={(name, value) => onChange?.(name, value)}
-          onAddOption={(value) => onAddOption?.(value)}
+          onChange={handleChange as OptionChangeCallback}
         />
       );
     }
@@ -144,7 +113,7 @@ const FieldSelector = ({
         <Lister
           fieldData={fieldData as ListerFieldPropsType}
           value={value as OptionType[]}
-          onChange={handleChange as ListerChangeCallback}
+          onChange={handleChange as OptionsChangeCallback}
           error={error ?? false}
         />
       );

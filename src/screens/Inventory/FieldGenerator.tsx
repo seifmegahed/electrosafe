@@ -69,7 +69,11 @@ export const FieldGenerator = () => {
     switch (name) {
       case "preFix":
       case "postFix": {
-        setValues((prev) => ({ ...prev, postFix: false, preFix: false }));
+        setValues((prev) => ({
+          ...prev,
+          postFix: null,
+          preFix: null,
+        }));
         if (value !== "") setValues((prev) => ({ ...prev, [name]: value }));
         break;
       }

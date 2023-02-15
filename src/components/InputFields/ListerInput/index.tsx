@@ -10,7 +10,7 @@ import { OptionType, ListerFieldPropsType } from "../../../globalTypes";
 type ListerPropsType = {
   fieldData: ListerFieldPropsType;
   value: OptionType[];
-  error: boolean | undefined;
+  error?: boolean;
   onChange: (name: string, value: OptionType[]) => void;
 };
 

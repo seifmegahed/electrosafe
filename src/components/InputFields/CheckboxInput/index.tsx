@@ -1,12 +1,8 @@
-// React
-// Firebase
 // MUI
-// Components
-
 import { Checkbox, FormControlLabel } from "@mui/material";
-import { CheckboxPropsType } from "../../../globalTypes";
 
 // Types
+import { CheckboxPropsType } from "../../../globalTypes";
 type CheckboxInputPropsType = {
   fieldData: CheckboxPropsType;
   value: boolean;
@@ -23,25 +19,18 @@ const CheckboxInput = ({
   const { name, span, label } = fieldData;
   const handleChange = onChange;
   return (
-    <div
-      style={{
-        gridColumn: `span ${span}`,
-        display: "flex",
-        alignItems: "center",
-      }}
-    >
-      <FormControlLabel
-        label={label}
-        control={
-          <Checkbox
-            onChange={(event) => handleChange(name, event.target.checked)}
-            name={name}
-            checked={value ?? fieldData.default ?? false}
-            defaultChecked={fieldData.default}
-          />
-        }
-      />
-    </div>
+    <FormControlLabel
+      sx={{ gridColumn: `span ${span}` }}
+      label={label}
+      control={
+        <Checkbox
+          onChange={(event, checked) => handleChange(name, checked)}
+          name={name}
+          checked={value || undefined}
+          defaultChecked={fieldData.default}
+        />
+      }
+    />
   );
 };
 

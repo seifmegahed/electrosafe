@@ -1,10 +1,9 @@
 // MUI
-import { Checkbox, FormControlLabel } from "@mui/material";
+import AutoSelectInput from "../../components/InputFields/AutoSelectInput";
 import CheckboxInput from "../../components/InputFields/CheckboxInput";
 
 // Components
 import Lister from "../../components/InputFields/ListerInput";
-import SelectInput from "../../components/InputFields/SelectInput";
 import TextInput from "../../components/InputFields/TextInput";
 import ToggleInput from "../../components/InputFields/ToggleInput";
 
@@ -25,18 +24,18 @@ import {
 } from "../../globalTypes";
 
 type FieldSelectorPropsType = {
-  fieldData: FieldsPropsTypes;
-  value?: ValueType;
   index?: number;
+  value?: ValueType;
   error?: boolean;
+  fieldData: FieldsPropsTypes;
   onChange?: (name: string, value: ValueType) => void;
 };
 
 const FieldSelector = ({
-  fieldData,
-  value,
   index,
+  value,
   error,
+  fieldData,
   onChange,
 }: FieldSelectorPropsType) => {
   const handleChange = onChange;
@@ -54,8 +53,9 @@ const FieldSelector = ({
       return (
         <ToggleInput
           index={index}
-          fieldData={fieldData as ToggleFieldPropsType}
           value={value as OptionType}
+          error={error}
+          fieldData={fieldData as ToggleFieldPropsType}
           onChange={handleChange as OptionChangeCallback}
         />
       );
@@ -63,38 +63,32 @@ const FieldSelector = ({
     case "lister":
       return (
         <Lister
-          fieldData={fieldData as ListerFieldPropsType}
           value={value as OptionType[]}
+          error={error}
+          fieldData={fieldData as ListerFieldPropsType}
           onChange={handleChange as OptionsChangeCallback}
-          error={error ?? false}
         />
       );
     case "select": {
-      // TODO Make Clean Component
-      const { name, label, span, options } = fieldData as SelectFieldPropsType;
       return (
-        <SelectInput
-          name={name}
-          label={label}
-          span={span}
-          options={options}
-          onChange={onChange}
-          value={value || ""}
+        <AutoSelectInput
+          value={value as OptionType}
+          error={error}
+          fieldData={fieldData as SelectFieldPropsType}
+          onChange={handleChange as OptionChangeCallback}
         />
       );
     }
     case "checkbox": {
       return (
         <CheckboxInput
-          fieldData={fieldData as CheckboxPropsType}
-          onChange={handleChange as BooleanChangeCallback}
           value={value as boolean}
           error={error}
+          fieldData={fieldData as CheckboxPropsType}
+          onChange={handleChange as BooleanChangeCallback}
         />
       );
     }
-    default:
-      return <></>;
   }
 };
 

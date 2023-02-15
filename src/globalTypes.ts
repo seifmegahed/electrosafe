@@ -2,11 +2,11 @@ export type SpanType = 1 | 2 | 3 | 4;
 export type InputType =
   | "text"
   | "select"
-  | "expandableSelect"
   | "toggle"
   | "lister"
   | "checkbox"
   | "file";
+  
 export type TextFieldTypesType = "text" | "number" | OptionType;
 export type ChangeEventCallbackReturnType = { name: string; value: OptionType };
 export type ChangeEventCallbackType = () => ChangeEventCallbackReturnType;
@@ -17,15 +17,18 @@ export type ValueType =
   | OptionType
   | OptionType[]
   | null;
-  
+
 export type GenericObject = { [key: string]: ValueType };
 export type FieldsPropsTypes =
   | TextFieldPropsType
   | SelectFieldPropsType
-  | AdvancedSelectFieldPropsType
   | ToggleFieldPropsType
   | ListerFieldPropsType
   | CheckboxPropsType;
+
+export type OptionsChangeCallback = (name: string, value: OptionType[]) => void;
+export type OptionChangeCallback = (name: string, value: OptionType) => void;
+export type TextChangeCallback = (name: string, value: string | number) => void;
 
 export type InitValuesTypes =
   | "name"

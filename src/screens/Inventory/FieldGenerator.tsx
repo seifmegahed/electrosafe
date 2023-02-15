@@ -35,7 +35,6 @@ import { Add, Close } from "@mui/icons-material";
 const inputOptions = [
   { name: "text", label: "Text" },
   { name: "select", label: "Select" },
-  { name: "expandableSelect", label: "Expandable Select" },
   { name: "toggle", label: "Toggle" },
   { name: "lister", label: "List Input" },
   { name: "checkbox", label: "Checkbox" },

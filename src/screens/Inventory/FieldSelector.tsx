@@ -1,21 +1,13 @@
 // React
 // Firebase
 // MUI
-import {
-  Checkbox,
-  FormControlLabel,
-  InputAdornment,
-  TextField,
-} from "@mui/material";
-import { ChangeEvent, ReactElement, useEffect, useState } from "react";
+import { Checkbox, FormControlLabel } from "@mui/material";
 // Components
 import SelectInput from "../../components/SelectInput";
-import SelectInputAdvanced from "../../components/SelectInputAdvanced";
 import Lister from "../../components/InputFields/ListerInput";
 
 // Types
 import {
-  AdvancedSelectFieldPropsType,
   FieldsPropsTypes,
   ValueType,
   SelectFieldPropsType,
@@ -24,13 +16,13 @@ import {
   OptionType,
   ListerFieldPropsType,
   CheckboxPropsType,
+  OptionsChangeCallback,
+  OptionChangeCallback,
+  TextChangeCallback,
 } from "../../globalTypes";
+
 import ToggleInput from "../../components/InputFields/ToggleInput";
 import TextInput from "../../components/InputFields/TextInput";
-
-type OptionsChangeCallback = (name: string, value: OptionType[]) => void;
-type OptionChangeCallback = (name: string, value: OptionType) => void;
-type TextChangeCallback = (name: string, value: string | number) => void;
 
 type FieldSelectorPropsType = {
   fieldData: FieldsPropsTypes;
@@ -38,7 +30,6 @@ type FieldSelectorPropsType = {
   index?: number;
   error?: boolean;
   onChange?: (name: string, value: ValueType) => void;
-  onAddOption?: (value: OptionType) => void;
 };
 
 const FieldSelector = ({
@@ -47,34 +38,8 @@ const FieldSelector = ({
   index,
   error,
   onChange,
-  onAddOption,
 }: FieldSelectorPropsType) => {
   const handleChange = onChange;
-  const [inputProps, setInputProps] = useState<
-    | { endAdornment: ReactElement }
-    | { startAdornment: ReactElement }
-    | undefined
-  >(undefined);
-
-  useEffect(() => {
-    if (fieldData.input === "text") {
-      const { preFix, postFix } = fieldData;
-      if (postFix)
-        setInputProps({
-          endAdornment: (
-            <InputAdornment position="end">{postFix}</InputAdornment>
-          ),
-        });
-      else if (preFix)
-        setInputProps({
-          startAdornment: (
-            <InputAdornment position="start">{preFix}</InputAdornment>
-          ),
-        });
-      else setInputProps(undefined);
-    }
-  }, [fieldData]);
-
   switch (fieldData.input) {
     case "text":
       return (

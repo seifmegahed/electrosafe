@@ -83,7 +83,6 @@ export const FieldGeneratorFormFields = {
     },
   ],
   select: [label, name, required, editable, options],
-  expandableSelect: [label, name, required, editable, options],
   toggle: [name, required, editable, options],
   file: [
     name,

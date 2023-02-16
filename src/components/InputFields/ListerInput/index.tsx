@@ -27,14 +27,14 @@ const addOption = (option: OptionType, options: OptionType[]) => {
 };
 
 const checkIncluded = (option: OptionType, options: OptionType[]) => {
-  return !!options.filter((item) => item.name === option.name).length;
+  return !!options?.filter((item) => item.name === option.name).length;
 };
 
 const ListerInput = ({ fieldData, value, onChange }: ListerPropsType) => {
   const [inputValue, setInputValue] = useState<string>("");
 
   const { name, label, span } = fieldData;
-  const options = value;
+  const options = value || [];
   const passChange = onChange;
 
   const handleAdd = () => {
@@ -60,7 +60,7 @@ const ListerInput = ({ fieldData, value, onChange }: ListerPropsType) => {
         }}
       />
       <div style={{ paddingTop: "10px" }}>
-        {options.map((option, index) => (
+        {(options || []).map((option, index) => (
           <ListOption key={index} option={option} onRemove={handleRemove} />
         ))}
       </div>

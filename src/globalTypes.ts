@@ -1,11 +1,5 @@
 export type SpanType = 1 | 2 | 3 | 4;
-export type InputType =
-  | "text"
-  | "select"
-  | "toggle"
-  | "lister"
-  | "checkbox"
-  | "file";
+export type InputType = "text" | "select" | "toggle" | "lister" | "checkbox";
 
 export type TextFieldTypesType = "text" | "number" | OptionType;
 export type ChangeEventCallbackReturnType = { name: string; value: OptionType };
@@ -26,12 +20,15 @@ export type FieldsPropsTypes =
   | ListerFieldPropsType
   | CheckboxPropsType;
 
-
-  export type OptionsChangeCallback = (name: string, value: OptionType[]) => void;
-  export type OptionChangeCallback = (name: string, value: OptionType) => void;
-  export type TextChangeCallback = (name: string, value: string | number) => void;
-  export type BooleanChangeCallback = (name: string, value: boolean) => void;
-  export type ChangeCallbackTypes = OptionsChangeCallback | OptionChangeCallback | TextChangeCallback | BooleanChangeCallback
+export type OptionsChangeCallback = (name: string, value: OptionType[]) => void;
+export type OptionChangeCallback = (name: string, value: OptionType) => void;
+export type TextChangeCallback = (name: string, value: string | number) => void;
+export type BooleanChangeCallback = (name: string, value: boolean) => void;
+export type ChangeCallbackTypes =
+  | OptionsChangeCallback
+  | OptionChangeCallback
+  | TextChangeCallback
+  | BooleanChangeCallback;
 
 export type InitValuesTypes =
   | "name"

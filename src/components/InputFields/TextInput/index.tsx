@@ -44,7 +44,7 @@ const TextInput = ({
       label={label}
       sx={{ gridColumn: `span ${span}` }}
       type={type ? (typeof type === "string" ? type : type?.name) : "text"}
-      value={value}
+      value={(value as String | number) || ""}
       error={error ?? false}
       onChange={(event) => handleChange(name, event.target.value)}
       InputProps={getInputFixProps(preFix, postFix)}

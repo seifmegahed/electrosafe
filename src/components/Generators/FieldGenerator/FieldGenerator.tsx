@@ -1,13 +1,16 @@
 // React
 import { useEffect, useState } from "react";
-// Firebase
+
 // MUI
-import { Button, Divider } from "@mui/material";
+import { Button } from "@mui/material";
+import { Add } from "@mui/icons-material";
 
 // Components
-import FormContainer from "../Containers/FormContainer";
-import SelectInput from "../InputFields/SelectInput";
-import FieldSelector from "../InputFields/FieldSelector";
+import FormContainer from "../../Containers/FormContainer";
+import SelectInput from "../../InputFields/SelectInput";
+import AutoForm from "../../Forms/AutoForm";
+import SpanSlider from "../../InputFields/SpanSlider";
+import FieldDemo from "./FieldDemo";
 
 // Types
 import {
@@ -16,20 +19,17 @@ import {
   GenericObject,
   ValueType,
   FieldsPropsTypes,
-} from "../../globalTypes";
+} from "../../../globalTypes";
 
 // Util Functions
-import { labelToName } from "../../utils/conversions";
+import { labelToName } from "../../../utils/conversions";
 
 // Constants
 import {
   FieldGeneratorFormFields,
   formButtonStyle,
   singleButtonFormContainerStyle,
-} from "../../globalConstants";
-import { Add } from "@mui/icons-material";
-import AutoForm from "../Forms/AutoForm";
-import SpanSlider from "../InputFields/SpanSlider";
+} from "../../../globalConstants";
 
 const inputOptions = [
   { name: "text", label: "Text" },
@@ -40,19 +40,13 @@ const inputOptions = [
   { name: "file", label: "File" },
 ];
 
-const fieldDisplayStyle = {
-  gridColumn: "span 4",
-  display: "grid",
-  gap: "20px",
-  gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
-};
-
 export const FieldGenerator = () => {
   const [inputType, setInputType] = useState<InputType>();
   const [values, setValues] = useState<GenericObject>({});
   const [span, setSpan] = useState<SpanType>(2);
   const [errors, setErrors] = useState<{ [key: string]: boolean }>();
   const fields = FieldGeneratorFormFields[inputType as InputType];
+
   const handleChange = (name: string, value: ValueType) => {
     switch (name) {
       case "preFix":
@@ -105,17 +99,9 @@ export const FieldGenerator = () => {
 
   return (
     <FormContainer title="Field Maker">
-      <div style={fieldDisplayStyle}>
-        <FieldSelector
-          fieldData={{ ...values, input: inputType, span } as FieldsPropsTypes}
-        />
-        {(inputType === "checkbox" || inputType === "toggle") && span !== 4 ? (
-          <Divider orientation="vertical" sx={{ justifySelf: "flex-start" }} />
-        ) : (
-          <></>
-        )}
-        <Divider sx={{ gridColumn: "span 4" }} />
-      </div>
+      <FieldDemo
+        fieldData={{ ...values, input: inputType, span } as FieldsPropsTypes}
+      />
       <SpanSlider
         value={span}
         onChange={(value) => setSpan(value)}

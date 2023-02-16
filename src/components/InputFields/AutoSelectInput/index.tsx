@@ -1,5 +1,6 @@
 // MUI
 import { Autocomplete, TextField } from "@mui/material";
+import { useState } from "react";
 
 // Types
 import {
@@ -22,6 +23,7 @@ const AutoSelectInput = ({
   onChange,
 }: CheckboxInputPropsType) => {
   const { name, label, span, options } = fieldData;
+  const [inputValue, setInputValue] = useState("")
   const handleChange = onChange;
   return (
     <Autocomplete
@@ -30,8 +32,10 @@ const AutoSelectInput = ({
       clearOnBlur
       clearOnEscape
       id={label}
-      value={value || null}
-      options={options}
+      value={value as OptionType || null}
+      inputValue={inputValue}
+      onInputChange={(event, value) => setInputValue(value)}
+      options={options as OptionType[] || []}
       getOptionLabel={(option) => option.label}
       sx={{ width: "100%", gridColumn: `span ${span}` }}
       renderInput={(params) => <TextField {...params} label={label} />}

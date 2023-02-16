@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import { Button, TextField, Typography } from "@mui/material";
 // Components
 import FormContainer from "../../Containers/FormContainer";
-import FieldGenerator from "../FieldGenerator";
+import FieldGenerator from "../FieldGenerator/FieldGenerator";
 // Types
 // Constants
 import {

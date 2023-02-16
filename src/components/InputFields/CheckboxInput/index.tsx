@@ -26,7 +26,7 @@ const CheckboxInput = ({
         <Checkbox
           onChange={(event, checked) => handleChange(name, checked)}
           name={name}
-          checked={value || undefined}
+          checked={value as boolean || false}
           defaultChecked={fieldData.default}
         />
       }

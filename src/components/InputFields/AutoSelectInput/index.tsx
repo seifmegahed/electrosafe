@@ -23,7 +23,7 @@ const AutoSelectInput = ({
   onChange,
 }: CheckboxInputPropsType) => {
   const { name, label, span, options } = fieldData;
-  const [inputValue, setInputValue] = useState("")
+  const [inputValue, setInputValue] = useState("");
   const handleChange = onChange;
   return (
     <Autocomplete
@@ -32,13 +32,20 @@ const AutoSelectInput = ({
       clearOnBlur
       clearOnEscape
       id={label}
-      value={value as OptionType || null}
+      value={(value as OptionType) || null}
       inputValue={inputValue}
       onInputChange={(event, value) => setInputValue(value)}
-      options={options as OptionType[] || []}
+      options={(options as OptionType[]) || []}
       getOptionLabel={(option) => option.label}
       sx={{ width: "100%", gridColumn: `span ${span}` }}
-      renderInput={(params) => <TextField {...params} label={label} />}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          helperText={error && "Required"}
+          error={error}
+          label={label}
+        />
+      )}
       onChange={(event, value) => handleChange(name, value as OptionType)}
     />
   );

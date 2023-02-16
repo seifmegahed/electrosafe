@@ -1,6 +1,5 @@
 // MUI
 import { InputAdornment, TextField } from "@mui/material";
-import { ReactElement, useEffect, useState } from "react";
 
 // Types
 import { TextFieldPropsType } from "../../../globalTypes";
@@ -43,6 +42,7 @@ const TextInput = ({
     <TextField
       label={label}
       sx={{ gridColumn: `span ${span}` }}
+      helperText={error && "Required"}
       type={type ? (typeof type === "string" ? type : type?.name) : "text"}
       value={(value as String | number) || ""}
       error={error ?? false}

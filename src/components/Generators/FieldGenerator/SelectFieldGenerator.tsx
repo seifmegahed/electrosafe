@@ -14,9 +14,8 @@ import SpanSlider from "../../InputFields/SpanSlider";
 // Types
 import {
   OptionType,
+  SelectFieldPropsType,
   SpanType,
-  TextFieldPropsType,
-  TextFieldTypesType,
   ValueType,
 } from "../../../globalTypes";
 
@@ -26,6 +25,7 @@ import {
   formButtonStyle,
   labelField,
   nameField,
+  optionsField,
   requiredField,
   singleButtonFormContainerStyle,
 } from "../../../globalConstants";
@@ -38,52 +38,26 @@ import { initFormErrors } from "../../../utils/formInit";
 const fields = [
   labelField,
   nameField,
-  {
-    name: "type",
-    input: "toggle" as "toggle",
-    options: [
-      { name: "text", label: "Text" },
-      { name: "number", label: "Number" },
-    ],
-    span: 2 as SpanType,
-  },
   requiredField,
   editableField,
-  {
-    name: "preFix",
-    label: "Pre Fix",
-    input: "text" as "text",
-    type: "text" as TextFieldTypesType,
-    required: false,
-    span: 2 as SpanType,
-  },
-  {
-    name: "postFix",
-    label: "Post Fix",
-    input: "text" as "text",
-    type: "text" as TextFieldTypesType,
-    required: false,
-    span: 2 as SpanType,
-  },
+  optionsField,
 ];
 
-const initValues: TextFieldPropsType = {
-  input: "text",
+const initValues: SelectFieldPropsType = {
+  input: "select",
   span: 2 as SpanType,
   label: "",
   name: "",
-  type: { name: "text", label: "Text" } as OptionType,
+  options: [] as OptionType[],
   required: false,
-  editable: false,
-  preFix: "",
-  postFix: "",
+  editable: true,
 };
 
-type TextFieldGeneratorProps = {
-  onSubmit: (values: TextFieldPropsType) => void;
+type SelectFieldGeneratorProps = {
+  onSubmit: (values: SelectFieldPropsType) => void;
 };
 
-const TextFieldGenerator = ({ onSubmit }: TextFieldGeneratorProps) => {
+const SelectFieldGenerator = ({ onSubmit }: SelectFieldGeneratorProps) => {
   const passValues = onSubmit;
   const initErrorValues = initFormErrors(Object.keys(initValues));
   const [values, setValues] = useState(initValues);
@@ -92,7 +66,8 @@ const TextFieldGenerator = ({ onSubmit }: TextFieldGeneratorProps) => {
   const handleChange = (name: string, value: ValueType) => {
     if (name === "label")
       setValues(
-        (prev) => mirrorNameToLabel(prev, value as string) as TextFieldPropsType
+        (prev) =>
+          mirrorNameToLabel(prev, value as string) as SelectFieldPropsType
       );
     else setValues((prev) => ({ ...prev, [name]: value }));
   };
@@ -135,4 +110,4 @@ const TextFieldGenerator = ({ onSubmit }: TextFieldGeneratorProps) => {
   );
 };
 
-export default TextFieldGenerator;
+export default SelectFieldGenerator;

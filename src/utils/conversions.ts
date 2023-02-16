@@ -1,4 +1,9 @@
-import { GenericObject, OptionType, TextFieldPropsType } from "../globalTypes";
+import {
+  FieldsPropsTypes,
+  GenericObject,
+  OptionType,
+  TextFieldPropsType,
+} from "../globalTypes";
 
 export const labelToName = (value: string) =>
   value.toLowerCase().replace(/ /g, "-");
@@ -13,21 +18,23 @@ export const extractPureDataFromForm = (data: GenericObject) => {
   let newData: GenericObject = {};
   keys.forEach((key) => {
     if (typeof data[key] === "object") {
-      const object = (data[key] as OptionType) || undefined;
-      const array = (data[key] as OptionType[]) || undefined;
-      if (object) newData[key] = object.name;
-      else newData[key] = array;
+      const object = data[key];
+      if ((object as OptionType[]).length) newData[key] = object;
+      else newData[key] = (object as OptionType).name;
     } else newData[key] = data[key];
   });
   return newData;
 };
 
-export const mirrorNameToLabel = (state: TextFieldPropsType, value: string) => {
-  if (state.name === labelToName(state.label))
-    return {
-      ...state,
-      label: value,
-      name: labelToName(value),
-    };
-  return { ...state, label: value };
+export const mirrorNameToLabel = (state: FieldsPropsTypes, value: string) => {
+  if (state.input !== "toggle") {
+    if (state.name === labelToName(state.label))
+      return {
+        ...state,
+        label: value,
+        name: labelToName(value),
+      };
+    return { ...state, label: value };
+  }
+  return state;
 };

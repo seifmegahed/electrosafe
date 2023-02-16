@@ -2,10 +2,19 @@
 import { useState } from "react";
 
 // MUI
-import { FormControl, InputLabel, OutlinedInput } from "@mui/material";
+import {
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  OutlinedInput,
+} from "@mui/material";
 
 // Types
-import { OptionType, ListerFieldPropsType, OptionsChangeCallback } from "../../../globalTypes";
+import {
+  OptionType,
+  ListerFieldPropsType,
+  OptionsChangeCallback,
+} from "../../../globalTypes";
 
 type ListerPropsType = {
   fieldData: ListerFieldPropsType;
@@ -30,7 +39,12 @@ const checkIncluded = (option: OptionType, options: OptionType[]) => {
   return !!options?.filter((item) => item.name === option.name).length;
 };
 
-const ListerInput = ({ fieldData, value, onChange }: ListerPropsType) => {
+const ListerInput = ({
+  fieldData,
+  value,
+  error,
+  onChange,
+}: ListerPropsType) => {
   const [inputValue, setInputValue] = useState<string>("");
 
   const { name, label, span } = fieldData;
@@ -47,7 +61,7 @@ const ListerInput = ({ fieldData, value, onChange }: ListerPropsType) => {
   };
 
   return (
-    <FormControl sx={{ gridColumn: `span ${span}` }}>
+    <FormControl error={error} sx={{ gridColumn: `span ${span}` }}>
       <InputLabel htmlFor={name}>{label}</InputLabel>
       <OutlinedInput
         name={name}
@@ -59,6 +73,7 @@ const ListerInput = ({ fieldData, value, onChange }: ListerPropsType) => {
           if (event.key === "Enter") handleAdd();
         }}
       />
+      {error && <FormHelperText>Required</FormHelperText>}
       <div style={{ paddingTop: "10px" }}>
         {(options || []).map((option, index) => (
           <ListOption key={index} option={option} onRemove={handleRemove} />

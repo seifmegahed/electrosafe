@@ -8,6 +8,7 @@ import FormContainer from "../../Containers/FormContainer";
 import TextFieldGenerator from "./TextFieldGenerator";
 import { FieldsPropsTypes } from "../../../globalTypes";
 import { extractPureDataFromForm } from "../../../utils/conversions";
+import SelectFieldGenerator from "./SelectFieldGenerator";
 // Types
 
 interface TabPanelProps {
@@ -61,7 +62,10 @@ const FieldGenerator2 = ({ onSubmit }: FieldGenerator2Props) => {
       label: "Text",
       component: <TextFieldGenerator onSubmit={handleSubmit} />,
     },
-    { label: "Select", component: "Select" },
+    {
+      label: "Select",
+      component: <SelectFieldGenerator onSubmit={handleSubmit} />,
+    },
     { label: "Toggle", component: "Toggle" },
     { label: "Checkbox", component: "Checkbox" },
     { label: "Lister", component: "Lister" },

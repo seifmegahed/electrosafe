@@ -40,9 +40,10 @@ const AutoForm = ({ fields, values, onChange }: AutoFormProps) => {
 
   return (
     <GridWrapper>
-      {fields.map((fieldData) => {
+      {fields.map((fieldData, index) => {
         return (
           <FieldSelector
+            key={index}
             fieldData={fieldData}
             value={values?.[fieldData.name] || initValues[fieldData.input]}
             onChange={handleChange}

@@ -2,18 +2,21 @@
 import { useState } from "react";
 // Firebase
 // MUI
+import { Button } from "@mui/material";
+import { Add } from "@mui/icons-material";
 
 // Components
+import AutoForm from "../../Forms/AutoForm";
+import FieldDemo from "./FieldDemo";
 import GridWrapper from "../../Containers/GridWrapper";
 import SpanSlider from "../../InputFields/SpanSlider";
-import FieldDemo from "./FieldDemo";
 
 // Types
 import {
-  SpanType,
   OptionType,
-  TextFieldTypesType,
+  SpanType,
   TextFieldPropsType,
+  TextFieldTypesType,
   ValueType,
 } from "../../../globalTypes";
 
@@ -26,10 +29,7 @@ import {
   requiredField,
   singleButtonFormContainerStyle,
 } from "../../../globalConstants";
-import AutoForm from "../../Forms/AutoForm";
-import { Button } from "@mui/material";
-import { Add } from "@mui/icons-material";
-import { labelToName } from "../../../utils/conversions";
+import { mirrorNameToLabel } from "../../../utils/conversions";
 
 const fields = [
   labelField,
@@ -75,21 +75,11 @@ const initValues: TextFieldPropsType = {
   postFix: "",
 };
 
-const mirrorNameToLabel = (state: TextFieldPropsType, value: string) => {
-  if (state.name === labelToName(state.label))
-    return {
-      ...state,
-      label: value,
-      name: labelToName(value),
-    };
-  return { ...state, label: value };
+type TextFieldGeneratorProps = {
+  onSubmit: (values: TextFieldPropsType) => void;
 };
 
-const TextFieldGenerator = ({
-  onSubmit,
-}: {
-  onSubmit: (values: TextFieldPropsType) => void;
-}) => {
+const TextFieldGenerator = ({ onSubmit }: TextFieldGeneratorProps) => {
   const passValues = onSubmit;
 
   const [values, setValues] = useState(initValues);

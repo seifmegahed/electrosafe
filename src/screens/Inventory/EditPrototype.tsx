@@ -12,6 +12,7 @@ import {
   formButtonStyle,
   singleButtonFormContainerStyle,
 } from "../../globalConstants";
+import FieldGenerator2 from "../../components/Generators/FieldGenerator/FieldGenerator2";
 
 const EditPrototype = () => {
   const location = useLocation();
@@ -27,6 +28,7 @@ const EditPrototype = () => {
         </div>
       </FormContainer>
       <FieldGenerator />
+      <FieldGenerator2 />
     </>
   );
 };

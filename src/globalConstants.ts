@@ -8,7 +8,7 @@ export const singleButtonFormContainerStyle = {
   justifyContent: "flex-end",
 };
 
-const name = {
+export const nameField = {
   input: "text" as "text",
   name: "name",
   label: "Name",
@@ -17,7 +17,7 @@ const name = {
   required: true,
 };
 
-const label = {
+export const labelField = {
   name: "label",
   label: "Label",
   input: "text" as "text",
@@ -26,7 +26,7 @@ const label = {
   span: 2 as SpanType,
 };
 
-const options = {
+export const optionsField = {
   name: "options",
   label: "Options",
   input: "lister" as "lister",
@@ -34,7 +34,7 @@ const options = {
   span: 4 as SpanType,
 };
 
-const required = {
+export const requiredField = {
   name: "required",
   input: "checkbox" as "checkbox",
   label: "Required",
@@ -42,7 +42,7 @@ const required = {
   span: 1 as SpanType,
 };
 
-const editable = {
+export const editableField = {
   name: "editable",
   input: "checkbox" as "checkbox",
   label: "Editable",
@@ -52,8 +52,8 @@ const editable = {
 
 export const FieldGeneratorFormFields = {
   text: [
-    label,
-    name,
+    labelField,
+    nameField,
     {
       name: "type",
       input: "toggle" as "toggle",
@@ -63,8 +63,8 @@ export const FieldGeneratorFormFields = {
       ],
       span: 2 as SpanType,
     },
-    required,
-    editable,
+    requiredField,
+    editableField,
     {
       name: "preFix",
       label: "Pre Fix",
@@ -82,10 +82,10 @@ export const FieldGeneratorFormFields = {
       span: 2 as SpanType,
     },
   ],
-  select: [label, name, required, editable, options],
-  toggle: [name, required, editable, options],
+  select: [labelField, nameField, requiredField, editableField, optionsField],
+  toggle: [nameField, requiredField, editableField, optionsField],
   file: [
-    name,
+    nameField,
     {
       name: "type",
       label: "Type",
@@ -97,15 +97,15 @@ export const FieldGeneratorFormFields = {
       required: true,
       span: 2 as SpanType,
     },
-    required,
-    editable,
+    requiredField,
+    editableField,
   ],
-  lister: [name, label, required, editable],
+  lister: [nameField, labelField, requiredField, editableField],
   checkbox: [
-    name,
-    label,
-    required,
-    editable,
+    nameField,
+    labelField,
+    requiredField,
+    editableField,
     {
       name: "default",
       input: "checkbox" as "checkbox",

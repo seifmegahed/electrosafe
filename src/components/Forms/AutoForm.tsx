@@ -9,6 +9,7 @@ import {
   FieldsPropsTypes,
   GenericObject,
 } from "../../globalTypes";
+import GridWrapper from "../Containers/GridWrapper";
 
 import FieldSelector from "../InputFields/FieldSelector";
 
@@ -38,7 +39,7 @@ const AutoForm = ({ fields, values, onChange }: AutoFormProps) => {
   const handleChange = onChange;
 
   return (
-    <div style={containerStyle}>
+    <GridWrapper>
       {fields.map((fieldData) => {
         return (
           <FieldSelector
@@ -49,7 +50,7 @@ const AutoForm = ({ fields, values, onChange }: AutoFormProps) => {
           />
         );
       })}
-    </div>
+    </GridWrapper>
   );
 };
 

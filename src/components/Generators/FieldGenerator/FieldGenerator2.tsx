@@ -1,19 +1,24 @@
 // React
 import { SyntheticEvent, useState } from "react";
-// Firebase
+
 // MUI
 import { Tabs, Tab, Box } from "@mui/material";
+
 // Components
 import FormContainer from "../../Containers/FormContainer";
 import TextFieldGenerator from "./TextFieldGenerator";
-import { FieldsPropsTypes } from "../../../globalTypes";
-import { extractPureDataFromForm } from "../../../utils/conversions";
 import SelectFieldGenerator from "./SelectFieldGenerator";
 import ToggleFieldGenerator from "./ToggleFieldGenerator";
+
 // Types
+import { FieldsPropsTypes } from "../../../globalTypes";
+
+// Functions
+import { extractPureDataFromForm } from "../../../utils/conversions";
+import CheckboxFieldGenerator from "./CheckboxFieldGenerator";
 
 interface TabPanelProps {
-  children?: React.ReactNode;
+  children: React.ReactNode;
   index: number;
   value: number;
 }
@@ -71,8 +76,10 @@ const FieldGenerator2 = ({ onSubmit }: FieldGenerator2Props) => {
       label: "Toggle",
       component: <ToggleFieldGenerator onSubmit={handleSubmit} />,
     },
-    { label: "Checkbox", component: "Checkbox" },
-    { label: "Lister", component: "Lister" },
+    {
+      label: "Checkbox",
+      component: <CheckboxFieldGenerator onSubmit={handleSubmit} />,
+    },
   ];
 
   return (

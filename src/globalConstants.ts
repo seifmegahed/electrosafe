@@ -106,12 +106,5 @@ export const FieldGeneratorFormFields = {
     labelField,
     requiredField,
     editableField,
-    {
-      name: "default",
-      input: "checkbox" as "checkbox",
-      label: "Default Value",
-      default: false,
-      span: 2 as SpanType,
-    },
   ],
 };

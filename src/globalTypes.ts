@@ -99,7 +99,7 @@ export type CheckboxPropsType = {
   name: string;
   label: string;
   span: SpanType;
-  default: boolean;
+  default?: boolean;
   required?: boolean;
   editable?: boolean;
   draggable?: boolean;

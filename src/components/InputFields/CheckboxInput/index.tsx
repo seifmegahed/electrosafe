@@ -13,7 +13,6 @@ type CheckboxInputPropsType = {
 const CheckboxInput = ({
   fieldData,
   value,
-  error,
   onChange,
 }: CheckboxInputPropsType) => {
   const { name, span, label } = fieldData;
@@ -22,7 +21,6 @@ const CheckboxInput = ({
     <FormControlLabel
       sx={{
         gridColumn: `span ${span}`,
-        colors: `${error ? "error" : "primary"}`,
       }}
       label={label}
       control={

@@ -2,17 +2,12 @@
 import { SyntheticEvent, useState } from "react";
 // Firebase
 // MUI
-import { Tabs, Tab, Typography, Box, Button } from "@mui/material";
+import { Tabs, Tab, Box } from "@mui/material";
 // Components
 import FormContainer from "../../Containers/FormContainer";
 import TextFieldGenerator from "./TextFieldGenerator";
-import {
-  formButtonStyle,
-  singleButtonFormContainerStyle,
-} from "../../../globalConstants";
-import { Add } from "@mui/icons-material";
-import GridWrapper from "../../Containers/GridWrapper";
 import { FieldsPropsTypes } from "../../../globalTypes";
+import { extractPureDataFromForm } from "../../../utils/conversions";
 // Types
 
 interface TabPanelProps {
@@ -53,7 +48,7 @@ const FieldGenerator2 = () => {
   };
 
   const handleSubmit = (values: FieldsPropsTypes) => {
-    console.log(values);
+    console.log(extractPureDataFromForm(values));
   };
 
   const tabs = [

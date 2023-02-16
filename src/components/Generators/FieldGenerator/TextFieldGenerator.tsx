@@ -29,6 +29,7 @@ import {
 import AutoForm from "../../Forms/AutoForm";
 import { Button } from "@mui/material";
 import { Add } from "@mui/icons-material";
+import { labelToName } from "../../../utils/conversions";
 
 const fields = [
   labelField,
@@ -74,6 +75,16 @@ const initValues: TextFieldPropsType = {
   postFix: "",
 };
 
+const mirrorNameToLabel = (state: TextFieldPropsType, value: string) => {
+  if (state.name === labelToName(state.label))
+    return {
+      ...state,
+      label: value,
+      name: labelToName(value),
+    };
+  return { ...state, label: value };
+};
+
 const TextFieldGenerator = ({
   onSubmit,
 }: {
@@ -84,7 +95,9 @@ const TextFieldGenerator = ({
   const [values, setValues] = useState(initValues);
 
   const handleChange = (name: string, value: ValueType) => {
-    setValues((prev) => ({ ...prev, [name]: value }));
+    if (name === "label")
+      setValues((prev) => mirrorNameToLabel(prev, value as string));
+    else setValues((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = () => {

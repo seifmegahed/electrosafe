@@ -15,9 +15,11 @@ import SpanSlider from "../../InputFields/SpanSlider";
 import {
   OptionType,
   SpanType,
+  FieldsPropsTypes,
   TextFieldPropsType,
   TextFieldTypesType,
   ValueType,
+  GenericObject,
 } from "../../../globalTypes";
 
 //Constants
@@ -30,6 +32,7 @@ import {
   singleButtonFormContainerStyle,
 } from "../../../globalConstants";
 import { mirrorNameToLabel } from "../../../utils/conversions";
+import { checkFormValidity, initFormErrors } from "../../../utils/validation";
 
 const fields = [
   labelField,
@@ -79,10 +82,32 @@ type TextFieldGeneratorProps = {
   onSubmit: (values: TextFieldPropsType) => void;
 };
 
+const initErrors = (keys: string[]) => {
+  let errors: { [key: string]: boolean } = {};
+  keys.forEach((key) => (errors[key] = false));
+  return errors;
+};
+
+const checkValidity = (fields: FieldsPropsTypes[], values: GenericObject) => {
+  let errors: { [key: string]: boolean } = {};
+  let state = false;
+  fields.forEach((field) => {
+    if (field.required) {
+      const value = values[field.name];
+      if (value === "" || value === null || !(value as OptionType[]).length) {
+        errors[field.name] = true;
+        state = true;
+      }
+    }
+  });
+  return { errors, state };
+};
+
 const TextFieldGenerator = ({ onSubmit }: TextFieldGeneratorProps) => {
   const passValues = onSubmit;
-
+  const initErrorValues = initFormErrors(Object.keys(initValues));
   const [values, setValues] = useState(initValues);
+  const [errors, setErrors] = useState(initErrorValues);
 
   const handleChange = (name: string, value: ValueType) => {
     if (name === "label")
@@ -91,6 +116,10 @@ const TextFieldGenerator = ({ onSubmit }: TextFieldGeneratorProps) => {
   };
 
   const handleSubmit = () => {
+    const errorCheck = checkFormValidity(fields, values);
+
+    if (errorCheck.state)
+      setErrors({ ...initErrorValues, ...errorCheck.errors });
     passValues(values);
   };
 
@@ -102,7 +131,12 @@ const TextFieldGenerator = ({ onSubmit }: TextFieldGeneratorProps) => {
         onChange={(value) => handleChange("span", value)}
         display={true}
       />
-      <AutoForm fields={fields} values={values} onChange={handleChange} />
+      <AutoForm
+        fields={fields}
+        values={values}
+        errors={errors}
+        onChange={handleChange}
+      />
       <div style={singleButtonFormContainerStyle}>
         <Button
           onClick={handleSubmit}

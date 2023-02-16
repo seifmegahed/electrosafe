@@ -23,6 +23,7 @@ const containerStyle = {
 type AutoFormProps = {
   fields: FieldsPropsTypes[];
   values: GenericObject;
+  errors?: { [key: string]: boolean };
   onChange: ChangeCallbackTypes;
 };
 
@@ -34,8 +35,7 @@ const initValues = {
   lister: [],
 };
 
-const AutoForm = ({ fields, values, onChange }: AutoFormProps) => {
-  const [errors, setErrors] = useState<{ [key: string]: boolean }>({});
+const AutoForm = ({ fields, values, errors, onChange }: AutoFormProps) => {
   const handleChange = onChange;
 
   return (
@@ -47,7 +47,7 @@ const AutoForm = ({ fields, values, onChange }: AutoFormProps) => {
             fieldData={fieldData}
             value={values?.[fieldData.name] || initValues[fieldData.input]}
             onChange={handleChange}
-            error={errors[fieldData.name] || false}
+            error={errors?.[fieldData.name] || false}
           />
         );
       })}

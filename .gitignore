@@ -15,7 +15,9 @@ dist-ssr
 .env
 .firebase
 .vscode
+
 # Editor directories and files
+.VSCodeCounter
 .vscode/*
 !.vscode/extensions.json
 .idea

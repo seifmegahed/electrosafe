@@ -15,11 +15,9 @@ import SpanSlider from "../../InputFields/SpanSlider";
 import {
   OptionType,
   SpanType,
-  FieldsPropsTypes,
   TextFieldPropsType,
   TextFieldTypesType,
   ValueType,
-  GenericObject,
 } from "../../../globalTypes";
 
 //Constants
@@ -31,8 +29,11 @@ import {
   requiredField,
   singleButtonFormContainerStyle,
 } from "../../../globalConstants";
+
+// Functions
 import { mirrorNameToLabel } from "../../../utils/conversions";
-import { checkFormValidity, initFormErrors } from "../../../utils/validation";
+import { checkFormValidity } from "../../../utils/validation";
+import { initFormErrors } from "../../../utils/formInit";
 
 const fields = [
   labelField,
@@ -53,7 +54,7 @@ const fields = [
     label: "Pre Fix",
     input: "text" as "text",
     type: "text" as TextFieldTypesType,
-    required: true,
+    required: false,
     span: 2 as SpanType,
   },
   {
@@ -61,7 +62,7 @@ const fields = [
     label: "Post Fix",
     input: "text" as "text",
     type: "text" as TextFieldTypesType,
-    required: true,
+    required: false,
     span: 2 as SpanType,
   },
 ];
@@ -80,27 +81,6 @@ const initValues: TextFieldPropsType = {
 
 type TextFieldGeneratorProps = {
   onSubmit: (values: TextFieldPropsType) => void;
-};
-
-const initErrors = (keys: string[]) => {
-  let errors: { [key: string]: boolean } = {};
-  keys.forEach((key) => (errors[key] = false));
-  return errors;
-};
-
-const checkValidity = (fields: FieldsPropsTypes[], values: GenericObject) => {
-  let errors: { [key: string]: boolean } = {};
-  let state = false;
-  fields.forEach((field) => {
-    if (field.required) {
-      const value = values[field.name];
-      if (value === "" || value === null || !(value as OptionType[]).length) {
-        errors[field.name] = true;
-        state = true;
-      }
-    }
-  });
-  return { errors, state };
 };
 
 const TextFieldGenerator = ({ onSubmit }: TextFieldGeneratorProps) => {

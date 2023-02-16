@@ -50,7 +50,7 @@ const Topbar = ({ openSideNav }: TopbarProps) => {
       },
     },
     {
-      label: "logout",
+      label: "Logout",
       disabled: false,
       arabic: false,
       callback: () => {

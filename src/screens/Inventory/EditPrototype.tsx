@@ -1,33 +1,50 @@
 // React
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
 // Firebase
 // MUI
-import { Button, TextField } from "@mui/material";
 // Components
-import FormContainer from "../../components/Containers/FormContainer";
-import FieldGenerator from "../../components/Generators/FieldGenerator/FieldGenerator";
+import FormTester from "../../components/Forms/FormTester";
+import FieldGenerator2 from "../../components/Generators/FieldGenerator/FieldGenerator2";
+import { FieldsPropsTypes } from "../../globalTypes";
 // Types
 // Constants
-import {
-  formButtonStyle,
-  singleButtonFormContainerStyle,
-} from "../../globalConstants";
-import FieldGenerator2 from "../../components/Generators/FieldGenerator/FieldGenerator2";
+const templateFields: FieldsPropsTypes[] = [
+  {
+    name: "name",
+    label: "Name",
+    input: "text",
+    type: "text",
+    span: 2,
+    required: true,
+    editable: false,
+  },
+  {
+    name: "mpn",
+    label: "Part Number",
+    input: "text",
+    type: "text",
+    span: 2,
+    required: true,
+    editable: false,
+  },
+  {
+    name: "make",
+    label: "Make",
+    input: "text",
+    type: "text",
+    span: 2,
+    required: true,
+    editable: false,
+  },
+];
 
 const EditPrototype = () => {
   const location = useLocation();
+  const [fields, setFields] = useState<FieldsPropsTypes[]>(templateFields);
   return (
     <>
-      <FormContainer title={`${location.state?.label} Form Test`}>
-        <TextField label="Name" sx={{ gridColumn: "span 2" }} draggable />
-        <TextField label="Make" sx={{ gridColumn: "span 2" }} draggable />
-        <div style={singleButtonFormContainerStyle}>
-          <Button variant="contained" sx={formButtonStyle}>
-            Test
-          </Button>
-        </div>
-      </FormContainer>
-      <FieldGenerator />
+      <FormTester label={location.state?.label} fields={fields} />
       <FieldGenerator2 />
     </>
   );

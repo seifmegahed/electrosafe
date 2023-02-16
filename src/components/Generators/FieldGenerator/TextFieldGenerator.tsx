@@ -98,9 +98,11 @@ const TextFieldGenerator = ({ onSubmit }: TextFieldGeneratorProps) => {
   const handleSubmit = () => {
     const errorCheck = checkFormValidity(fields, values);
 
-    if (errorCheck.state)
-      setErrors({ ...initErrorValues, ...errorCheck.errors });
-    passValues(values);
+    setErrors({ ...initErrorValues, ...errorCheck.errors });
+    if (!errorCheck.state) {
+      passValues(values);
+      setValues(initValues);
+    }
   };
 
   return (

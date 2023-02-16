@@ -45,7 +45,9 @@ const EditPrototype = () => {
   return (
     <>
       <FormTester label={location.state?.label} fields={fields} />
-      <FieldGenerator2 />
+      <FieldGenerator2
+        onSubmit={(values) => setFields((prev) => [...prev, values])}
+      />
     </>
   );
 };

@@ -40,7 +40,12 @@ const a11yProps = (index: number) => {
   };
 };
 
-const FieldGenerator2 = () => {
+type FieldGenerator2Props = {
+  onSubmit: (values: FieldsPropsTypes) => void;
+};
+
+const FieldGenerator2 = ({ onSubmit }: FieldGenerator2Props) => {
+  const passValues = onSubmit;
   const [tabValue, setTabValue] = useState(0);
 
   const handleTabChange = (event: SyntheticEvent, newValue: number) => {
@@ -48,7 +53,7 @@ const FieldGenerator2 = () => {
   };
 
   const handleSubmit = (values: FieldsPropsTypes) => {
-    console.log(extractPureDataFromForm(values));
+    passValues(extractPureDataFromForm(values) as FieldsPropsTypes);
   };
 
   const tabs = [

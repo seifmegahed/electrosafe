@@ -25,7 +25,7 @@ export const checkFormValidity = (
   fields.forEach((field) => {
     if (field.required === true) {
       const value = values[field.name];
-      if (value === "" || value === null || !(value as OptionType[]).length) {
+      if (value === "" || value === null || !(value as OptionType[])?.length) {
         errors[field.name] = true;
         state = true;
       }

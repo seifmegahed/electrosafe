@@ -1,6 +1,6 @@
 import { Box, useMediaQuery, Typography } from "@mui/material";
 import { ReactElement } from "react";
-import { componentMaxWidth } from "../../globalConstants";
+import { componentBoxShadow, componentMaxWidth } from "../../globalConstants";
 
 type FormContainerProps = {
   children: ReactElement[] | ReactElement | any;
@@ -13,8 +13,8 @@ const FormContainer = ({ children, padding, title }: FormContainerProps) => {
   return (
     <Box
       display="grid"
-      p={isNonMobile ? !!padding ? padding : "30px" : "15px"}
-      boxShadow="rgba(0, 0, 0, 0.24) 0px 3px 8px"
+      p={isNonMobile ? (!!padding ? padding : "30px") : "15px"}
+      boxShadow={componentBoxShadow}
       borderRadius="10px"
       gridTemplateColumns="repeat(4, minmax(0, 1fr))"
       maxWidth={componentMaxWidth}
@@ -28,7 +28,11 @@ const FormContainer = ({ children, padding, title }: FormContainerProps) => {
         },
       }}
     >
-      {title && <Typography sx={{ gridColumn: "span 4" }} variant="h3">{title}</Typography>}
+      {title && (
+        <Typography sx={{ gridColumn: "span 4" }} variant="h3">
+          {title}
+        </Typography>
+      )}
       {children}
     </Box>
   );

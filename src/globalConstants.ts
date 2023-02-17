@@ -1,7 +1,9 @@
 import { OptionType, SpanType, TextFieldTypesType } from "./globalTypes";
 
 export const componentMaxWidth = "700px";
+export const componentBoxShadow = "rgba(0, 0, 0, 0.24) 0px 3px 8px";
 export const formButtonStyle = { maxWidth: "120px", width: "100%" };
+
 export const singleButtonFormContainerStyle = {
   gridColumn: "span 4",
   display: "flex",
@@ -101,10 +103,5 @@ export const FieldGeneratorFormFields = {
     editableField,
   ],
   lister: [nameField, labelField, requiredField, editableField],
-  checkbox: [
-    nameField,
-    labelField,
-    requiredField,
-    editableField,
-  ],
+  checkbox: [nameField, labelField, requiredField, editableField],
 };

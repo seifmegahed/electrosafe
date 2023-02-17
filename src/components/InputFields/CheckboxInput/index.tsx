@@ -1,5 +1,6 @@
 // MUI
 import { Checkbox, colors, FormControlLabel } from "@mui/material";
+import { Box } from "@mui/system";
 
 // Types
 import { CheckboxPropsType } from "../../../globalTypes";
@@ -18,19 +19,18 @@ const CheckboxInput = ({
   const { name, span, label } = fieldData;
   const handleChange = onChange;
   return (
-    <FormControlLabel
-      sx={{
-        gridColumn: `span ${span}`,
-      }}
-      label={label}
-      control={
-        <Checkbox
-          onChange={(event, checked) => handleChange(name, checked)}
-          name={name}
-          checked={(value as boolean) || false}
-        />
-      }
-    />
+    <Box sx={{ gridColumn: `span ${span}` }}>
+      <FormControlLabel
+        label={label}
+        control={
+          <Checkbox
+            onChange={(event, checked) => handleChange(name, checked)}
+            name={name}
+            checked={(value as boolean) || false}
+          />
+        }
+      />
+    </Box>
   );
 };
 

@@ -40,7 +40,6 @@ export const requiredField = {
   name: "required",
   input: "checkbox" as "checkbox",
   label: "Required",
-  default: false,
   span: 1 as SpanType,
 };
 
@@ -48,7 +47,6 @@ export const editableField = {
   name: "editable",
   input: "checkbox" as "checkbox",
   label: "Editable",
-  default: false,
   span: 1 as SpanType,
 };
 

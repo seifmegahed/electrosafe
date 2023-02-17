@@ -10,20 +10,21 @@ import { Edit } from "@mui/icons-material";
 // Components
 import SelectInput from "../../components/InputFields/SelectInput";
 import FormContainer from "../../components/Containers/FormContainer";
+import { OptionType } from "../../globalTypes";
 
 // Types
 
 const NewItem = () => {
   const [category, setCategory] = useState("");
   const [categories, setCategories] = useState<
-    { value: string; label: string }[]
+    OptionType[]
   >([]);
   const navigate = useNavigate();
 
   const getCategoryObject = (categoryValue: string) => {
-    let categoryObject = { label: "", value: "" };
+    let categoryObject = { label: "", name: "" };
     categories.forEach((item) => {
-      if (item.value === categoryValue) categoryObject = item;
+      if (item.name === categoryValue) categoryObject = item;
     });
     return categoryObject;
   };
@@ -55,18 +56,19 @@ const NewItem = () => {
       <SelectInput
         span={4}
         id="category-select"
+        name="category-select"
         label="Category"
         value={category}
         options={categories}
-        setValue={(value) => setCategory(value)}
+        setValue={(value) => setCategory((value as string) || "")}
         addOption={(option) =>
           addCategory(
-            { value: option.toLowerCase(), label: option },
+            { name: option.toLowerCase(), label: option },
             categories
           )
             .catch((error) => console.log(error))
             .then((value) =>
-              setCategories(value?.data as { value: string; label: string }[])
+              setCategories(value?.data as OptionType[])
             )
         }
       />

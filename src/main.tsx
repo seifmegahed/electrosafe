@@ -17,7 +17,7 @@ const theme = createTheme({
 });
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <AuthProvider>
@@ -26,5 +26,5 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         </BrowserRouter>
       </AuthProvider>
     </ThemeProvider>
-  </React.StrictMode>
+  // </React.StrictMode>
 );

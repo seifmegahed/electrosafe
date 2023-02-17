@@ -1,9 +1,9 @@
 // React
 import { useState } from "react";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 // MUI
-import { IconButton, Typography } from "@mui/material";
-import { Menu } from "@mui/icons-material";
+import { Typography } from "@mui/material";
 
 // Components
 import AccordionStyled from "../Containers/AccordionStyled";
@@ -16,36 +16,69 @@ import { componentBoxShadow, componentMaxWidth } from "../../globalConstants";
 
 const FormFieldsData = ({ fields }: { fields: FieldsPropsTypes[] }) => {
   const [expanded, setExpanded] = useState<number | false>(false);
+
   const handleExpand = (index: number) => {
     if (expanded === index) setExpanded(false);
     else setExpanded(index);
   };
   return (
-    <div
-      style={{
-        gridColumn: "span 4",
-        width: "100%",
-        maxWidth: componentMaxWidth,
-        boxShadow: componentBoxShadow,
-        borderRadius: "10px",
+    <DragDropContext
+      onDragEnd={(event) => {
+        console.log(event);
       }}
     >
-      {fields.map((field, index) => (
-        <AccordionStyled
-          key={index}
-          index={index}
-          expanded={expanded}
-          onExpand={handleExpand}
-          summary={
-            <Summary
-              title={field.input !== "toggle" ? field.label : field.name}
-              subtitle={field.input}
-            />
-          }
-          details={<Details field={field} />}
-        />
-      ))}
-    </div>
+      <Droppable droppableId="FieldsDataDroppable">
+        {(provided) => (
+          <div
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+            style={{
+              background: "#fefefe",
+              gridColumn: "span 4",
+              width: "100%",
+              maxWidth: componentMaxWidth,
+              boxShadow: componentBoxShadow,
+              borderRadius: "10px",
+            }}
+          >
+            {fields.map((field, index) => (
+              <Draggable
+                key={field.name}
+                index={index}
+                draggableId={field.name}
+              >
+                {(provided) => (
+                  <div
+                    key={field.name}
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                  >
+                    <AccordionStyled
+                      key={index}
+                      dragHandleProps={provided.dragHandleProps}
+                      draggable={false}
+                      index={index}
+                      expanded={expanded}
+                      onExpand={handleExpand}
+                      summary={
+                        <Summary
+                          title={
+                            field.input !== "toggle" ? field.label : field.name
+                          }
+                          subtitle={field.input}
+                        />
+                      }
+                      details={<Details field={field} />}
+                    />
+                  </div>
+                )}
+              </Draggable>
+            ))}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
+    </DragDropContext>
   );
 };
 
@@ -66,9 +99,6 @@ const Summary = ({ title, subtitle }: { title: string; subtitle: string }) => (
     >
       {`${subtitle} Field`.toUpperCase()}
     </Typography>
-    <IconButton>
-      <Menu />
-    </IconButton>
   </>
 );
 

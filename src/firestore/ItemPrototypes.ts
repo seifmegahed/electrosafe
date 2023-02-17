@@ -1,6 +1,6 @@
 import { firestore } from "../firebase-config";
 import { doc, collection, setDoc, getDoc } from "firebase/firestore";
-import { descendingSortArray, descendingSortObjectArray } from "../utils/sortFunctions";
+import { descendingSortObjectArray } from "../utils/sortFunctions";
 
 const itemPrototypesCollectionName = "itemPrototypes";
 const categoriesDocumentName = "categories";
@@ -15,9 +15,9 @@ const categoriesDocumentReference = doc(
   categoriesDocumentName
 );
 
-export const addCategory = async (category: {value: string; label: string}, categories: {value: string; label: string}[]) => {
+export const addCategory = async (category: {name: string; label: string}, categories: {name: string; label: string}[]) => {
   const newCategories = categories?.length
-    ? (descendingSortObjectArray([...categories, category], "label") as {value: string; label: string}[])
+    ? (descendingSortObjectArray([...categories, category], "label") as {name: string; label: string}[])
     : [category];
   return await setDoc(categoriesDocumentReference, {
     data: newCategories,

@@ -7,7 +7,7 @@ import { useLocation } from "react-router-dom";
 import FormTester from "../../components/Forms/FormTester";
 import FieldGenerator2 from "../../components/Generators/FieldGenerator/FieldGenerator2";
 import { FieldsPropsTypes } from "../../globalTypes";
-import FormFieldsData from "./FormFieldsData";
+import FormFieldsSorter from "./FormFieldsSorter";
 // Types
 // Constants
 const templateFields: FieldsPropsTypes[] = [
@@ -42,9 +42,13 @@ const templateFields: FieldsPropsTypes[] = [
 
 const FormEditor = ({ name }: { name: string }) => {
   const [fields, setFields] = useState<FieldsPropsTypes[]>(templateFields);
+
   return (
     <>
-      <FormFieldsData fields={fields} />
+      <FormFieldsSorter
+        fields={fields}
+        onSort={(values) => setFields(values)}
+      />
       <FormTester label={name} fields={fields} />
       <FieldGenerator2
         onSubmit={(values) => setFields((prev) => [...prev, values])}

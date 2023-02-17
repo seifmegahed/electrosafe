@@ -1,9 +1,15 @@
 // React
 import { useState } from "react";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import {
+  DragDropContext,
+  Draggable,
+  Droppable,
+  DropResult,
+  OnDragEndResponder,
+} from "react-beautiful-dnd";
 
 // MUI
-import { Typography } from "@mui/material";
+import { Button, IconButton, Typography } from "@mui/material";
 
 // Components
 import AccordionStyled from "../Containers/AccordionStyled";
@@ -13,20 +19,32 @@ import { FieldsPropsTypes, OptionType } from "../../globalTypes";
 
 // Constants
 import { componentBoxShadow, componentMaxWidth } from "../../globalConstants";
+import { Delete } from "@mui/icons-material";
 
-const FormFieldsData = ({ fields }: { fields: FieldsPropsTypes[] }) => {
+type FormFieldsSorterProps = {
+  fields: FieldsPropsTypes[],
+  onSort: (values: FieldsPropsTypes[]) => void
+}
+
+const FormFieldsSorter = ({ fields, onSort }: FormFieldsSorterProps) => {
   const [expanded, setExpanded] = useState<number | false>(false);
+
+  const [sorted, setSorted] = useState(fields);
+
+  const handleDrag = (result: DropResult) => {
+    if (!result.destination) return;
+    const temp = Array.from(fields);
+    const [reorderedItem] = temp.splice(result.source.index, 1);
+    temp.splice(result.destination.index, 0, reorderedItem);
+    onSort(temp);
+  };
 
   const handleExpand = (index: number) => {
     if (expanded === index) setExpanded(false);
     else setExpanded(index);
   };
   return (
-    <DragDropContext
-      onDragEnd={(event) => {
-        console.log(event);
-      }}
-    >
+    <DragDropContext onDragEnd={handleDrag}>
       <Droppable droppableId="FieldsDataDroppable">
         {(provided) => (
           <div
@@ -86,7 +104,7 @@ const Summary = ({ title, subtitle }: { title: string; subtitle: string }) => (
   <>
     <Typography
       variant="h6"
-      sx={{ alignSelf: "center", width: "33%", flexShrink: 0 }}
+      sx={{ alignSelf: "center", width: { xs: "100%" } }}
     >
       {title}
     </Typography>
@@ -95,6 +113,7 @@ const Summary = ({ title, subtitle }: { title: string; subtitle: string }) => (
         width: "100%",
         alignSelf: "center",
         color: "text.secondary",
+        display: { xs: "none", sm: "block" },
       }}
     >
       {`${subtitle} Field`.toUpperCase()}
@@ -106,6 +125,17 @@ const Details = ({ field }: { field: any }) => {
   const fieldKeys = Object.keys(field);
   return (
     <div style={{ gridColumn: "span 4", width: "100%" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          padding: "0 20px",
+        }}
+      >
+        <IconButton>
+          <Delete />
+        </IconButton>
+      </div>
       {fieldKeys.map((key, index) => (
         <div
           key={index}
@@ -116,7 +146,7 @@ const Details = ({ field }: { field: any }) => {
             borderBottom: "1px solid #e5e5e5",
           }}
         >
-          <Typography sx={{ width: "38%", flexShrink: 0 }}>
+          <Typography sx={{ width: "50%", flexShrink: 0 }}>
             {`${key.toUpperCase()}:`}
           </Typography>
           {key === "options" ? (
@@ -138,4 +168,4 @@ const Details = ({ field }: { field: any }) => {
   );
 };
 
-export default FormFieldsData;
+export default FormFieldsSorter;

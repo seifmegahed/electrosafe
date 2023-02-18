@@ -39,7 +39,11 @@ const templateFields: FieldsPropsTypes[] = [
     editable: false,
   },
 ];
-
+const nameCheckGuard = (value: FieldsPropsTypes, array: FieldsPropsTypes[]) => {
+  const exists = array.filter((item) => item.name === value.name);
+  console.log(exists.length);
+  return !exists.length;
+};
 const FormEditor = ({ name }: { name: string }) => {
   const [fields, setFields] = useState<FieldsPropsTypes[]>(templateFields);
 
@@ -51,7 +55,12 @@ const FormEditor = ({ name }: { name: string }) => {
       />
       <FormTester label={name} fields={fields} />
       <FieldGenerator2
-        onSubmit={(values) => setFields((prev) => [...prev, values])}
+        onSubmit={(values) => {
+          setFields((prev) => {
+            if (nameCheckGuard(values, prev)) return [...prev, values];
+            return prev;
+          });
+        }}
       />
     </>
   );

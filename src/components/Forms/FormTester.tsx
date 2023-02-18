@@ -37,6 +37,7 @@ const FormTester = ({ label, fields }: FormTesterProps) => {
 
   const handleSubmit = () => {
     const errorCheck = checkFormValidity(fields, values);
+    setErrors(initErrorValues);
     if (errorCheck.state)
       setErrors({ ...initErrorValues, ...errorCheck.errors });
     console.log(values);

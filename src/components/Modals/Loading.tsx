@@ -2,10 +2,10 @@ import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 
 type LoadingProps = {
-  state?: boolean
-}
+  state?: boolean;
+};
 
-const Loading = ({ state }:LoadingProps) => {
+const Loading = ({ state }: LoadingProps) => {
   return (
     <div>
       <Backdrop sx={{ color: "#fff", zIndex: "10002" }} open={state ?? true}>

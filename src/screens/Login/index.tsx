@@ -1,7 +1,6 @@
 // React
 import { useState } from "react";
-
-// Firebase
+import { useNavigate } from "react-router-dom";
 
 // MUI
 import { Box, Button, TextField, Typography } from "@mui/material";
@@ -14,11 +13,9 @@ import {
 import { useAuth } from "../../contexts/AuthProvider";
 
 // Components
-// import { Loading, FormContainer, PasswordField } from "../../components";
 import Loading from "../../components/Modals/Loading";
 import FormContainer from "../../components/Containers/FormContainer";
 import PasswordField from "../../components/InputFields/PasswordField";
-import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -31,16 +28,6 @@ const Login = () => {
   );
   const { login } = useAuth();
 
-  const handleKeyboard = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    const key = event.key;
-    const element = event.target;
-    if (key === "Enter") handleSubmit();
-    if (key === "Escape") {
-      if ((element as HTMLInputElement).id === "email") setEmail("");
-      if ((element as HTMLInputElement).id === "password") setPassword("");
-    }
-  };
-
   const handleSubmit = async () => {
     if (!checkEmailValidity(email) || !checkPasswordValidity(password)) {
       setError(true);
@@ -48,16 +35,26 @@ const Login = () => {
     } else {
       setLoading(true);
       await login(email, password)
-        .then((response) => {
+        .then(() => {
           setError(false);
           navigate("/home");
         })
-        .catch((error) => {
+        .catch((loginError) => {
           setError(true);
           setErrorMessage("wrong");
           setLoading(false);
-          console.log(error);
+          console.log(loginError);
         });
+    }
+  };
+
+  const handleKeyboard = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const { key } = event;
+    const element = event.target;
+    if (key === "Enter") handleSubmit();
+    if (key === "Escape") {
+      if ((element as HTMLInputElement).id === "email") setEmail("");
+      if ((element as HTMLInputElement).id === "password") setPassword("");
     }
   };
 
@@ -103,9 +100,7 @@ const Login = () => {
               </Typography>
             )}
             {error && errorMessage === "wrong" && (
-              <>
-                Would you like to reset your <a href="#">password ?</a>
-              </>
+              <>Would you like to reset your password ?</>
             )}
           </Box>
           <Box

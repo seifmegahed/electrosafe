@@ -1,11 +1,10 @@
 import "./index.css";
-import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
-import { AuthProvider } from "./contexts/AuthProvider";
 import { BrowserRouter } from "react-router-dom";
 import { createTheme, CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
+import { AuthProvider } from "./contexts/AuthProvider";
+import App from "./App";
 
 const theme = createTheme({
   palette: {
@@ -18,13 +17,13 @@ const theme = createTheme({
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   // <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <AuthProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </AuthProvider>
-    </ThemeProvider>
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <AuthProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </AuthProvider>
+  </ThemeProvider>
   // </React.StrictMode>
 );

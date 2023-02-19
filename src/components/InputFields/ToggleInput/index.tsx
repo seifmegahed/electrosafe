@@ -31,9 +31,7 @@ const ToggleInput = ({
       <div
         style={{
           display: "flex",
-          justifyContent: `${
-            index ? (index % 2 === 0 ? "flex-start" : "flex-end") : "flex-start"
-          }`,
+          justifyContent: `${index ?? 0 % 2 === 0 ? "flex-start" : "flex-end"}`,
           gridColumn: `span ${span}`,
         }}
       >
@@ -41,12 +39,12 @@ const ToggleInput = ({
           exclusive
           color="primary"
           value={value}
-          onChange={(event, value) => handleChange(name, value)}
+          onChange={(event, newValue) => handleChange(name, newValue)}
           sx={{ width: "100%" }}
         >
-          {options?.map((option, index) => (
+          {options?.map((option) => (
             <ToggleButton
-              key={index}
+              key={option.name}
               name={name}
               value={option}
               sx={{ minWidth: "70px", maxWidth: "150px", width: "100%" }}

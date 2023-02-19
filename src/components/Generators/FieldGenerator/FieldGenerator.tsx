@@ -40,7 +40,7 @@ const inputOptions = [
   { name: "file", label: "File" },
 ];
 
-export const FieldGenerator = () => {
+const FieldGenerator = () => {
   const [inputType, setInputType] = useState<InputType>();
   const [values, setValues] = useState<GenericObject>({});
   const [span, setSpan] = useState<SpanType>(2);

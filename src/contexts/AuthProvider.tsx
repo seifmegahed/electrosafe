@@ -1,5 +1,11 @@
 // React
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
 // Firebase
 import {
@@ -49,20 +55,23 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     sendPasswordResetEmail(auth, email);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setUser(user);
+    const unsubscribe = auth.onAuthStateChanged((userAuthData) => {
+      setUser(userAuthData);
       setLoading(false);
     });
     return () => unsubscribe();
   }, []);
 
-  const value: AuthContextModel = {
-    auth,
-    user,
-    login,
-    logout,
-    resetPassword,
-  };
+  const value: AuthContextModel = useMemo(
+    () => ({
+      auth,
+      user,
+      login,
+      logout,
+      resetPassword,
+    }),
+    [user]
+  );
 
   return (
     <AuthContext.Provider value={value}>

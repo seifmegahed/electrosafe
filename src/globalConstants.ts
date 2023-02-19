@@ -1,4 +1,9 @@
-import { OptionType, SpanType, TextFieldTypesType } from "./globalTypes";
+import {
+  CheckboxPropsType,
+  ListerFieldPropsType,
+  TextFieldPropsType,
+  ToggleFieldPropsType,
+} from "./globalTypes";
 
 export const componentMaxWidth = "700px";
 export const componentBoxShadow = "rgba(0, 0, 0, 0.24) 0px 3px 8px";
@@ -10,44 +15,44 @@ export const singleButtonFormContainerStyle = {
   justifyContent: "flex-end",
 };
 
-export const nameField = {
-  input: "text" as "text",
+export const nameField: TextFieldPropsType = {
+  input: "text",
   name: "name",
   label: "Name",
-  span: 2 as SpanType,
-  type: "text" as TextFieldTypesType,
+  span: 2,
+  type: "text",
   required: true,
 };
 
-export const labelField = {
+export const labelField: TextFieldPropsType = {
   name: "label",
   label: "Label",
-  input: "text" as "text",
-  type: "text" as TextFieldTypesType,
+  input: "text",
+  type: "text",
   required: true,
-  span: 2 as SpanType,
+  span: 2,
 };
 
-export const optionsField = {
+export const optionsField: ListerFieldPropsType = {
   name: "options",
   label: "Options",
-  input: "lister" as "lister",
+  input: "lister",
   required: true,
-  span: 4 as SpanType,
+  span: 4,
 };
 
-export const requiredField = {
+export const requiredField: CheckboxPropsType = {
   name: "required",
-  input: "checkbox" as "checkbox",
+  input: "checkbox",
   label: "Required",
-  span: 1 as SpanType,
+  span: 1,
 };
 
-export const editableField = {
+export const editableField: CheckboxPropsType = {
   name: "editable",
-  input: "checkbox" as "checkbox",
+  input: "checkbox",
   label: "Editable",
-  span: 1 as SpanType,
+  span: 1,
 };
 
 export const FieldGeneratorFormFields = {
@@ -56,31 +61,31 @@ export const FieldGeneratorFormFields = {
     nameField,
     {
       name: "type",
-      input: "toggle" as "toggle",
+      input: "toggle",
       options: [
         { name: "text", label: "Text" },
         { name: "number", label: "Number" },
       ],
-      span: 2 as SpanType,
-    },
+      span: 2,
+    } as ToggleFieldPropsType,
     requiredField,
     editableField,
     {
       name: "preFix",
       label: "Pre Fix",
-      input: "text" as "text",
-      type: "text" as TextFieldTypesType,
+      input: "text",
+      type: "text",
       required: true,
-      span: 2 as SpanType,
-    },
+      span: 2,
+    } as TextFieldPropsType,
     {
       name: "postFix",
       label: "Post Fix",
-      input: "text" as "text",
-      type: "text" as TextFieldTypesType,
+      input: "text",
+      type: "text",
       required: true,
-      span: 2 as SpanType,
-    },
+      span: 2,
+    } as TextFieldPropsType,
   ],
   select: [labelField, nameField, requiredField, editableField, optionsField],
   toggle: [nameField, requiredField, editableField, optionsField],
@@ -89,14 +94,14 @@ export const FieldGeneratorFormFields = {
     {
       name: "type",
       label: "Type",
-      input: "toggle" as "toggle",
+      input: "toggle",
       options: [
         { name: "image", label: "Image" },
         { name: "document", label: "Document" },
       ],
       required: true,
-      span: 2 as SpanType,
-    },
+      span: 2,
+    } as ToggleFieldPropsType,
     requiredField,
     editableField,
   ],

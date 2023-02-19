@@ -46,8 +46,8 @@ const NestedItem = ({
       <Divider sx={{ color: "background.paper" }} />
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          {item.subPages?.map((subItem, index) => (
-            <Box key={index}>
+          {item.subPages?.map((subItem) => (
+            <Box key={subItem.label}>
               <ListItemButton
                 onClick={() => navigate(subItem.path)}
                 sx={{ pl: 4, backgroundColor: "background.paper" }}

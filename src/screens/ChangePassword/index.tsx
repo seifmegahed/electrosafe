@@ -46,20 +46,7 @@ const ChangePassword = () => {
   const [errorMessage, setErrorMessage] = useState<null | string[]>(null);
   const [disabled, setDisabled] = useState(false);
 
-  const handleKeyboard = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    const key = event.key;
-    const element = event.target;
-    if (key === "Enter") handleSubmit();
-    if (key === "Escape") {
-      setFormData((prev) => ({
-        ...prev,
-        [(element as HTMLInputElement).id]: "",
-      }));
-      console.log((element as HTMLInputElement).id)
-    }
-  };
-
-  let errorMessages = {
+  const errorMessages = {
     format: {
       oldPassword: ["Password is incorrect"],
       newPassword: [
@@ -82,15 +69,19 @@ const ChangePassword = () => {
   };
 
   function timeout(ms: number) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
+    const promise = new Promise((resolve) => {
+      setTimeout(resolve, ms);
+    });
+    return promise;
   }
 
   const startCountDown = async (seconds: number) => {
-    for (let index = seconds; index >= 0; --index) {
+    for (let index = seconds; index >= 0; index -= 1) {
       setErrorMessage([
         ...errorMessages.error[AuthErrorCodes.TOO_MANY_ATTEMPTS_TRY_LATER],
         `You will be Logged out in ${index}`,
       ]);
+      // eslint-disable-next-line no-await-in-loop
       await timeout(1000);
     }
     logout();
@@ -162,8 +153,21 @@ const ChangePassword = () => {
       });
   };
 
+  const handleKeyboard = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const { key } = event;
+    const element = event.target;
+    if (key === "Enter") handleSubmit();
+    if (key === "Escape") {
+      setFormData((prev) => ({
+        ...prev,
+        [(element as HTMLInputElement).id]: "",
+      }));
+      console.log((element as HTMLInputElement).id);
+    }
+  };
+
   return (
-    <form style={{maxWidth: componentMaxWidth, width: "100%"}}>
+    <form style={{ maxWidth: componentMaxWidth, width: "100%" }}>
       <Loading state={loading} />
       <FormContainer title="Change Password">
         <PasswordField
@@ -204,7 +208,7 @@ const ChangePassword = () => {
           textAlign="center"
           flexDirection="column"
           sx={{ gridColumn: "span 4" }}
-          visibility={!!errorMessage ? "visible" : "hidden"}
+          visibility={errorMessage ? "visible" : "hidden"}
         >
           {errorMessage?.map((message) => (
             <Typography key={message} color="error">

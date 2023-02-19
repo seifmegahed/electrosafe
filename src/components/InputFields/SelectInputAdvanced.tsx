@@ -16,7 +16,7 @@ const filterOptions = (
   const isExisting = options.some((option) => inputValue === option.label);
   if (inputValue !== "" && !isExisting) {
     filtered.push({
-      inputValue: inputValue,
+      inputValue,
       label: `Add "${inputValue}"`,
       name: inputValue,
     });
@@ -47,16 +47,16 @@ const SelectInputAdvanced = ({
 }: SelectInputAdvancedPropsType) => {
   const handleChange = (
     event: SyntheticEvent<Element, Event>,
-    value: OptionType | null
+    newValue: OptionType | null
   ) => {
-    if (value && value.inputValue) {
+    if (newValue && newValue.inputValue) {
       const newOption = {
-        label: value.inputValue,
-        name: labelToName(value.inputValue),
+        label: newValue.inputValue,
+        name: labelToName(newValue.inputValue),
       };
       onChange(name, newOption);
       onAddOption(newOption);
-    } else onChange(name, value);
+    } else onChange(name, newValue);
   };
 
   return (
@@ -69,7 +69,7 @@ const SelectInputAdvanced = ({
       onKeyDown={onKeyDown}
       clearOnBlur
       handleHomeEndKeys
-      getOptionLabel={(option) => (option.label || "")}
+      getOptionLabel={(option) => option.label || ""}
       options={options}
       sx={{ gridColumn: `span ${span}` }}
       renderInput={(params) => <TextField {...params} label={label} />}

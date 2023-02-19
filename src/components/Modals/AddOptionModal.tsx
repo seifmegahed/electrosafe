@@ -29,17 +29,12 @@ const AddOptionModal = ({
   };
 
   const handleKeyboard = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    const key = event.key;
+    const { key } = event;
     if (key === "Enter") handleSubmit();
   };
 
   return (
-    <ModalWrapper
-      id={id}
-      title={title}
-      open={open}
-      handleClose={handleClose}
-    >
+    <ModalWrapper id={id} title={title} open={open} handleClose={handleClose}>
       <TextField
         label="New Option"
         value={newOption}

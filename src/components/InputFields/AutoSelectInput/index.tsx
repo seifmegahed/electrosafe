@@ -34,19 +34,20 @@ const AutoSelectInput = ({
       id={label}
       value={(value as OptionType) || null}
       inputValue={inputValue}
-      onInputChange={(event, value) => setInputValue(value)}
+      onInputChange={(event, newInputValue) => setInputValue(newInputValue)}
       options={(options as OptionType[]) || []}
       getOptionLabel={(option) => option.label}
       sx={{ width: "100%", gridColumn: `span ${span}` }}
       renderInput={(params) => (
         <TextField
+          // eslint-disable-next-line react/jsx-props-no-spreading
           {...params}
           helperText={error && "Required"}
           error={error}
           label={label}
         />
       )}
-      onChange={(event, value) => handleChange(name, value as OptionType)}
+      onChange={(event, newValue) => handleChange(name, newValue as OptionType)}
     />
   );
 };

@@ -1,6 +1,7 @@
 // React
 import { ChangeEvent, useState } from "react";
 // Firebase
+import { updateProfile, User } from "firebase/auth";
 
 // MUI
 import { Typography, Box, Divider, Button } from "@mui/material";
@@ -10,7 +11,6 @@ import FormContainer from "../../components/Containers/FormContainer";
 import Loading from "../../components/Modals/Loading";
 
 import { useAuth } from "../../contexts/AuthProvider";
-import { updateProfile, User } from "firebase/auth";
 
 // Types
 type UserAccountProps = {
@@ -18,7 +18,7 @@ type UserAccountProps = {
 };
 const UserAccount = ({ span }: UserAccountProps) => {
   const { user } = useAuth();
-  let initialValues = user?.displayName || "";
+  const initialValues = user?.displayName || "";
   const [change, setChange] = useState(false);
   const [userData, setUserData] = useState(initialValues);
   const [loading, setLoading] = useState(false);
@@ -72,7 +72,8 @@ const UserAccount = ({ span }: UserAccountProps) => {
               <img
                 src="../../assets/images/user.png"
                 style={{ maxWidth: "140px" }}
-              ></img>
+                alt=""
+              />
             </Box>
             <Box display="flex" flexDirection="column" width="100%">
               <Box display="flex" justifyContent="space-between">

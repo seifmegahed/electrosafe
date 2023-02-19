@@ -1,5 +1,4 @@
 import {
-  useTheme,
   MenuItem,
   Popper,
   ClickAwayListener,
@@ -7,7 +6,7 @@ import {
   Typography,
 } from "@mui/material";
 
-type menuItem = {
+type MenuItemType = {
   label: string;
   arabic: boolean;
   callback: () => void;
@@ -15,15 +14,48 @@ type menuItem = {
   color?: "error" | "primary" | "secondary";
 };
 
+const MenuItemSelector = ({
+  item,
+  lastItem,
+  handleClose,
+}: MenuItemSelectorProps) => {
+  const arabicMenuItemStyle = {
+    borderBottom: `1px solid #e1e1e1`,
+    justifyContent: "flex-end",
+    fontWeight: "bold",
+  };
+
+  const englishMenuItemStyle = {
+    borderBottom: `1px solid #e1e1e1`,
+  };
+  const menuStyleProps = () => {
+    if (item.arabic) return arabicMenuItemStyle;
+    return lastItem ? {} : englishMenuItemStyle;
+  };
+
+  return (
+    <MenuItem
+      disabled={item.disabled}
+      sx={menuStyleProps}
+      onClick={() => {
+        handleClose();
+        item.callback();
+      }}
+    >
+      <Typography color={item.color ?? undefined}>{item.label}</Typography>
+    </MenuItem>
+  );
+};
+
 type PopperMenuProps = {
-  menuItems: menuItem[];
+  menuItems: MenuItemType[];
   element: HTMLElement | null;
   handleClose: () => void;
   placement: "bottom-start" | "bottom-end";
 };
 
 type MenuItemSelectorProps = {
-  item: menuItem;
+  item: MenuItemType;
   lastItem: boolean;
   handleClose: () => void;
 };
@@ -43,13 +75,13 @@ const PopperMenu = ({
       anchorEl={element}
       open={open}
       placement={placement || "bottom-start"}
-      sx={{zIndex:1101}}
+      sx={{ zIndex: 1101 }}
     >
       <ClickAwayListener onClickAway={handleClose}>
-        <Paper sx={{ width: "180px", backgroundColor: "background.paper"}}>
+        <Paper sx={{ width: "180px", backgroundColor: "background.paper" }}>
           {menuItems.map((item, index) => (
             <MenuItemSelector
-              key={index}
+              key={item.label}
               item={item}
               lastItem={index + 1 === menuItems.length}
               handleClose={handleClose}
@@ -58,42 +90,6 @@ const PopperMenu = ({
         </Paper>
       </ClickAwayListener>
     </Popper>
-  );
-};
-
-const MenuItemSelector = ({
-  item,
-  lastItem,
-  handleClose,
-}: MenuItemSelectorProps) => {
-  const theme = useTheme();
-
-  const arabicMenuItemStyle = {
-    borderBottom: `1px solid #e1e1e1`,
-    justifyContent: "flex-end",
-    fontWeight: "bold",
-  };
-
-  const englishMenuItemStyle = {
-    borderBottom: `1px solid #e1e1e1`,
-  };
-  return (
-    <MenuItem
-      disabled={item.disabled}
-      sx={
-        item.arabic ? arabicMenuItemStyle : lastItem ? {} : englishMenuItemStyle
-      }
-      onClick={() => {
-        handleClose();
-        item.callback();
-      }}
-    >
-      {!!item.color ? (
-        <Typography color={item.color}>{item.label}</Typography>
-      ) : (
-        <>{item.label}</>
-      )}
-    </MenuItem>
   );
 };
 

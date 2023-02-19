@@ -1,5 +1,8 @@
-export const descendingSortObjectArray = (array: any[], field: string) => {
-  return array.sort(function (a, b) {
+export const descendingSortObjectArray = (
+  array: { [key: string]: string | number }[],
+  field: string
+) => {
+  return array.sort((a, b) => {
     if (a[field] > b[field]) {
       return 1;
     }
@@ -11,7 +14,7 @@ export const descendingSortObjectArray = (array: any[], field: string) => {
 };
 
 export const descendingSortArray = (array: string[] | number[]) => {
-  return array.sort(function (a, b) {
+  return array.sort((a, b) => {
     if (a > b) {
       return 1;
     }

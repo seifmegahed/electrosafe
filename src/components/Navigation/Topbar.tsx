@@ -1,5 +1,6 @@
 // React
 import { useState, MouseEvent } from "react";
+import { useNavigate } from "react-router-dom";
 
 // Firebase
 
@@ -10,7 +11,6 @@ import { Menu, Person } from "@mui/icons-material";
 // Components
 import { useAuth } from "../../contexts/AuthProvider";
 import PopperMenu from "../Menus/PopperMenu";
-import { useNavigate } from "react-router-dom";
 
 // Types
 type TopbarProps = {

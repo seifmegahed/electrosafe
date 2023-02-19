@@ -7,7 +7,6 @@ import { TextFieldPropsType } from "../../../globalTypes";
 type TextInputPropsType = {
   fieldData: TextFieldPropsType;
   value: string | number;
-  index?: number;
   error?: boolean;
   onChange: (name: string, value: string | number) => void;
 };
@@ -22,7 +21,7 @@ const getInputFixProps = (
         <InputAdornment position="start">{preFix}</InputAdornment>
       ),
     };
-  else if (postFix && postFix !== "")
+  if (postFix && postFix !== "")
     return {
       endAdornment: <InputAdornment position="end">{postFix}</InputAdornment>,
     };
@@ -43,8 +42,8 @@ const TextInput = ({
       label={label}
       sx={{ gridColumn: `span ${span}` }}
       helperText={error && "Required"}
-      type={type ? (typeof type === "string" ? type : type?.name) : "text"}
-      value={(value as String | number) || ""}
+      type={typeof type === "string" ? type : type?.name ?? "text"}
+      value={(value as string | number) || ""}
       error={error ?? false}
       onChange={(event) => handleChange(name, event.target.value)}
       InputProps={getInputFixProps(preFix, postFix)}

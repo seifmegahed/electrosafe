@@ -1,8 +1,4 @@
-import {
-  FieldsPropsTypes,
-  GenericObject,
-  OptionType,
-} from "../globalTypes";
+import { FieldsPropsTypes, GenericObject, OptionType } from "../globalTypes";
 
 export const labelToName = (value: string) =>
   value.toLowerCase().replace(/ /g, "-");
@@ -14,7 +10,7 @@ export const labelToOption = (label: string) => ({
 
 export const extractPureDataFromForm = (data: GenericObject) => {
   const keys = Object.keys(data);
-  let newData: GenericObject = {};
+  const newData: GenericObject = {};
   keys.forEach((key) => {
     if (typeof data[key] === "object") {
       const object = data[key];

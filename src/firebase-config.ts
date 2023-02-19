@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { getFirestore, connectFirestoreEmulator } from "@firebase/firestore";
 import { getAuth, connectAuthEmulator } from "firebase/auth";
 import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";

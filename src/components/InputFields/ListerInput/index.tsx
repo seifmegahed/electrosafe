@@ -16,6 +16,10 @@ import {
   OptionsChangeCallback,
 } from "../../../globalTypes";
 
+import { labelToOption } from "../../../utils/conversions";
+import AddButtonAdornment from "./AddButtonAdornment";
+import ListOption from "./ListOption";
+
 type ListerPropsType = {
   fieldData: ListerFieldPropsType;
   value: OptionType[];
@@ -23,20 +27,16 @@ type ListerPropsType = {
   onChange?: OptionsChangeCallback;
 };
 
-import { labelToOption } from "../../../utils/conversions";
-import AddButtonAdornment from "./AddButtonAdornment";
-import ListOption from "./ListOption";
-
 const removeOption = (option: OptionType, options: OptionType[]) =>
   options.filter((item) => item.name !== option.name);
+
+const checkIncluded = (option: OptionType, options: OptionType[]) => {
+  return !!options?.filter((item) => item.name === option.name).length;
+};
 
 const addOption = (option: OptionType, options: OptionType[]) => {
   if (checkIncluded(option, options)) return options;
   return [...options, option];
-};
-
-const checkIncluded = (option: OptionType, options: OptionType[]) => {
-  return !!options?.filter((item) => item.name === option.name).length;
 };
 
 const ListerInput = ({
@@ -75,8 +75,12 @@ const ListerInput = ({
       />
       {error && <FormHelperText>Required</FormHelperText>}
       <div style={{ paddingTop: "10px" }}>
-        {(options || []).map((option, index) => (
-          <ListOption key={index} option={option} onRemove={handleRemove} />
+        {(options || []).map((option) => (
+          <ListOption
+            key={option.name}
+            option={option}
+            onRemove={handleRemove}
+          />
         ))}
       </div>
     </FormControl>

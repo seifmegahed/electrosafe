@@ -84,12 +84,13 @@ const FieldSelector = ({
       return (
         <CheckboxInput
           value={value as boolean}
-          error={error}
           fieldData={fieldData as CheckboxPropsType}
           onChange={handleChange as BooleanChangeCallback}
         />
       );
     }
+    default:
+      return null;
   }
 };
 

@@ -3,6 +3,7 @@ import { FieldsPropsTypes, GenericObject, OptionType } from "../globalTypes";
 type FieldValidityType = (value: string) => boolean;
 
 export const checkEmailValidity: FieldValidityType = (value) => {
+  // eslint-disable-next-line no-useless-escape
   if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) return true;
   return false;
 };
@@ -20,7 +21,7 @@ export const checkFormValidity = (
   fields: FieldsPropsTypes[],
   values: GenericObject
 ) => {
-  let errors: { [key: string]: boolean } = {};
+  const errors: { [key: string]: boolean } = {};
   let state = false;
   fields.forEach((field) => {
     if (field.required === true) {

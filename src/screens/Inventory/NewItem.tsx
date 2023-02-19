@@ -1,11 +1,12 @@
 // React
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-// Firebase
-import { addCategory, getCategories } from "../../firestore/ItemPrototypes";
 // MUI
 import { Button, IconButton } from "@mui/material";
 import { Edit } from "@mui/icons-material";
+
+// Firebase
+import { addCategory, getCategories } from "../../firestore/ItemPrototypes";
 
 // Components
 import SelectInput from "../../components/InputFields/SelectInput";
@@ -16,9 +17,7 @@ import { OptionType } from "../../globalTypes";
 
 const NewItem = () => {
   const [category, setCategory] = useState("");
-  const [categories, setCategories] = useState<
-    OptionType[]
-  >([]);
+  const [categories, setCategories] = useState<OptionType[]>([]);
   const navigate = useNavigate();
 
   const getCategoryObject = (categoryValue: string) => {
@@ -62,14 +61,9 @@ const NewItem = () => {
         options={categories}
         setValue={(value) => setCategory((value as string) || "")}
         addOption={(option) =>
-          addCategory(
-            { name: option.toLowerCase(), label: option },
-            categories
-          )
+          addCategory({ name: option.toLowerCase(), label: option }, categories)
             .catch((error) => console.log(error))
-            .then((value) =>
-              setCategories(value?.data as OptionType[])
-            )
+            .then((value) => setCategories(value?.data as OptionType[]))
         }
       />
       <div
@@ -81,7 +75,7 @@ const NewItem = () => {
       >
         <Button
           variant="contained"
-          disabled={true}
+          disabled
           sx={{ maxWidth: "120px", width: "100%" }}
         >
           Save

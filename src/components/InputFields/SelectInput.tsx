@@ -9,6 +9,18 @@ import { Add } from "@mui/icons-material";
 import AddOptionModal from "../Modals/AddOptionModal";
 import { OptionType, SpanType, ValueType } from "../../globalTypes";
 
+type SelectInputProps = {
+  id?: string;
+  name: string;
+  span: SpanType;
+  label: string;
+  value: ValueType;
+  options?: OptionType[];
+  setValue?: (value: ValueType) => void | undefined;
+  onChange?: (name: string, value: ValueType) => void | undefined;
+  addOption?: (value: string) => void;
+};
+
 const SelectInput = ({
   id,
   name,
@@ -19,17 +31,7 @@ const SelectInput = ({
   setValue,
   addOption,
   onChange,
-}: {
-  id?: string;
-  name: string;
-  span: SpanType;
-  label: string;
-  value: ValueType;
-  options?: OptionType[];
-  setValue?: (value: ValueType) => void | undefined;
-  onChange?: (name: string, value: ValueType) => void | undefined;
-  addOption?: (value: string) => void;
-}) => {
+}: SelectInputProps) => {
   const [Modal, setModal] = useState(false);
 
   return (
@@ -39,7 +41,7 @@ const SelectInput = ({
         title={`Add New ${label}`}
         open={Modal}
         handleClose={() => setModal(false)}
-        addOption={(value) => addOption && addOption(value)}
+        addOption={(newValue) => addOption && addOption(newValue)}
       />
       <FormControl fullWidth>
         <InputLabel id={`${id}-select-label`}>{label}</InputLabel>
@@ -53,13 +55,13 @@ const SelectInput = ({
           label={label}
         >
           {addOption && (
-            <MenuItem value={""} onClick={() => setModal(true)}>
+            <MenuItem value="" onClick={() => setModal(true)}>
               Add Option
               <Add />
             </MenuItem>
           )}
-          {options?.map((option, index) => (
-            <MenuItem key={index} value={option.name}>
+          {options?.map((option) => (
+            <MenuItem key={option.name} value={option.name}>
               {option.label}
             </MenuItem>
           ))}

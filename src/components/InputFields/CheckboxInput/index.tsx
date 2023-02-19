@@ -1,13 +1,12 @@
 // MUI
-import { Checkbox, colors, FormControlLabel } from "@mui/material";
-import { Box } from "@mui/system";
+import { Box, Checkbox, FormControlLabel } from "@mui/material";
 
 // Types
 import { CheckboxPropsType } from "../../../globalTypes";
+
 type CheckboxInputPropsType = {
   fieldData: CheckboxPropsType;
   value: boolean;
-  error?: boolean;
   onChange: (name: string, value: boolean) => void;
 };
 

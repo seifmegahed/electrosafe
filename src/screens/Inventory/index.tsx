@@ -8,7 +8,7 @@ import FormContainer from "../../components/Containers/FormContainer";
 // Components
 import { componentMaxWidth } from "../../globalConstants";
 // Types
-let x = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+const x = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 const Inventory = () => {
   const navigate = useNavigate();
   return (

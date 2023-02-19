@@ -40,7 +40,6 @@ const FormTester = ({ label, fields }: FormTesterProps) => {
     setErrors(initErrorValues);
     if (errorCheck.state)
       setErrors({ ...initErrorValues, ...errorCheck.errors });
-    console.log(values);
   };
 
   return (

@@ -2,7 +2,6 @@ import {
   FieldsPropsTypes,
   GenericObject,
   OptionType,
-  TextFieldPropsType,
 } from "../globalTypes";
 
 export const labelToName = (value: string) =>

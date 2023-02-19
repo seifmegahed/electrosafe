@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 // React
 import { SyntheticEvent, useState } from "react";
 
@@ -37,7 +38,7 @@ const TabPanel = (props: TabPanelProps) => {
         {children}
       </div>
     );
-  return <></>;
+  return null;
 };
 
 const a11yProps = (index: number) => {
@@ -89,12 +90,12 @@ const FieldGenerator2 = ({ onSubmit }: FieldGenerator2Props) => {
       >
         <Tabs value={tabValue} onChange={handleTabChange} variant="scrollable">
           {tabs.map((tab, index) => (
-            <Tab key={index} label={tab.label} {...a11yProps(index)} />
+            <Tab key={tab.label} label={tab.label} {...a11yProps(index)} />
           ))}
         </Tabs>
       </Box>
       {tabs.map((tab, index) => (
-        <TabPanel key={index} value={tabValue} index={index}>
+        <TabPanel key={tab.label} value={tabValue} index={index}>
           {tab.component}
         </TabPanel>
       ))}

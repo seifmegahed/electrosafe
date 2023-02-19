@@ -12,20 +12,14 @@ import GridWrapper from "../../Containers/GridWrapper";
 import SpanSlider from "../../InputFields/SpanSlider";
 
 // Types
-import {
-  OptionType,
-  CheckboxPropsType,
-  SpanType,
-  ValueType,
-} from "../../../globalTypes";
+import { CheckboxPropsType, SpanType, ValueType } from "../../../globalTypes";
 
-//Constants
+// Constants
 import {
   editableField,
   formButtonStyle,
   labelField,
   nameField,
-  optionsField,
   requiredField,
   singleButtonFormContainerStyle,
 } from "../../../globalConstants";
@@ -80,7 +74,7 @@ const CheckboxFieldGenerator = ({ onSubmit }: CheckboxFieldGeneratorProps) => {
       <SpanSlider
         value={values.span}
         onChange={(value) => handleChange("span", value)}
-        display={true}
+        display
       />
       <AutoForm
         fields={fields}

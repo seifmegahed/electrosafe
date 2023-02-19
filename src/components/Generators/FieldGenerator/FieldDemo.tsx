@@ -47,9 +47,8 @@ const FieldDemo = ({
       <FieldSelector
         fieldData={fieldData}
         value={value}
-        onChange={(name: string, value: ValueType) => {
-          setValue(value);
-          console.log(value);
+        onChange={(name: string, newValue: ValueType) => {
+          setValue(newValue);
         }}
       />
       {fieldData.span !== 4 && (

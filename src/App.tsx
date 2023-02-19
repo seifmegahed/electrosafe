@@ -22,7 +22,7 @@ const EditPrototype = lazy(() => import("./screens/Inventory/EditPrototype"));
 const App = () => {
   const { user } = useAuth();
 
-  return !!user ? (
+  return user ? (
     <div className="App">
       <NavComponents />
       <PageWrapper>

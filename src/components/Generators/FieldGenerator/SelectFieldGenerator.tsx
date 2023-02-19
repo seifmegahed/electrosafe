@@ -19,7 +19,7 @@ import {
   ValueType,
 } from "../../../globalTypes";
 
-//Constants
+// Constants
 import {
   editableField,
   formButtonStyle,
@@ -88,7 +88,7 @@ const SelectFieldGenerator = ({ onSubmit }: SelectFieldGeneratorProps) => {
       <SpanSlider
         value={values.span}
         onChange={(value) => handleChange("span", value)}
-        display={true}
+        display
       />
       <AutoForm
         fields={fields}

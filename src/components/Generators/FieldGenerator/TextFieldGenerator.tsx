@@ -13,14 +13,12 @@ import SpanSlider from "../../InputFields/SpanSlider";
 
 // Types
 import {
-  OptionType,
-  SpanType,
+  FieldsPropsTypes,
   TextFieldPropsType,
-  TextFieldTypesType,
   ValueType,
 } from "../../../globalTypes";
 
-//Constants
+// Constants
 import {
   editableField,
   formButtonStyle,
@@ -35,44 +33,44 @@ import { mirrorNameToLabel } from "../../../utils/conversions";
 import { checkFormValidity } from "../../../utils/validation";
 import { initFormErrors } from "../../../utils/formInit";
 
-const fields = [
+const fields: FieldsPropsTypes[] = [
   labelField,
   nameField,
   {
     name: "type",
-    input: "toggle" as "toggle",
+    input: "toggle",
     options: [
       { name: "text", label: "Text" },
       { name: "number", label: "Number" },
     ],
-    span: 2 as SpanType,
+    span: 2,
   },
   requiredField,
   editableField,
   {
     name: "preFix",
     label: "Pre Fix",
-    input: "text" as "text",
-    type: "text" as TextFieldTypesType,
+    input: "text",
+    type: "text",
     required: false,
-    span: 2 as SpanType,
+    span: 2,
   },
   {
     name: "postFix",
     label: "Post Fix",
-    input: "text" as "text",
-    type: "text" as TextFieldTypesType,
+    input: "text",
+    type: "text",
     required: false,
-    span: 2 as SpanType,
+    span: 2,
   },
 ];
 
 const initValues: TextFieldPropsType = {
   input: "text",
-  span: 2 as SpanType,
+  span: 2,
   label: "",
   name: "",
-  type: { name: "text", label: "Text" } as OptionType,
+  type: { name: "text", label: "Text" },
   required: false,
   editable: false,
   preFix: "",
@@ -113,7 +111,7 @@ const TextFieldGenerator = ({ onSubmit }: TextFieldGeneratorProps) => {
       <SpanSlider
         value={values.span}
         onChange={(value) => handleChange("span", value)}
-        display={true}
+        display
       />
       <AutoForm
         fields={fields}

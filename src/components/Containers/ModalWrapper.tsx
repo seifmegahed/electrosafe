@@ -7,7 +7,7 @@ import { Box, Modal, Typography } from "@mui/material";
 
 // Types
 const ModalStyle = {
-  position: "absolute" as "absolute",
+  position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",

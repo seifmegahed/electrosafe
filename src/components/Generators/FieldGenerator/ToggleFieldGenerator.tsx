@@ -19,11 +19,10 @@ import {
   ValueType,
 } from "../../../globalTypes";
 
-//Constants
+// Constants
 import {
   editableField,
   formButtonStyle,
-  labelField,
   nameField,
   optionsField,
   requiredField,
@@ -34,12 +33,7 @@ import {
 import { checkFormValidity } from "../../../utils/validation";
 import { initFormErrors } from "../../../utils/formInit";
 
-const fields = [
-  nameField,
-  requiredField,
-  editableField,
-  optionsField,
-];
+const fields = [nameField, requiredField, editableField, optionsField];
 
 const initValues: ToggleFieldPropsType = {
   input: "toggle",
@@ -50,11 +44,11 @@ const initValues: ToggleFieldPropsType = {
   editable: true,
 };
 
-type toggleFieldGeneratorProps = {
+type ToggleFieldGeneratorProps = {
   onSubmit: (values: ToggleFieldPropsType) => void;
 };
 
-const ToggleFieldGenerator = ({ onSubmit }: toggleFieldGeneratorProps) => {
+const ToggleFieldGenerator = ({ onSubmit }: ToggleFieldGeneratorProps) => {
   const passValues = onSubmit;
   const initErrorValues = initFormErrors(Object.keys(initValues));
   const [values, setValues] = useState(initValues);
@@ -80,7 +74,7 @@ const ToggleFieldGenerator = ({ onSubmit }: toggleFieldGeneratorProps) => {
       <SpanSlider
         value={values.span}
         onChange={(value) => handleChange("span", value)}
-        display={true}
+        display
       />
       <AutoForm
         fields={fields}

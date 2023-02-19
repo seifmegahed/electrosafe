@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 // React
 // Firebase
 // MUI
@@ -13,7 +14,6 @@ import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import { DragIndicator, ExpandMore } from "@mui/icons-material";
 import { ReactElement } from "react";
-import { IconButton } from "@mui/material";
 import { DraggableProvidedDragHandleProps } from "react-beautiful-dnd";
 
 const Accordion = styled((props: AccordionProps) => (
@@ -55,7 +55,7 @@ type AccordionStyledProps = {
   expanded: number | false;
   onExpand: (value: number) => void;
   summary: ReactElement;
-  draggable: Boolean;
+  draggable: boolean;
   dragHandleProps: DraggableProvidedDragHandleProps | null | undefined;
   details: ReactElement;
 };

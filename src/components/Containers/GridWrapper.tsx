@@ -1,11 +1,11 @@
 import { Box, useMediaQuery } from "@mui/material";
 import { ReactElement } from "react";
 
-type GridWrapper = {
-  children: ReactElement[] | ReactElement | any;
+type GridWrapperProps = {
+  children: ReactElement[] | ReactElement;
 };
 
-const GridWrapper = ({ children }: GridWrapper) => {
+const GridWrapper = ({ children }: GridWrapperProps) => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   return (
     <Box

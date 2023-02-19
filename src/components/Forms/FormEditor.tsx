@@ -1,11 +1,10 @@
 // React
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
 // Firebase
 // MUI
 // Components
-import FormTester from "../../components/Forms/FormTester";
-import FieldGenerator2 from "../../components/Generators/FieldGenerator/FieldGenerator2";
+import FormTester from "./FormTester";
+import FieldGenerator2 from "../Generators/FieldGenerator/FieldGenerator2";
 import { FieldsPropsTypes } from "../../globalTypes";
 import FormFieldsSorter from "./FormFieldsSorter";
 // Types

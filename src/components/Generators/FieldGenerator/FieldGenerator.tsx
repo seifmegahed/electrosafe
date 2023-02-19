@@ -115,9 +115,14 @@ export const FieldGenerator = () => {
         options={inputOptions}
         setValue={(value) => setInputType(value as InputType)}
       />
-      {!!inputType && (
-        <AutoForm fields={fields} values={values} onChange={handleChange} />
-      )}
+      {inputType ? (
+        <AutoForm
+          fields={fields}
+          values={values}
+          onChange={handleChange}
+          errors={errors}
+        />
+      ) : null}
       <div style={singleButtonFormContainerStyle}>
         <Button
           variant="contained"

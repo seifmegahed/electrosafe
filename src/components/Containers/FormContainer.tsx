@@ -3,7 +3,7 @@ import { ReactElement } from "react";
 import { componentBoxShadow, componentMaxWidth } from "../../globalConstants";
 
 type FormContainerProps = {
-  children: ReactElement[] | ReactElement | any;
+  children: (ReactElement | null)[] | ReactElement;
   padding?: string;
   title?: string;
 };
@@ -13,7 +13,7 @@ const FormContainer = ({ children, padding, title }: FormContainerProps) => {
   return (
     <Box
       display="grid"
-      p={isNonMobile ? (!!padding ? padding : "30px") : "15px"}
+      p={isNonMobile ? padding ?? "30px" : "15px"}
       boxShadow={componentBoxShadow}
       borderRadius="10px"
       gridTemplateColumns="repeat(4, minmax(0, 1fr))"

@@ -33,5 +33,7 @@ module.exports = {
         unnamedComponents: "arrow-function",
       },
     ],
+    "react/require-default-props": "off",
+    "no-console": 0,
   },
 };

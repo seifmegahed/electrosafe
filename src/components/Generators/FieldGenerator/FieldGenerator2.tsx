@@ -94,11 +94,13 @@ const FieldGenerator2 = ({ onSubmit }: FieldGenerator2Props) => {
           ))}
         </Tabs>
       </Box>
-      {tabs.map((tab, index) => (
-        <TabPanel key={tab.label} value={tabValue} index={index}>
-          {tab.component}
-        </TabPanel>
-      ))}
+      <>
+        {tabs.map((tab, index) => (
+          <TabPanel key={tab.label} value={tabValue} index={index}>
+            {tab.component}
+          </TabPanel>
+        ))}
+      </>
     </FormContainer>
   );
 };

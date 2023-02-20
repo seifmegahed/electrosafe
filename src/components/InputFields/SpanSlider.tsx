@@ -13,7 +13,9 @@ const SpanSlider = ({ value, onChange, display }: SpanSliderProps) => {
     <Slider
       value={value}
       name="span"
-      onChange={(e, newValue) => handleChange(newValue as SpanType)}
+      onChange={(e, newValue) => {
+        return handleChange(newValue as SpanType);
+      }}
       step={null}
       min={0}
       max={4}

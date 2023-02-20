@@ -24,13 +24,13 @@ const AddOptionModal = ({
   handleClose,
   addOption,
 }: AddOptionModalProps) => {
-  const [newOption, setNewOption] = useState("");
+  const [newOption, setNewOption] = useState<string>();
 
   const handleSubmit = () => {
+    if (!newOption) return;
     handleClose();
     addOption({ label: newOption, name: labelToName(newOption) });
-    setNewOption("");
-    console.log({ label: newOption, name: labelToName(newOption) });
+    setNewOption(undefined);
   };
 
   const handleKeyboard = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -48,6 +48,7 @@ const AddOptionModal = ({
       />
       <Box display="flex" width="100%" justifyContent="flex-end">
         <Button
+          disabled={!newOption}
           variant="contained"
           fullWidth
           sx={{ maxWidth: "120px" }}

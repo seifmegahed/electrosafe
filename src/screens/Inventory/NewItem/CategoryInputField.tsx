@@ -5,7 +5,10 @@ import { Button } from "@mui/material";
 import { Add } from "@mui/icons-material";
 
 // Firebase
-import { getCategories } from "../../../firestore/ItemPrototypes";
+import {
+  getCategories,
+  updateCategories,
+} from "../../../firestore/ItemPrototypes";
 
 // Components
 import GridWrapper from "../../../components/Containers/GridWrapper";
@@ -15,6 +18,7 @@ import AutoSelectInput from "../../../components/InputFields/AutoSelectInput";
 import { OptionType, SelectFieldPropsType } from "../../../globalTypes";
 import AddOptionModal from "../../../components/Modals/AddOptionModal";
 import { isDuplicateOption } from "../../../utils/validation";
+import { descendingSortObjectArray } from "../../../utils/sortFunctions";
 
 type CategoryFieldProps = {
   value?: OptionType;
@@ -38,9 +42,26 @@ const CategoryInputField = ({ value, onChange }: CategoryFieldProps) => {
     getCategories()
       .catch((error) => console.log(error))
       .then((result) => {
-        setCategories(result?.data()?.data);
+        if (result?.data()?.data) setCategories(result?.data()?.data);
       });
   }, []);
+
+  const handleNewOption = (newValue: OptionType) => {
+    if (categories) {
+      if (isDuplicateOption(newValue, categories)) return;
+      updateCategories(
+        descendingSortObjectArray(
+          [...categories, newValue],
+          "name"
+        ) as OptionType[]
+      )
+        .catch((error) => console.log(error))
+        .then((response) => {
+          const newCategories = response?.data;
+          if (newCategories) setCategories(newCategories);
+        });
+    }
+  };
 
   return (
     <div
@@ -57,19 +78,13 @@ const CategoryInputField = ({ value, onChange }: CategoryFieldProps) => {
         open={modal}
         title="Category"
         handleClose={() => setModal(false)}
-        addOption={(newCategory) =>
-          setCategories((prev) => {
-            if (!prev) return [newCategory];
-            if (isDuplicateOption(newCategory, prev)) return prev;
-            return [...prev, newCategory];
-          })
-        }
+        addOption={handleNewOption}
       />
       <GridWrapper>
         <AutoSelectInput
           fieldData={categoryFieldData}
           value={value as OptionType}
-          onChange={(name, newValue) => handleChange(newValue)}
+          onChange={(ignore, newValue) => handleChange(newValue)}
         />
       </GridWrapper>
       <Button

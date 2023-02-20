@@ -34,3 +34,9 @@ export const checkFormValidity = (
   });
   return { errors, state };
 };
+
+export const isDuplicateOption = (value: OptionType, array: OptionType[]) =>
+  !array.reduce(
+    (exists, currentValue) => exists && currentValue.name !== value.name,
+    true
+  );

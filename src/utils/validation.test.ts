@@ -8,6 +8,7 @@ import {
   checkEmailValidity,
   checkFormValidity,
   checkPasswordValidity,
+  isDuplicateOption,
 } from "./validation";
 
 const label = "Test Label";
@@ -61,6 +62,21 @@ const testPasswords = [
   "Test1234!", // true
 ];
 
+const option1 = {
+  name: "test-1",
+  label: "Test 1",
+};
+
+const option2 = {
+  name: "test-2",
+  label: "Test 2",
+};
+
+const option3 = {
+  name: "test-3",
+  label: "Test 3",
+};
+
 describe("Conversions", () => {
   it("Tests email validity", () => {
     expect(checkEmailValidity(testEmails[0])).toBeTruthy();
@@ -88,5 +104,11 @@ describe("Conversions", () => {
       errors: { test2: true, test3: true, test4: true },
       state: true,
     });
+  });
+  it("Test option duplicate function", () => {
+    expect(
+      isDuplicateOption(option1, [option1, option2, option3])
+    ).toBeTruthy();
+    expect(isDuplicateOption(option1, [option2, option3])).toBeFalsy();
   });
 });

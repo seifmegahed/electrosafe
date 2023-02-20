@@ -13,6 +13,8 @@ import AutoSelectInput from "../../../components/InputFields/AutoSelectInput";
 
 // Types
 import { OptionType, SelectFieldPropsType } from "../../../globalTypes";
+import AddOptionModal from "../../../components/Modals/AddOptionModal";
+import { isDuplicateOption } from "../../../utils/validation";
 
 type CategoryFieldProps = {
   value?: OptionType;
@@ -22,6 +24,7 @@ type CategoryFieldProps = {
 const CategoryInputField = ({ value, onChange }: CategoryFieldProps) => {
   const handleChange = onChange;
   const [categories, setCategories] = useState<OptionType[]>([]);
+  const [modal, setModal] = useState(false);
 
   const categoryFieldData: SelectFieldPropsType = {
     name: "category",
@@ -49,6 +52,19 @@ const CategoryInputField = ({ value, onChange }: CategoryFieldProps) => {
         gap: "20px",
       }}
     >
+      <AddOptionModal
+        id="add-category"
+        open={modal}
+        title="Category"
+        handleClose={() => setModal(false)}
+        addOption={(newCategory) =>
+          setCategories((prev) => {
+            if (!prev) return [newCategory];
+            if (isDuplicateOption(newCategory, prev)) return prev;
+            return [...prev, newCategory];
+          })
+        }
+      />
       <GridWrapper>
         <AutoSelectInput
           fieldData={categoryFieldData}
@@ -56,7 +72,16 @@ const CategoryInputField = ({ value, onChange }: CategoryFieldProps) => {
           onChange={(name, newValue) => handleChange(newValue)}
         />
       </GridWrapper>
-      <Button variant="outlined" color="inherit" sx={{ height: "100%" }}>
+      <Button
+        variant="outlined"
+        color="inherit"
+        onClick={() => setModal(true)}
+        style={{
+          height: "100%",
+          color: "#888",
+          borderColor: "#c5c5c5",
+        }}
+      >
         <Add fontSize="large" />
       </Button>
     </div>

@@ -6,6 +6,16 @@ import { Box, Button, TextField } from "@mui/material";
 
 // Components
 import ModalWrapper from "../Containers/ModalWrapper";
+import { labelToName } from "../../utils/conversions";
+import { OptionType } from "../../globalTypes";
+
+type AddOptionModalProps = {
+  id: string;
+  open: boolean;
+  title: string;
+  handleClose: () => void;
+  addOption: (value: OptionType) => void;
+};
 
 const AddOptionModal = ({
   id,
@@ -13,19 +23,14 @@ const AddOptionModal = ({
   title,
   handleClose,
   addOption,
-}: {
-  id: string;
-  open: boolean;
-  title: string;
-  handleClose: () => void;
-  addOption: (value: string) => void;
-}) => {
+}: AddOptionModalProps) => {
   const [newOption, setNewOption] = useState("");
 
   const handleSubmit = () => {
     handleClose();
-    addOption(newOption);
+    addOption({ label: newOption, name: labelToName(newOption) });
     setNewOption("");
+    console.log({ label: newOption, name: labelToName(newOption) });
   };
 
   const handleKeyboard = (event: React.KeyboardEvent<HTMLInputElement>) => {

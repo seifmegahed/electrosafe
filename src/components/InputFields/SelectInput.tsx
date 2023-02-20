@@ -21,7 +21,7 @@ type SelectInputProps = {
   addOption?: (value: string) => void;
 };
 
-const SelectInput = ({
+const SelectInputWithModal = ({
   id,
   name,
   span,
@@ -71,4 +71,4 @@ const SelectInput = ({
   );
 };
 
-export default SelectInput;
+export default SelectInputWithModal;

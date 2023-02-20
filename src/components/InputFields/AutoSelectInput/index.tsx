@@ -32,6 +32,9 @@ const AutoSelectInput = ({
       clearOnBlur
       clearOnEscape
       id={label}
+      isOptionEqualToValue={(option, checkValue) =>
+        option.name === checkValue.name
+      }
       value={(value as OptionType) || null}
       inputValue={inputValue}
       onInputChange={(event, newInputValue) => setInputValue(newInputValue)}

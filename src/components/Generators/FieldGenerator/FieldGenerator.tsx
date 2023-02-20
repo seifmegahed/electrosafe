@@ -7,7 +7,7 @@ import { Add } from "@mui/icons-material";
 
 // Components
 import FormContainer from "../../Containers/FormContainer";
-import SelectInput from "../../InputFields/SelectInput";
+import SelectInputWithModal from "../../InputFields/SelectInput";
 import AutoForm from "../../Forms/AutoForm";
 import SpanSlider from "../../InputFields/SpanSlider";
 import FieldDemo from "./FieldDemo";
@@ -107,7 +107,7 @@ const FieldGenerator = () => {
         onChange={(value) => setSpan(value)}
         display={!!inputType}
       />
-      <SelectInput
+      <SelectInputWithModal
         span={4}
         name="input-type"
         label="Input Type"

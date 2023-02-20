@@ -3,84 +3,121 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // MUI
 import { Button, IconButton } from "@mui/material";
-import { Edit } from "@mui/icons-material";
+import { Add, Edit } from "@mui/icons-material";
 
 // Firebase
-import { addCategory, getCategories } from "../../firestore/ItemPrototypes";
+import { getCategories } from "../../firestore/ItemPrototypes";
 
 // Components
-import SelectInput from "../../components/InputFields/SelectInput";
 import FormContainer from "../../components/Containers/FormContainer";
-import { OptionType } from "../../globalTypes";
+import GridWrapper from "../../components/Containers/GridWrapper";
+import AutoSelectInput from "../../components/InputFields/AutoSelectInput";
 
 // Types
+import { OptionType, SelectFieldPropsType } from "../../globalTypes";
 
-const NewItem = () => {
-  const [category, setCategory] = useState("");
-  const [categories, setCategories] = useState<OptionType[]>([]);
+const EditOption = ({ category }: { category?: OptionType }) => {
   const navigate = useNavigate();
+  return (
+    <IconButton
+      onClick={() => {
+        if (category)
+          navigate("/inventory/edit-prototype", {
+            state: category,
+          });
+      }}
+      sx={{
+        display: "flex",
+        visibility: `${category ? "visible" : "hidden"}`,
+      }}
+    >
+      <Edit fontSize="large" />
+    </IconButton>
+  );
+};
 
-  const getCategoryObject = (categoryValue: string) => {
-    let categoryObject = { label: "", name: "" };
-    categories.forEach((item) => {
-      if (item.name === categoryValue) categoryObject = item;
-    });
-    return categoryObject;
+type CategoryFieldProps = {
+  value?: OptionType;
+  onChange: (value: OptionType) => void;
+};
+
+const CategoryField = ({ value, onChange }: CategoryFieldProps) => {
+  const handleChange = onChange;
+  const [categories, setCategories] = useState<OptionType[]>([]);
+
+  const categoryFieldData: SelectFieldPropsType = {
+    name: "category",
+    label: "Category",
+    input: "select",
+    span: 4,
+    options: categories,
   };
 
   useEffect(() => {
     getCategories()
       .catch((error) => console.log(error))
-      .then((value) => {
-        setCategories(value?.data()?.data);
+      .then((result) => {
+        setCategories(result?.data()?.data);
       });
   }, []);
 
   return (
-    <FormContainer title="New Item">
-      <IconButton
-        onClick={() =>
-          navigate("/inventory/edit-prototype", {
-            state: getCategoryObject(category),
-          })
-        }
-        sx={{
-          position: "absolute",
-          right: "20px",
-          visibility: `${category === "" ? "hidden" : "visible"}`,
-        }}
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        gridColumn: "span 4",
+        gap: "20px",
+      }}
+    >
+      <GridWrapper>
+        <AutoSelectInput
+          fieldData={categoryFieldData}
+          value={value as OptionType}
+          onChange={(name, newValue) => handleChange(newValue)}
+        />
+      </GridWrapper>
+      <Button variant="outlined" color="inherit" sx={{ height: "100%" }}>
+        <Add fontSize="large" />
+      </Button>
+    </div>
+  );
+};
+
+const SaveButton = () => {
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "flex-end",
+        gridColumn: "span 4",
+      }}
+    >
+      <Button
+        variant="contained"
+        disabled
+        sx={{ maxWidth: "120px", width: "100%" }}
       >
-        <Edit fontSize="large" />
-      </IconButton>
-      <SelectInput
-        span={4}
-        id="category-select"
-        name="category-select"
-        label="Category"
+        Save
+      </Button>
+    </div>
+  );
+};
+
+const NewItem = () => {
+  const [category, setCategory] = useState<OptionType>();
+
+  return (
+    <FormContainer
+      title="New Item"
+      iconButton={<EditOption category={category} />}
+    >
+      <CategoryField
         value={category}
-        options={categories}
-        setValue={(value) => setCategory((value as string) || "")}
-        addOption={(option) =>
-          addCategory({ name: option.toLowerCase(), label: option }, categories)
-            .catch((error) => console.log(error))
-            .then((value) => setCategories(value?.data as OptionType[]))
-        }
+        onChange={(value) => setCategory(value)}
       />
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "flex-end",
-          gridColumn: "span 4",
-        }}
-      >
-        <Button
-          variant="contained"
-          disabled
-          sx={{ maxWidth: "120px", width: "100%" }}
-        >
-          Save
-        </Button>
-      </div>
+      <SaveButton />
     </FormContainer>
   );
 };

@@ -19,6 +19,7 @@ module.exports = {
     project: "./tsconfig.json",
   },
   plugins: ["react", "@typescript-eslint", "prettier"],
+  ignorePatterns: ["cypress/*/*.*", "cypress.config.ts"],
   rules: {
     "@typescript-eslint/quotes": [
       "error",

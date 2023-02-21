@@ -42,6 +42,7 @@ const Inventory = () => {
         <Button
           size="large"
           variant="contained"
+          name="newItem"
           onClick={() => navigate("new")}
           sx={{ minWidth: "110px" }}
         >

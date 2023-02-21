@@ -50,6 +50,7 @@ const AddOptionModal = ({
     >
       <TextField
         label="New Option"
+        name="newOption"
         value={newOption ?? null}
         onChange={(e) => setNewOption(e.target.value)}
         onKeyDown={handleKeyboard}
@@ -59,6 +60,7 @@ const AddOptionModal = ({
           disabled={!newOption}
           variant="contained"
           fullWidth
+          name="saveOption"
           sx={{ maxWidth: "120px" }}
           onClick={handleSubmit}
         >

@@ -90,6 +90,7 @@ const CategoryInputField = ({ value, onChange }: CategoryFieldProps) => {
       <Button
         variant="outlined"
         color="inherit"
+        name="newCategory"
         onClick={() => setModal(true)}
         style={{
           height: "100%",

@@ -123,6 +123,7 @@ const TextFieldGenerator = ({ onSubmit }: TextFieldGeneratorProps) => {
         <Button
           onClick={handleSubmit}
           variant="contained"
+          name="textfield-add"
           sx={formButtonStyle}
           endIcon={<Add />}
         >

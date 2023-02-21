@@ -75,6 +75,7 @@ const Login = () => {
             id="email"
             label="Email"
             type="email"
+            name="email"
             autoComplete="email"
             variant="outlined"
             value={email}
@@ -85,6 +86,7 @@ const Login = () => {
           />
           <PasswordField
             id="password"
+            name="password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
             span={4}

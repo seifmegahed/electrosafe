@@ -100,6 +100,7 @@ const SelectFieldGenerator = ({ onSubmit }: SelectFieldGeneratorProps) => {
         <Button
           onClick={handleSubmit}
           variant="contained"
+          name="selectField-add"
           sx={formButtonStyle}
           endIcon={<Add />}
         >

@@ -3,7 +3,7 @@ import { Add } from "@mui/icons-material";
 
 const AddButtonAdornment = ({ onClick }: { onClick: () => void }) => (
   <InputAdornment position="end">
-    <IconButton onClick={onClick}>
+    <IconButton name="add-lister-option" onClick={onClick}>
       <Add />
     </IconButton>
   </InputAdornment>

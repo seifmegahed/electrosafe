@@ -45,7 +45,7 @@ const ToggleInput = ({
           {options?.map((option) => (
             <ToggleButton
               key={option.name}
-              name={name}
+              name={`${name}-${option.name}`}
               value={option}
               sx={{ minWidth: "70px", maxWidth: "150px", width: "100%" }}
             >

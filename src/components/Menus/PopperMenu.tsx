@@ -37,6 +37,7 @@ const MenuItemSelector = ({
     <MenuItem
       disabled={item.disabled}
       sx={menuStyleProps}
+      id={`menu-item-${item.label.toLowerCase()}`}
       onClick={() => {
         handleClose();
         item.callback();

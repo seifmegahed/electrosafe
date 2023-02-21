@@ -40,6 +40,7 @@ const TextInput = ({
   return (
     <TextField
       label={label}
+      name={name}
       sx={{ gridColumn: `span ${span}` }}
       helperText={error && "Required"}
       type={typeof type === "string" ? type : type?.name ?? "text"}

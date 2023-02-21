@@ -9,6 +9,7 @@ const EditOptionButton = ({ category }: { category?: OptionType }) => {
   const navigate = useNavigate();
   return (
     <IconButton
+      id="edit-category-form"
       onClick={() => {
         if (category)
           navigate("/inventory/edit-prototype", {

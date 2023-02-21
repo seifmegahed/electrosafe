@@ -95,6 +95,7 @@ const Topbar = ({ openSideNav }: TopbarProps) => {
             <>
               <IconButton
                 onClick={openUserMenu}
+                name="user-menu"
                 size="large"
                 edge="end"
                 color="inherit"

@@ -14,6 +14,7 @@ type PasswordFieldProps = {
     event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => void;
   id?: string;
+  name?: string;
   span?: number;
   label?: string;
   error?: boolean;
@@ -22,6 +23,7 @@ type PasswordFieldProps = {
 
 const PasswordField = ({
   id,
+  name,
   span,
   value,
   error,
@@ -45,6 +47,7 @@ const PasswordField = ({
       </InputLabel>
       <OutlinedInput
         id={id}
+        name={name ?? ""}
         type={showPassword ? "text" : "password"}
         endAdornment={
           <InputAdornment position="end">

@@ -35,6 +35,7 @@ const NestedItem = ({
       <ListItem disablePadding selected={selected}>
         <ListItemButton>
           <ListItemText
+            id={`nav-${item.label.toLowerCase()}`}
             primary={item.label}
             onClick={() => navigate(item.path)}
           />

@@ -4,7 +4,7 @@ import { useState } from "react";
 // MUI
 // Components
 import FormTester from "./FormTester";
-import FieldGenerator2 from "../Generators/FieldGenerator/FieldGenerator2";
+import FieldGenerator from "../Generators/FieldGenerator";
 import { FieldsPropsTypes } from "../../globalTypes";
 import FormFieldsSorter from "./FormFieldsSorter";
 // Types
@@ -53,7 +53,7 @@ const FormEditor = ({ name }: { name: string }) => {
         onSort={(values) => setFields(values)}
       />
       <FormTester label={name} fields={fields} />
-      <FieldGenerator2
+      <FieldGenerator
         onSubmit={(values) => {
           setFields((prev) => {
             if (nameCheckGuard(values, prev)) return [...prev, values];

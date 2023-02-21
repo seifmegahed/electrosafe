@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Divider } from "@mui/material";
 
 // Components
-import FieldSelector from "../../InputFields/FieldSelector";
+import FieldSelector from "./FieldSelector";
 
 // Types
 import {
@@ -13,7 +13,7 @@ import {
   ValueType,
   FieldsPropsTypes,
   OptionType,
-} from "../../../globalTypes";
+} from "../../globalTypes";
 
 const fieldDisplayStyle = {
   gridColumn: "span 4",

@@ -52,7 +52,7 @@ type FieldGenerator2Props = {
   onSubmit: (values: FieldsPropsTypes) => void;
 };
 
-const FieldGenerator2 = ({ onSubmit }: FieldGenerator2Props) => {
+const FieldGenerator = ({ onSubmit }: FieldGenerator2Props) => {
   const passValues = onSubmit;
   const [tabValue, setTabValue] = useState(0);
 
@@ -105,4 +105,4 @@ const FieldGenerator2 = ({ onSubmit }: FieldGenerator2Props) => {
   );
 };
 
-export default FieldGenerator2;
+export default FieldGenerator;

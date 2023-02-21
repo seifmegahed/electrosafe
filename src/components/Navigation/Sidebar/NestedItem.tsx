@@ -4,9 +4,9 @@
 import { ChevronRight, ExpandMore } from "@mui/icons-material";
 import {
   Box,
+  Button,
   Collapse,
   Divider,
-  IconButton,
   List,
   ListItem,
   ListItemButton,
@@ -39,9 +39,16 @@ const NestedItem = ({
             onClick={() => navigate(item.path)}
           />
         </ListItemButton>
-        <IconButton onClick={() => setOpen((prev) => !prev)}>
+        <Button
+          onClick={() => setOpen((prev) => !prev)}
+          color="inherit"
+          sx={{
+            borderRadius: "0px",
+            padding: "12px",
+          }}
+        >
           {open ? <ExpandMore /> : <ChevronRight />}
-        </IconButton>
+        </Button>
       </ListItem>
       <Divider sx={{ color: "background.paper" }} />
       <Collapse in={open} timeout="auto" unmountOnExit>

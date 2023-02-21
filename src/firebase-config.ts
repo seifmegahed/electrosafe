@@ -1,6 +1,10 @@
 import { initializeApp } from "firebase/app";
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { getFirestore, connectFirestoreEmulator } from "@firebase/firestore";
+import {
+  connectFirestoreEmulator,
+  enableIndexedDbPersistence,
+  initializeFirestore,
+} from "@firebase/firestore";
 import { getAuth, connectAuthEmulator } from "firebase/auth";
 import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
 import { getStorage, connectStorageEmulator } from "firebase/storage";
@@ -14,9 +18,13 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APPID,
 };
 
+const isDev = import.meta.env.MODE !== "production";
+
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-export const firestore = getFirestore(app);
+export const firestore = initializeFirestore(app, {
+  experimentalAutoDetectLongPolling: true,
+});
 export const storage = getStorage(app);
 
 export const appCheck = initializeAppCheck(app, {
@@ -24,8 +32,9 @@ export const appCheck = initializeAppCheck(app, {
   isTokenAutoRefreshEnabled: true,
 });
 
-if (import.meta.env.MODE === "development") {
+if (isDev) {
   connectAuthEmulator(auth, "http://localhost:9099");
   connectFirestoreEmulator(firestore, "localhost", 8080);
+  enableIndexedDbPersistence(firestore);
   connectStorageEmulator(storage, "localhost", 9199);
 }

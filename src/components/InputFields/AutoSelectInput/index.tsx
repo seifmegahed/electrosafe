@@ -35,11 +35,11 @@ const AutoSelectInput = ({
       isOptionEqualToValue={(option, checkValue) =>
         option.name === checkValue.name
       }
-      value={(value as OptionType) || null}
+      value={value ?? null}
       inputValue={inputValue}
       onInputChange={(event, newInputValue) => setInputValue(newInputValue)}
       options={(options as OptionType[]) || []}
-      getOptionLabel={(option) => option.label}
+      getOptionLabel={(option) => option.label || ""}
       sx={{ width: "100%", gridColumn: `span ${span}` }}
       renderInput={(params) => (
         <TextField

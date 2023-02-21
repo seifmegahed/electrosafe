@@ -16,6 +16,7 @@ dist-ssr
 .firebase
 .vscode
 coverage
+mockdata
 
 # Editor directories and files
 .VSCodeCounter

@@ -7,7 +7,7 @@ import { Add } from "@mui/icons-material";
 
 // Components
 import AutoForm from "../../Forms/AutoForm";
-import FieldDemo from "./FieldDemo";
+import FieldDemo from "../../InputFields/FieldDemo";
 import GridWrapper from "../../Containers/GridWrapper";
 import SpanSlider from "../../InputFields/SpanSlider";
 

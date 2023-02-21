@@ -1,5 +1,5 @@
 // React
-// import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 // Firebase
 // MUI
 // Components
@@ -8,8 +8,8 @@ import FormEditor from "../../components/Forms/FormEditor";
 // Constants
 
 const EditPrototype = () => {
-  // const location = useLocation();
-  return <FormEditor name="sa" />;
+  const location = useLocation();
+  return <FormEditor name={location.state.label ?? ""} />;
 };
 
 export default EditPrototype;

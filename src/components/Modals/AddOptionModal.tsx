@@ -39,10 +39,18 @@ const AddOptionModal = ({
   };
 
   return (
-    <ModalWrapper id={id} title={title} open={open} handleClose={handleClose}>
+    <ModalWrapper
+      id={id}
+      title={title}
+      open={open}
+      handleClose={() => {
+        setNewOption(undefined);
+        handleClose();
+      }}
+    >
       <TextField
         label="New Option"
-        value={newOption}
+        value={newOption ?? null}
         onChange={(e) => setNewOption(e.target.value)}
         onKeyDown={handleKeyboard}
       />

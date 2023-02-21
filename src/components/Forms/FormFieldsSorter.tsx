@@ -87,7 +87,7 @@ const Details = ({ field }: { field: GenericObject }) => {
             </div>
           ) : (
             <Typography>
-              {(field[key] as string | boolean) ?? field[key]?.toString()}
+              {(field[key] as string | boolean) ? field[key]?.toString() : ""}
             </Typography>
           )}
         </div>

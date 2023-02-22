@@ -10,7 +10,7 @@ import SaveButton from "./SaveButton";
 
 // Types
 import { OptionType } from "../../../globalTypes";
-import { getCategories } from "../../../firestore/ItemPrototypes";
+import { getCategories } from "../firestore/forms";
 
 const NewItem = () => {
   const location = useLocation();

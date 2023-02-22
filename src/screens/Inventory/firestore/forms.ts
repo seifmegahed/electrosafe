@@ -5,9 +5,9 @@ import {
   getDoc,
   runTransaction,
 } from "firebase/firestore";
-import { firestore } from "../firebase-config";
-import { FieldsPropsTypes, OptionType } from "../globalTypes";
-import { descendingSortObjectArray } from "../utils/sortFunctions";
+import { firestore } from "../../../firebase-config";
+import { FieldsPropsTypes, OptionType } from "../../../globalTypes";
+import { descendingSortObjectArray } from "../../../utils/sortFunctions";
 
 const itemPrototypesCollectionName = "itemPrototypes";
 const categoriesDocumentName = "categories";

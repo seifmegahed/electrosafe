@@ -10,13 +10,14 @@ import FormContainer from "../../Containers/FormContainer";
 import TextFieldGenerator from "./TextFieldGenerator";
 import SelectFieldGenerator from "./SelectFieldGenerator";
 import ToggleFieldGenerator from "./ToggleFieldGenerator";
+import CheckboxFieldGenerator from "./CheckboxFieldGenerator";
 
 // Types
 import { FieldsPropsTypes } from "../../../globalTypes";
 
 // Functions
 import { extractPureDataFromForm } from "../../../utils/conversions";
-import CheckboxFieldGenerator from "./CheckboxFieldGenerator";
+import { isDuplicateField } from "../../../utils/validation";
 
 interface TabPanelProps {
   children: React.ReactNode;
@@ -49,10 +50,11 @@ const a11yProps = (index: number) => {
 };
 
 type FieldGenerator2Props = {
+  fields: FieldsPropsTypes[];
   onSubmit: (values: FieldsPropsTypes) => void;
 };
 
-const FieldGenerator = ({ onSubmit }: FieldGenerator2Props) => {
+const FieldGenerator = ({ fields, onSubmit }: FieldGenerator2Props) => {
   const passValues = onSubmit;
   const [tabValue, setTabValue] = useState(0);
 
@@ -61,7 +63,9 @@ const FieldGenerator = ({ onSubmit }: FieldGenerator2Props) => {
   };
 
   const handleSubmit = (values: FieldsPropsTypes) => {
-    passValues(extractPureDataFromForm(values) as FieldsPropsTypes);
+    const field = extractPureDataFromForm(values) as FieldsPropsTypes;
+    if (isDuplicateField(field, fields)) return;
+    passValues(field);
   };
 
   const tabs = [

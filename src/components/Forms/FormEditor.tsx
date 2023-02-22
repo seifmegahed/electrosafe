@@ -1,15 +1,17 @@
 // React
 import { useState } from "react";
-// Firebase
+
 // MUI
 import { Typography } from "@mui/material";
+
 // Components
 import FieldGenerator from "../Generators/FieldGenerator";
 import FormFieldsSorter from "./FormFieldsSorter";
 import FormPreview from "./FormPreview";
+
 // Types
 import { FieldsPropsTypes, OptionType } from "../../globalTypes";
-// Constants
+
 const templateFields: FieldsPropsTypes[] = [
   {
     name: "name",
@@ -39,28 +41,28 @@ const templateFields: FieldsPropsTypes[] = [
     editable: false,
   },
 ];
-const nameCheckGuard = (value: FieldsPropsTypes, array: FieldsPropsTypes[]) => {
-  const exists = array.filter((item) => item.name === value.name);
-  console.log(exists.length);
-  return !exists.length;
+
+type FormEditorProps = {
+  category: OptionType;
+  onSubmit: (fields: FieldsPropsTypes[]) => void;
 };
-const FormEditor = ({ category }: { category: OptionType }) => {
+
+const FormEditor = ({ category, onSubmit }: FormEditorProps) => {
   const [fields, setFields] = useState<FieldsPropsTypes[]>(templateFields);
+  const handleSubmit = () => onSubmit(fields);
 
   return (
     <>
       <Typography variant="h3">{`${category.label} Form Editor`}</Typography>
-      <FormPreview fields={fields} category={category} />
+      <FormPreview fields={fields} onSubmit={handleSubmit} />
       <FormFieldsSorter
         fields={fields}
         onSort={(values) => setFields(values)}
       />
       <FieldGenerator
+        fields={fields}
         onSubmit={(values) => {
-          setFields((prev) => {
-            if (nameCheckGuard(values, prev)) return [...prev, values];
-            return prev;
-          });
+          setFields((prev) => [...prev, values]);
         }}
       />
     </>

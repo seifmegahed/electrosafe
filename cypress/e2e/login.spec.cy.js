@@ -59,7 +59,7 @@ describe("Login spec", () => {
     const saveOptionButton = cy.get("button[name='saveOption']");
     newOptionInput.type(newOptionValue);
     saveOptionButton.click();
-    const categorySelectInput = cy.get("#Category");
+    const categorySelectInput = cy.get("#category");
     categorySelectInput.click();
     cy.contains(newOptionValue);
   });

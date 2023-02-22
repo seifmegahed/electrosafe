@@ -34,10 +34,7 @@ const App = () => {
             <Route path="/change-password" element={<ChangePassword />} />
             <Route path="/inventory" element={<Inventory />} />
             <Route path="/inventory/new" element={<NewItem />} />
-            <Route
-              path="/inventory/edit-prototype"
-              element={<EditPrototype />}
-            />
+            <Route path="/inventory/edit-form" element={<EditPrototype />} />
           </Routes>
         </Suspense>
       </PageWrapper>

@@ -2,12 +2,13 @@
 import { useState } from "react";
 // Firebase
 // MUI
+import { Typography } from "@mui/material";
 // Components
-import FormTester from "./FormTester";
 import FieldGenerator from "../Generators/FieldGenerator";
-import { FieldsPropsTypes } from "../../globalTypes";
 import FormFieldsSorter from "./FormFieldsSorter";
+import FormPreview from "./FormPreview";
 // Types
+import { FieldsPropsTypes, OptionType } from "../../globalTypes";
 // Constants
 const templateFields: FieldsPropsTypes[] = [
   {
@@ -43,16 +44,17 @@ const nameCheckGuard = (value: FieldsPropsTypes, array: FieldsPropsTypes[]) => {
   console.log(exists.length);
   return !exists.length;
 };
-const FormEditor = ({ name }: { name: string }) => {
+const FormEditor = ({ category }: { category: OptionType }) => {
   const [fields, setFields] = useState<FieldsPropsTypes[]>(templateFields);
 
   return (
     <>
+      <Typography variant="h3">{`${category.label} Form Editor`}</Typography>
+      <FormPreview fields={fields} category={category} />
       <FormFieldsSorter
         fields={fields}
         onSort={(values) => setFields(values)}
       />
-      <FormTester label={name} fields={fields} />
       <FieldGenerator
         onSubmit={(values) => {
           setFields((prev) => {

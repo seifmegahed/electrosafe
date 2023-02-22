@@ -12,7 +12,7 @@ const EditOptionButton = ({ category }: { category?: OptionType }) => {
       id="edit-category-form"
       onClick={() => {
         if (category)
-          navigate("/inventory/edit-prototype", {
+          navigate("/inventory/edit-form", {
             state: category,
           });
       }}

@@ -28,7 +28,6 @@ const AddOptionModal = ({
 
   const handleSubmit = () => {
     if (!newOption) return;
-    handleClose();
     addOption({ label: newOption, name: labelToName(newOption) });
     setNewOption(undefined);
   };

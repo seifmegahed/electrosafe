@@ -1,5 +1,7 @@
 // React
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 // MUI
 import { Button } from "@mui/material";
 import { Add } from "@mui/icons-material";
@@ -19,6 +21,7 @@ import { OptionType, SelectFieldPropsType } from "../../../globalTypes";
 import AddOptionModal from "../../../components/Modals/AddOptionModal";
 import { isDuplicateOption } from "../../../utils/validation";
 import { descendingSortObjectArray } from "../../../utils/sortFunctions";
+import Loading from "../../../components/Modals/Loading";
 
 type CategoryFieldProps = {
   value?: OptionType;
@@ -27,8 +30,10 @@ type CategoryFieldProps = {
 
 const CategoryInputField = ({ value, onChange }: CategoryFieldProps) => {
   const handleChange = onChange;
+  const navigate = useNavigate();
   const [categories, setCategories] = useState<OptionType[]>([]);
   const [modal, setModal] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const categoryFieldData: SelectFieldPropsType = {
     name: "category",
@@ -47,6 +52,7 @@ const CategoryInputField = ({ value, onChange }: CategoryFieldProps) => {
   }, []);
 
   const handleNewOption = (newValue: OptionType) => {
+    setLoading(true);
     if (categories) {
       if (isDuplicateOption(newValue, categories)) return;
       updateCategories(
@@ -58,8 +64,13 @@ const CategoryInputField = ({ value, onChange }: CategoryFieldProps) => {
         .catch((error) => console.log(error))
         .then((response) => {
           const newCategories = response?.data;
-          if (newCategories) setCategories(newCategories);
-        });
+          if (newCategories) {
+            navigate("/inventory/edit-form", {
+              state: newValue,
+            });
+          }
+        })
+        .finally(() => setLoading(false));
     }
   };
 
@@ -73,6 +84,7 @@ const CategoryInputField = ({ value, onChange }: CategoryFieldProps) => {
         gap: "20px",
       }}
     >
+      <Loading state={loading} />
       <AddOptionModal
         id="add-category"
         open={modal}

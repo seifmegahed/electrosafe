@@ -9,7 +9,7 @@ import FormEditor from "../../components/Forms/FormEditor";
 
 const EditPrototype = () => {
   const location = useLocation();
-  return <FormEditor name={location.state.label ?? ""} />;
+  return <FormEditor category={location.state} />;
 };
 
 export default EditPrototype;

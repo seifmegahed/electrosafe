@@ -9,21 +9,30 @@ import CategoryInputField from "./CategoryInputField";
 import SaveButton from "./SaveButton";
 
 // Types
-import { OptionType } from "../../../globalTypes";
-import { getCategories } from "../firestore/forms";
+import { FieldsPropsTypes, OptionType, ValueType } from "../../../globalTypes";
+import { getCategories, getForms } from "../firestore/forms";
+import AutoForm from "../../../components/Forms/AutoForm";
 
 const NewItem = () => {
   const location = useLocation();
   const [category, setCategory] = useState<OptionType>();
   const [categories, setCategories] = useState<OptionType[]>([]);
+  const [forms, setForms] = useState<{ [key: string]: FieldsPropsTypes[] }>();
 
   useEffect(() => {
-    getCategories()
-      .catch((error) => console.log(error))
-      .then((result) => {
-        if (result?.data()?.data) setCategories(result?.data()?.data);
-        if (location.state) setCategory(location.state);
-      });
+    const getData = async () => {
+      await getCategories()
+        .catch((error) => console.log(error))
+        .then((result) => {
+          if (result?.data()?.data) setCategories(result?.data()?.data);
+        });
+      await getForms()
+        .catch((error) => console.log(error))
+        .then((result) => {
+          if (result?.data()) setForms(result.data());
+        });
+    };
+    getData();
   }, [location]);
 
   return (
@@ -36,6 +45,15 @@ const NewItem = () => {
         categories={categories}
         onChange={(value) => setCategory(value)}
       />
+      {forms && category && forms[category.name] ? (
+        <AutoForm
+          fields={forms?.[category?.name]}
+          values={{}}
+          onChange={(name: string, value: ValueType) =>
+            console.log(name, value)
+          }
+        />
+      ) : null}
       <SaveButton />
     </FormContainer>
   );

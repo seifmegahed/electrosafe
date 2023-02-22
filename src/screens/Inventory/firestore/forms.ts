@@ -8,6 +8,7 @@ import {
 import { firestore } from "../../../firebase-config";
 import { FieldsPropsTypes, OptionType } from "../../../globalTypes";
 import { descendingSortObjectArray } from "../../../utils/sortFunctions";
+import { isDuplicateOption } from "../../../utils/validation";
 
 const itemPrototypesCollectionName = "itemPrototypes";
 const categoriesDocumentName = "categories";
@@ -71,10 +72,9 @@ export const addForm = async (
       if (categoriesDocument === undefined || !categoriesDocument?.data)
         throw new Error("Unknown data format");
       const categories = categoriesDocument.data as OptionType[];
-      const newCategories = descendingSortObjectArray(
-        [...categories, category],
-        "name"
-      );
+      const newCategories = isDuplicateOption(category, categories)
+        ? categories
+        : descendingSortObjectArray([...categories, category], "name");
       transaction.update(categoriesDocumentReference, {
         data: newCategories,
         length: newCategories.length,
@@ -90,3 +90,5 @@ export const getCategories = async () => {
   const promise = await getDoc(categoriesDocumentReference);
   return promise;
 };
+
+export const getForms = () => getDoc(formsDocumentReference);

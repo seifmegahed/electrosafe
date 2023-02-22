@@ -9,15 +9,23 @@ import CategoryInputField from "./CategoryInputField";
 import SaveButton from "./SaveButton";
 
 // Types
-import { FieldsPropsTypes, OptionType, ValueType } from "../../../globalTypes";
+import {
+  FieldsPropsTypes,
+  GenericObject,
+  OptionType,
+  ValueType,
+} from "../../../globalTypes";
 import { getCategories, getForms } from "../firestore/forms";
 import AutoForm from "../../../components/Forms/AutoForm";
+import { initFormValues } from "../../../utils/formInit";
+import GridWrapper from "../../../components/Containers/GridWrapper";
 
 const NewItem = () => {
   const location = useLocation();
   const [category, setCategory] = useState<OptionType>();
   const [categories, setCategories] = useState<OptionType[]>([]);
   const [forms, setForms] = useState<{ [key: string]: FieldsPropsTypes[] }>();
+  const [values, setValues] = useState<GenericObject>();
 
   useEffect(() => {
     const getData = async () => {
@@ -35,6 +43,14 @@ const NewItem = () => {
     getData();
   }, [location]);
 
+  useEffect(() => {
+    if (category && forms) setValues(initFormValues(forms[category.name]));
+  }, [category, forms]);
+
+  const handleChange = (name: string, value: ValueType) => {
+    setValues((prev) => ({ ...prev, [name]: value }));
+  };
+
   return (
     <FormContainer
       title="New Item"
@@ -46,15 +62,15 @@ const NewItem = () => {
         onChange={(value) => setCategory(value)}
       />
       {forms && category && forms[category.name] ? (
-        <AutoForm
-          fields={forms?.[category?.name]}
-          values={{}}
-          onChange={(name: string, value: ValueType) =>
-            console.log(name, value)
-          }
-        />
+        <GridWrapper>
+          <AutoForm
+            fields={forms?.[category?.name]}
+            values={values ?? {}}
+            onChange={handleChange}
+          />
+          <SaveButton />
+        </GridWrapper>
       ) : null}
-      <SaveButton />
     </FormContainer>
   );
 };

@@ -86,9 +86,6 @@ export const addForm = async (
   }
 };
 
-export const getCategories = async () => {
-  const promise = await getDoc(categoriesDocumentReference);
-  return promise;
-};
+export const getCategories = () => getDoc(categoriesDocumentReference);
 
 export const getForms = () => getDoc(formsDocumentReference);

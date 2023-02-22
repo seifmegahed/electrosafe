@@ -31,7 +31,7 @@ const AutoSelectInput = ({
       autoSelect
       clearOnBlur
       clearOnEscape
-      id={label}
+      id={name}
       isOptionEqualToValue={(option, checkValue) =>
         option.name === checkValue.name
       }
@@ -48,6 +48,7 @@ const AutoSelectInput = ({
           helperText={error && "Required"}
           error={error}
           label={label}
+          name={name}
         />
       )}
       onChange={(event, newValue) => handleChange(name, newValue as OptionType)}

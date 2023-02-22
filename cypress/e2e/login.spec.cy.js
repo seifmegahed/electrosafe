@@ -2,6 +2,7 @@
 
 import Chance from "chance";
 const chance = new Chance();
+import { labelToName } from "../../src/utils/conversions";
 
 describe("Login spec", () => {
   const fakeEmail = "wrong@email.com";
@@ -10,7 +11,7 @@ describe("Login spec", () => {
   const newOptionValue = chance.name();
 
   beforeEach(() => {
-    cy.visit("http://localhost:5173");
+    cy.visit("http://localhost:5173/login");
     const loginButton = cy.get("button").contains(/sign in/i);
     const emailField = cy.get("input[name=email]");
     const passwordField = cy.get("input[name=password]");
@@ -73,9 +74,9 @@ describe("Login spec", () => {
     inventoryButton.click();
     const newItemButton = cy.get("button[name='newItem']");
     newItemButton.click();
-    const categorySelectInput = cy.get("#Category");
+    const categorySelectInput = cy.get("#category");
     categorySelectInput.click();
-    cy.get("#Category-option-0").click();
+    cy.get("#category-option-0").click();
     cy.get("#edit-category-form").click();
     const textFields = [chance.city(), chance.city(), chance.city()];
     for (const field in textFields) {
@@ -84,7 +85,7 @@ describe("Login spec", () => {
       cy.get("input[name='required']").click();
       cy.get("button[name='textfield-add']").click();
       const newField = cy.get(
-        `input[name='${textFields[field].toLowerCase()}']`
+        `input[name='${labelToName(textFields[field])}']`
       );
       newField.type("Testing text field");
       newField.clear();
@@ -112,11 +113,62 @@ describe("Login spec", () => {
         cy.get("button[name='add-lister-option']").click();
       }
       cy.get("button[name='selectField-add']").click();
+      const newInputName = labelToName(selectFields[field].name);
+      const newInput = cy.get(`input[name='${newInputName}']`);
+      newInput.click();
+      newInput.type(selectFields[field].options[0]);
     }
+    const toggleFields = [
+      {
+        name: "toggle-0",
+        options: [chance.country(), chance.country()],
+      },
+      {
+        name: "toggle-1",
+        options: [chance.country(), chance.country()],
+      },
+      {
+        name: "toggle-2",
+        options: [chance.country(), chance.country()],
+      },
+    ];
     cy.get(toggleTabId).click();
-    cy.contains("Name");
-    cy.contains("Options");
-    cy.get(checkboxTabId).click();
-    cy.contains("Name");
+    for (const field in toggleFields) {
+      cy.get("input[name='name']").eq(1).type(toggleFields[field].name);
+      cy.get("input[name='editable']").click();
+      for (const country in toggleFields[field].options) {
+        cy.get("input[name='options']").type(
+          toggleFields[field].options[country]
+        );
+        cy.get("button[name='add-lister-option']").click();
+      }
+      cy.get("button[name='toggleField-add']").click();
+      cy.get(
+        `button[name='${toggleFields[field].name}-${labelToName(
+          toggleFields[field].options[1]
+        )}']`
+      ).click();
+      cy.get(
+        `button[name='${toggleFields[field].name}-${labelToName(
+          toggleFields[field].options[0]
+        )}']`
+      ).click();
+    }
+    const checkboxFields = [
+      chance.month(),
+      chance.month(),
+      chance.month(),
+      chance.weekday(),
+      chance.weekday(),
+      chance.weekday(),
+    ];
+    checkboxFields.forEach((field) => {
+      cy.get(checkboxTabId).click();
+      cy.get("input[name='label']").type(field);
+      cy.get('[style="left: 25%;"]').click();
+      cy.get("button[name='checkboxField-add']").click();
+      cy.get(`input[name='${labelToName(field)}']`).click();
+      cy.get(`input[name='${labelToName(field)}']`).click();
+    });
   });
 });

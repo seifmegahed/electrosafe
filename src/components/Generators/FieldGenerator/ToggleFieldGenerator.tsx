@@ -86,6 +86,7 @@ const ToggleFieldGenerator = ({ onSubmit }: ToggleFieldGeneratorProps) => {
         <Button
           onClick={handleSubmit}
           variant="contained"
+          name="toggleField-add"
           sx={formButtonStyle}
           endIcon={<Add />}
         >

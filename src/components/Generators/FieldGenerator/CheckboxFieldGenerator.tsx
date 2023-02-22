@@ -86,6 +86,7 @@ const CheckboxFieldGenerator = ({ onSubmit }: CheckboxFieldGeneratorProps) => {
         <Button
           onClick={handleSubmit}
           variant="contained"
+          name="checkboxField-add"
           sx={formButtonStyle}
           endIcon={<Add />}
         >

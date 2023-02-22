@@ -1,39 +1,33 @@
 // React
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // MUI
 import { Button } from "@mui/material";
 import { Add } from "@mui/icons-material";
 
-// Firebase
-import {
-  getCategories,
-  updateCategories,
-} from "../../../firestore/ItemPrototypes";
-
 // Components
-import GridWrapper from "../../../components/Containers/GridWrapper";
+import AddOptionModal from "../../../components/Modals/AddOptionModal";
 import AutoSelectInput from "../../../components/InputFields/AutoSelectInput";
+import GridWrapper from "../../../components/Containers/GridWrapper";
 
 // Types
 import { OptionType, SelectFieldPropsType } from "../../../globalTypes";
-import AddOptionModal from "../../../components/Modals/AddOptionModal";
-import { isDuplicateOption } from "../../../utils/validation";
-import { descendingSortObjectArray } from "../../../utils/sortFunctions";
-import Loading from "../../../components/Modals/Loading";
 
 type CategoryFieldProps = {
   value?: OptionType;
+  categories: OptionType[];
   onChange: (value: OptionType) => void;
 };
 
-const CategoryInputField = ({ value, onChange }: CategoryFieldProps) => {
+const CategoryInputField = ({
+  value,
+  categories,
+  onChange,
+}: CategoryFieldProps) => {
   const handleChange = onChange;
   const navigate = useNavigate();
-  const [categories, setCategories] = useState<OptionType[]>([]);
   const [modal, setModal] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   const categoryFieldData: SelectFieldPropsType = {
     name: "category",
@@ -43,35 +37,10 @@ const CategoryInputField = ({ value, onChange }: CategoryFieldProps) => {
     options: categories,
   };
 
-  useEffect(() => {
-    getCategories()
-      .catch((error) => console.log(error))
-      .then((result) => {
-        if (result?.data()?.data) setCategories(result?.data()?.data);
-      });
-  }, []);
-
   const handleNewOption = (newValue: OptionType) => {
-    setLoading(true);
-    if (categories) {
-      if (isDuplicateOption(newValue, categories)) return;
-      updateCategories(
-        descendingSortObjectArray(
-          [...categories, newValue],
-          "name"
-        ) as OptionType[]
-      )
-        .catch((error) => console.log(error))
-        .then((response) => {
-          const newCategories = response?.data;
-          if (newCategories) {
-            navigate("/inventory/edit-form", {
-              state: newValue,
-            });
-          }
-        })
-        .finally(() => setLoading(false));
-    }
+    navigate("/inventory/edit-form", {
+      state: newValue,
+    });
   };
 
   return (
@@ -84,10 +53,10 @@ const CategoryInputField = ({ value, onChange }: CategoryFieldProps) => {
         gap: "20px",
       }}
     >
-      <Loading state={loading} />
       <AddOptionModal
         id="add-category"
         open={modal}
+        options={categories}
         title="Category"
         handleClose={() => setModal(false)}
         addOption={handleNewOption}

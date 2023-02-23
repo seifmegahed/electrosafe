@@ -2,11 +2,17 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
+// Firebase
+import { getCategories, getForms } from "../firestore/forms";
+
 // Components
+import { useAuth } from "../../../contexts/AuthProvider";
+import AutoForm from "../../../components/Forms/AutoForm";
 import FormContainer from "../../../components/Containers/FormContainer";
 import EditOptionButton from "./EditOptionButton";
 import CategoryInputField from "./CategoryInputField";
 import SaveButton from "./SaveButton";
+import GridWrapper from "../../../components/Containers/GridWrapper";
 
 // Types
 import {
@@ -15,17 +21,22 @@ import {
   OptionType,
   ValueType,
 } from "../../../globalTypes";
-import { getCategories, getForms } from "../firestore/forms";
-import AutoForm from "../../../components/Forms/AutoForm";
-import { initFormValues } from "../../../utils/formInit";
-import GridWrapper from "../../../components/Containers/GridWrapper";
+
+// Functions
+import { checkFormValidity } from "../../../utils/validation";
+import { initFormErrors, initFormValues } from "../../../utils/formInit";
+import { createItem } from "../firestore/items";
+import Loading from "../../../components/Modals/Loading";
 
 const NewItem = () => {
   const location = useLocation();
+  const { user } = useAuth();
   const [category, setCategory] = useState<OptionType>();
   const [categories, setCategories] = useState<OptionType[]>([]);
   const [forms, setForms] = useState<{ [key: string]: FieldsPropsTypes[] }>();
   const [values, setValues] = useState<GenericObject>();
+  const [errors, setErrors] = useState<{ [key: string]: boolean }>();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
@@ -44,11 +55,51 @@ const NewItem = () => {
   }, [location]);
 
   useEffect(() => {
-    if (category && forms) setValues(initFormValues(forms[category.name]));
+    if (category && forms) {
+      const initValues = initFormValues(forms[category.name]);
+      setValues(initValues);
+      setErrors(initFormErrors(Object.keys(initValues)));
+    }
   }, [category, forms]);
 
   const handleChange = (name: string, value: ValueType) => {
     setValues((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const resetErrors = () => {
+    setErrors((prev) => {
+      if (!prev) return undefined;
+      const newErrors: { [key: string]: boolean } = {};
+      Object.keys(prev).forEach((key) => {
+        newErrors[key] = false;
+      });
+      return newErrors;
+    });
+  };
+
+  const handleSubmit = () => {
+    if (!category || !forms || !values || !errors) return;
+    resetErrors();
+    const errorCheck = checkFormValidity(forms[category.name], values);
+    if (errorCheck.state) {
+      setErrors((prev) => ({ ...prev, ...errorCheck.errors }));
+      return;
+    }
+    setLoading(true);
+    createItem({
+      ...values,
+      category: category.name,
+      createdBy: user?.displayName || "",
+    })
+      .catch((error) => {
+        console.warn(error);
+      })
+      .then(() => {
+        setCategory(undefined);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -56,6 +107,7 @@ const NewItem = () => {
       title="New Item"
       iconButton={<EditOptionButton category={category} />}
     >
+      <Loading state={loading} />
       <CategoryInputField
         value={category}
         categories={categories}
@@ -66,9 +118,10 @@ const NewItem = () => {
           <AutoForm
             fields={forms?.[category?.name]}
             values={values ?? {}}
+            errors={errors}
             onChange={handleChange}
           />
-          <SaveButton />
+          <SaveButton onClick={handleSubmit} />
         </GridWrapper>
       ) : null}
     </FormContainer>

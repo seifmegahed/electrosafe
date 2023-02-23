@@ -1,7 +1,10 @@
 // MUI
 import { Button } from "@mui/material";
 
-const SaveButton = () => {
+type SaveButtonProps = {
+  onClick: () => void;
+};
+const SaveButton = ({ onClick }: SaveButtonProps) => {
   return (
     <div
       style={{
@@ -10,7 +13,11 @@ const SaveButton = () => {
         gridColumn: "span 4",
       }}
     >
-      <Button variant="contained" sx={{ maxWidth: "120px", width: "100%" }}>
+      <Button
+        variant="contained"
+        onClick={onClick}
+        sx={{ maxWidth: "120px", width: "100%" }}
+      >
         Save
       </Button>
     </div>

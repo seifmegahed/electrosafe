@@ -30,7 +30,7 @@ const EditPrototype = () => {
   return (
     <>
       <Loading state={loading} />
-      <FormEditor category={category} onSubmit={handleSubmit} />;
+      <FormEditor category={category} onSubmit={handleSubmit} />
     </>
   );
 };

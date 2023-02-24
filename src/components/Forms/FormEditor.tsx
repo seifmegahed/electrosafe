@@ -21,6 +21,7 @@ const templateFields: FieldsPropsTypes[] = [
     span: 2,
     required: true,
     editable: false,
+    permanent: true,
   },
   {
     name: "mpn",
@@ -30,6 +31,7 @@ const templateFields: FieldsPropsTypes[] = [
     span: 2,
     required: true,
     editable: false,
+    permanent: true,
   },
   {
     name: "make",
@@ -39,6 +41,7 @@ const templateFields: FieldsPropsTypes[] = [
     span: 2,
     required: true,
     editable: false,
+    permanent: true,
   },
 ];
 
@@ -53,17 +56,17 @@ const FormEditor = ({ category, onSubmit }: FormEditorProps) => {
 
   return (
     <>
-      <Typography variant="h3">{`${category.label} Form Editor`}</Typography>
+      <div style={{ width: "100%" }}>
+        <Typography variant="h3">{`${category.label} Form Editor`}</Typography>
+      </div>
       <FormPreview fields={fields} onSubmit={handleSubmit} />
       <FormFieldsSorter
         fields={fields}
-        onSort={(values) => setFields(values)}
+        onChange={(values) => setFields(values)}
       />
       <FieldGenerator
         fields={fields}
-        onSubmit={(values) => {
-          setFields((prev) => [...prev, values]);
-        }}
+        onSubmit={(values) => setFields((prev) => [...prev, values])}
       />
     </>
   );

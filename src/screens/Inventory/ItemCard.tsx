@@ -5,12 +5,12 @@ import { MoreVert } from "@mui/icons-material";
 import { Checkbox, IconButton, Typography } from "@mui/material";
 // Components
 import CardContainer from "../../components/Containers/CardContainer";
+import { HelperItemType } from "./firestore/items";
 // Types
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const ItemCard = ({ item }: { item: any }) => {
+const ItemCard = ({ item }: { item: HelperItemType }) => {
   return (
-    <CardContainer key={item.name as string} height={100}>
+    <CardContainer key={item.name} height={100}>
       <Checkbox size="medium" />
       <div
         style={{
@@ -23,10 +23,10 @@ const ItemCard = ({ item }: { item: any }) => {
       >
         <div style={{ width: "50%", flexShrink: 0 }}>
           <Typography fontWeight={600} variant="h6">
-            {item.name as string}
+            {item.name}
           </Typography>
           <Typography fontWeight={500} fontSize={12} color="text.secondary">
-            {item.mpn as string}
+            {item.mpn}
           </Typography>
         </div>
         <div
@@ -34,12 +34,11 @@ const ItemCard = ({ item }: { item: any }) => {
             width: "100%",
             display: "flex",
             justifyContent: "space-between",
+            alignItems: "center",
           }}
         >
-          <Typography fontWeight={600}>{item.make as string}</Typography>
-          <Typography fontWeight={600}>
-            {(item.quantity as string) || 0}
-          </Typography>
+          <Typography fontWeight={600}>{item.make}</Typography>
+          <Typography fontWeight={600}>{item.quantity ?? 0}</Typography>
         </div>
       </div>
       <IconButton>

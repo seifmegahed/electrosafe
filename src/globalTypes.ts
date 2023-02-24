@@ -49,6 +49,7 @@ export type TextFieldPropsType = {
   postFix?: string;
   required?: boolean;
   editable?: boolean;
+  permanent?: boolean;
   draggable?: boolean;
 };
 

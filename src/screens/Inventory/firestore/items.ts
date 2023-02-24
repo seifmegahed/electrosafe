@@ -8,6 +8,19 @@ import {
 import { firestore } from "../../../firebase-config";
 import { GenericObject } from "../../../globalTypes";
 
+export type HelperItemType = {
+  name: string;
+  make: string;
+  id: string;
+  mpn: string;
+  quantity?: number;
+};
+
+type HelperDocument = {
+  data: HelperItemType[];
+  count: number;
+};
+
 const itemsCollectionName = "items";
 const helperDataCollectionName = "helperData";
 const helperItemsDocumentName = "items";
@@ -60,7 +73,7 @@ export const createItem = async (itemData: GenericObject) => {
   }
 };
 
-export const getHelperItems = async () => {
+export const getHelperItems: () => Promise<HelperDocument> = async () => {
   const helperItemsDocument = await getDoc(helperItemsDocumentReference);
-  return helperItemsDocument.data();
+  return helperItemsDocument.data() as HelperDocument;
 };

@@ -7,18 +7,17 @@ import { Box, Input, IconButton, Button } from "@mui/material";
 import { Search } from "@mui/icons-material";
 
 // Types
-import { GenericObject } from "../../globalTypes";
 
 // Constants
 import { componentMaxWidth } from "../../globalConstants";
 
 // Functions
-import { getHelperItems } from "./firestore/items";
+import { getHelperItems, HelperItemType } from "./firestore/items";
 import ItemCard from "./ItemCard";
 
 const Inventory = () => {
   const navigate = useNavigate();
-  const [items, setItems] = useState<GenericObject[]>();
+  const [items, setItems] = useState<HelperItemType[]>();
   useEffect(() => {
     getHelperItems().then((response) => {
       if (response !== undefined && response.data !== undefined)
@@ -64,7 +63,7 @@ const Inventory = () => {
         </Button>
       </Box>
       {items?.map((item) => (
-        <ItemCard key={item.name as string} item={item} />
+        <ItemCard key={item.name} item={item} />
       ))}
     </Box>
   );

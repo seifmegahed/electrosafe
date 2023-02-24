@@ -3,11 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 // MUI
-import { Box, Input, IconButton, Button, Typography } from "@mui/material";
+import { Box, Input, IconButton, Button } from "@mui/material";
 import { Search } from "@mui/icons-material";
-
-// Components
-import FormContainer from "../../components/Containers/FormContainer";
 
 // Types
 import { GenericObject } from "../../globalTypes";
@@ -17,6 +14,7 @@ import { componentMaxWidth } from "../../globalConstants";
 
 // Functions
 import { getHelperItems } from "./firestore/items";
+import ItemCard from "./ItemCard";
 
 const Inventory = () => {
   const navigate = useNavigate();
@@ -66,9 +64,7 @@ const Inventory = () => {
         </Button>
       </Box>
       {items?.map((item) => (
-        <FormContainer key={item.name as string}>
-          <Typography>{item.name as string}</Typography>
-        </FormContainer>
+        <ItemCard key={item.name as string} item={item} />
       ))}
     </Box>
   );

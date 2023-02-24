@@ -3,6 +3,7 @@ import {
   collection,
   runTransaction,
   serverTimestamp,
+  getDoc,
 } from "firebase/firestore";
 import { firestore } from "../../../firebase-config";
 import { GenericObject } from "../../../globalTypes";
@@ -57,4 +58,9 @@ export const createItem = async (itemData: GenericObject) => {
   } catch (error) {
     console.warn(error);
   }
+};
+
+export const getHelperItems = async () => {
+  const helperItemsDocument = await getDoc(helperItemsDocumentReference);
+  return helperItemsDocument.data();
 };

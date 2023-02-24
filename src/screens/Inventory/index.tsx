@@ -1,16 +1,32 @@
 // React
 import { useNavigate } from "react-router-dom";
-// Firebase
+import { useEffect, useState } from "react";
+
 // MUI
 import { Box, Input, IconButton, Button, Typography } from "@mui/material";
 import { Search } from "@mui/icons-material";
-import FormContainer from "../../components/Containers/FormContainer";
+
 // Components
-import { componentMaxWidth } from "../../globalConstants";
+import FormContainer from "../../components/Containers/FormContainer";
+
 // Types
-const x = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+import { GenericObject } from "../../globalTypes";
+
+// Constants
+import { componentMaxWidth } from "../../globalConstants";
+
+// Functions
+import { getHelperItems } from "./firestore/items";
+
 const Inventory = () => {
   const navigate = useNavigate();
+  const [items, setItems] = useState<GenericObject[]>();
+  useEffect(() => {
+    getHelperItems().then((response) => {
+      if (response !== undefined && response.data !== undefined)
+        setItems(response.data);
+    });
+  }, []);
   return (
     <Box
       maxWidth={componentMaxWidth}
@@ -49,9 +65,9 @@ const Inventory = () => {
           New Item
         </Button>
       </Box>
-      {x.map((item) => (
-        <FormContainer key={item}>
-          <Typography>item</Typography>
+      {items?.map((item) => (
+        <FormContainer key={item.name as string}>
+          <Typography>{item.name as string}</Typography>
         </FormContainer>
       ))}
     </Box>

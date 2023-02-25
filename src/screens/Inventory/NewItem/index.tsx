@@ -88,7 +88,7 @@ const NewItem = () => {
     setLoading(true);
     createItem({
       ...values,
-      category: category.name,
+      category,
       createdBy: user?.displayName || "",
     })
       .catch((error) => {

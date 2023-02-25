@@ -52,7 +52,7 @@ type PopperMenuProps = {
   menuItems: MenuItemType[];
   element: HTMLElement | null;
   handleClose: () => void;
-  placement: "bottom-start" | "bottom-end";
+  placement?: "bottom-start" | "bottom-end";
 };
 
 type MenuItemSelectorProps = {
@@ -65,7 +65,7 @@ const PopperMenu = ({
   menuItems,
   element,
   handleClose,
-  placement,
+  placement = "bottom-end",
 }: PopperMenuProps) => {
   const open = Boolean(element);
 

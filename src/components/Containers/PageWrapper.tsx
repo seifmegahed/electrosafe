@@ -14,9 +14,12 @@ const PageWrapper = ({ children }: PageWrapperProps) => {
       sx={{
         alignSelf: "center",
         alignItems: { sm: "center", md: "flex-start" },
-        p: { xs: "50px 5px", sm: "50px", md: "50px" },
+        p: {
+          xs: "50px 5px 150px 5px",
+          sm: "50px 50px 150px 50px",
+          md: "50px 50px 150px 50px",
+        },
         ml: { md: "240px" },
-        mb: "80px",
       }}
     >
       {children}

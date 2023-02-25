@@ -3,7 +3,7 @@ import { ReactElement } from "react";
 import { componentBoxShadow, componentMaxWidth } from "../../globalConstants";
 
 type CardContainerProps = {
-  children: (ReactElement | null)[] | ReactElement;
+  children: (ReactElement | null | false)[] | ReactElement;
   height: number;
 };
 

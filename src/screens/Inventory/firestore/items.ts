@@ -6,13 +6,14 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { firestore } from "../../../firebase-config";
-import { GenericObject } from "../../../globalTypes";
+import { GenericObject, OptionType } from "../../../globalTypes";
 
 export type HelperItemType = {
   name: string;
   make: string;
   id: string;
   mpn: string;
+  category: OptionType;
   quantity?: number;
 };
 
@@ -44,12 +45,12 @@ export const createItem = async (itemData: GenericObject) => {
       const helperItemsDocument = (
         await transaction.get(helperItemsDocumentReference)
       ).data();
-      const newHelperItem = {
+      const newHelperItem: HelperItemType = {
         id: newItemDocumentReference.id,
-        name: itemData?.name,
-        mpn: itemData?.mpn,
-        make: itemData?.make,
-        category: itemData?.category,
+        name: itemData?.name as string,
+        mpn: itemData?.mpn as string,
+        make: itemData?.make as string,
+        category: itemData?.category as OptionType,
       };
       transaction.set(
         helperItemsDocumentReference,

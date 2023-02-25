@@ -6,8 +6,6 @@ import { useEffect, useState } from "react";
 import { Box, Input, IconButton, Button } from "@mui/material";
 import { Search } from "@mui/icons-material";
 
-// Types
-
 // Constants
 import { componentMaxWidth } from "../../globalConstants";
 

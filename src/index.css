@@ -8,7 +8,7 @@ body,
   width: 60%;
   text-align: end;
   border: none;
-  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -17,4 +17,29 @@ body,
 
 .editable-text-display:focus {
   outline: none;
+}
+
+.card-image {
+  margin: 0 10px;
+  height: 60px;
+  width: 80px;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.card-text {
+  width: 30vw;
+  max-width: 350px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.card-content {
+  padding: 0 10px;
+  display: flex;
+  width: 100%;
+  height: fit-content;
+  justify-content: space-between;
+  align-items: center;
 }

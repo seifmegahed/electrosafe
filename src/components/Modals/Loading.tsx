@@ -7,11 +7,9 @@ type LoadingProps = {
 
 const Loading = ({ state }: LoadingProps) => {
   return (
-    <div>
-      <Backdrop sx={{ color: "#fff", zIndex: "10002" }} open={state ?? true}>
-        <CircularProgress color="inherit" />
-      </Backdrop>
-    </div>
+    <Backdrop sx={{ color: "#fff", zIndex: "10002" }} open={state ?? true}>
+      <CircularProgress color="inherit" />
+    </Backdrop>
   );
 };
 

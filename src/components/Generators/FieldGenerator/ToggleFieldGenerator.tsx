@@ -22,7 +22,7 @@ import {
 // Constants
 import {
   editableField,
-  formButtonStyle,
+  FORM_BUTTON_STYLE,
   nameField,
   optionsField,
   requiredField,
@@ -87,7 +87,7 @@ const ToggleFieldGenerator = ({ onSubmit }: ToggleFieldGeneratorProps) => {
           onClick={handleSubmit}
           variant="contained"
           name="toggleField-add"
-          sx={formButtonStyle}
+          sx={FORM_BUTTON_STYLE}
           endIcon={<Add />}
         >
           ADD

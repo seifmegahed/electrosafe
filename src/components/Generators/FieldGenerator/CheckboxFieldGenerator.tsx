@@ -17,7 +17,7 @@ import { CheckboxPropsType, SpanType, ValueType } from "../../../globalTypes";
 // Constants
 import {
   editableField,
-  formButtonStyle,
+  FORM_BUTTON_STYLE,
   labelField,
   nameField,
   requiredField,
@@ -87,7 +87,7 @@ const CheckboxFieldGenerator = ({ onSubmit }: CheckboxFieldGeneratorProps) => {
           onClick={handleSubmit}
           variant="contained"
           name="checkboxField-add"
-          sx={formButtonStyle}
+          sx={FORM_BUTTON_STYLE}
           endIcon={<Add />}
         >
           ADD

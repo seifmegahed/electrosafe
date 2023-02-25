@@ -5,9 +5,10 @@ import {
   ToggleFieldPropsType,
 } from "./globalTypes";
 
-export const componentMaxWidth = "700px";
-export const componentBoxShadow = "rgba(0, 0, 0, 0.24) 0px 3px 8px";
-export const formButtonStyle = { maxWidth: "120px", width: "100%" };
+export const COMPONENT_MAX_WIDTH = "700px";
+export const COMPONENT_BOX_SHADOW = "rgba(0, 0, 0, 0.24) 0px 3px 8px";
+// Maybe should be a css class
+export const FORM_BUTTON_STYLE = { maxWidth: "120px", width: "100%" };
 
 export const singleButtonFormContainerStyle = {
   gridColumn: "span 4",

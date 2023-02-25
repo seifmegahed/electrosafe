@@ -1,6 +1,9 @@
 import { Box, useMediaQuery, Typography } from "@mui/material";
 import { ReactElement } from "react";
-import { componentBoxShadow, componentMaxWidth } from "../../globalConstants";
+import {
+  COMPONENT_BOX_SHADOW,
+  COMPONENT_MAX_WIDTH,
+} from "../../globalConstants";
 
 type FormContainerProps = {
   children: (ReactElement | null)[] | ReactElement;
@@ -20,10 +23,10 @@ const FormContainer = ({
     <Box
       display="grid"
       p={isNonMobile ? padding ?? "30px" : "15px"}
-      boxShadow={componentBoxShadow}
+      boxShadow={COMPONENT_BOX_SHADOW}
       borderRadius="10px"
       gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-      maxWidth={componentMaxWidth}
+      maxWidth={COMPONENT_MAX_WIDTH}
       width="100%"
       height="fit-content"
       gap="20px"

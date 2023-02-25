@@ -16,7 +16,7 @@ import { initFormValues } from "../../utils/formInit";
 
 // Constants
 import {
-  formButtonStyle,
+  FORM_BUTTON_STYLE,
   singleButtonFormContainerStyle,
 } from "../../globalConstants";
 
@@ -37,7 +37,11 @@ const FormPreview = ({ fields, onSubmit }: FormTesterProps) => {
     <FormContainer title="Form Preview">
       <AutoForm fields={fields} values={values} onChange={handleChange} />
       <div style={singleButtonFormContainerStyle}>
-        <Button variant="contained" sx={formButtonStyle} onClick={handleSubmit}>
+        <Button
+          variant="contained"
+          sx={FORM_BUTTON_STYLE}
+          onClick={handleSubmit}
+        >
           Save
         </Button>
       </div>

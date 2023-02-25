@@ -21,7 +21,7 @@ import {
 // Constants
 import {
   editableField,
-  formButtonStyle,
+  FORM_BUTTON_STYLE,
   labelField,
   nameField,
   requiredField,
@@ -124,7 +124,7 @@ const TextFieldGenerator = ({ onSubmit }: TextFieldGeneratorProps) => {
           onClick={handleSubmit}
           variant="contained"
           name="textfield-add"
-          sx={formButtonStyle}
+          sx={FORM_BUTTON_STYLE}
           endIcon={<Add />}
         >
           ADD

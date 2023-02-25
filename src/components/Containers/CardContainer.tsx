@@ -1,6 +1,9 @@
 import { Box } from "@mui/material";
 import { ReactElement } from "react";
-import { componentBoxShadow, componentMaxWidth } from "../../globalConstants";
+import {
+  COMPONENT_BOX_SHADOW,
+  COMPONENT_MAX_WIDTH,
+} from "../../globalConstants";
 
 type CardContainerProps = {
   children: (ReactElement | null | false)[] | ReactElement;
@@ -11,8 +14,8 @@ const CardContainer = ({ children, height }: CardContainerProps) => {
   return (
     <Box
       p="30px 15px"
-      boxShadow={componentBoxShadow}
-      maxWidth={componentMaxWidth}
+      boxShadow={COMPONENT_BOX_SHADOW}
+      maxWidth={COMPONENT_MAX_WIDTH}
       borderRadius="24px"
       height={`${height}px`}
       maxHeight={`${height}px`}

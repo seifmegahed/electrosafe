@@ -7,7 +7,7 @@ import { Box, Input, IconButton, Button } from "@mui/material";
 import { Search } from "@mui/icons-material";
 
 // Constants
-import { componentMaxWidth } from "../../globalConstants";
+import { COMPONENT_MAX_WIDTH } from "../../globalConstants";
 
 // Functions
 import { getHelperItems, HelperItemType } from "./firestore/items";
@@ -24,7 +24,7 @@ const Inventory = () => {
   }, []);
   return (
     <Box
-      maxWidth={componentMaxWidth}
+      maxWidth={COMPONENT_MAX_WIDTH}
       width="100%"
       display="flex"
       flexDirection="column"

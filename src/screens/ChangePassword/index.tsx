@@ -16,57 +16,26 @@ import { Box, Button, Typography } from "@mui/material";
 // Components
 import { checkPasswordValidity } from "../../utils/validation";
 import FormContainer from "../../components/Containers/FormContainer";
-import PasswordField from "../../components/InputFields/PasswordField";
 import Loading from "../../components/Modals/Loading";
+import ChangePasswordFormFields from "./ChangePasswordFormFields";
 
 import { useAuth } from "../../contexts/AuthProvider";
-import { componentMaxWidth } from "../../globalConstants";
 
+import { COMPONENT_MAX_WIDTH, FORM_BUTTON_STYLE } from "../../globalConstants";
+import {
+  errorMessages,
+  initErrors,
+  initValues,
+} from "./changePasswordConstants";
 // Types
 
 const ChangePassword = () => {
   const { user, logout } = useAuth();
-
-  const initErrors = {
-    oldPassword: false,
-    newPassword: false,
-    verifyPassword: false,
-  };
-
-  const initValues = {
-    oldPassword: "",
-    newPassword: "",
-    verifyPassword: "",
-  };
-
   const [formData, setFormData] = useState(initValues);
-
   const [errors, setErrors] = useState(initErrors);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<null | string[]>(null);
   const [disabled, setDisabled] = useState(false);
-
-  const errorMessages = {
-    format: {
-      oldPassword: ["Password is incorrect"],
-      newPassword: [
-        "A minimum 8 characters password contains",
-        "A combination of uppercase and lowercase",
-        "Letters and Numbers are required.",
-      ],
-    },
-    match: {
-      oldNew: ["Use a new Password"],
-      newVerify: ["Passwords do Not Match"],
-    },
-    error: {
-      [AuthErrorCodes.INVALID_PASSWORD]: ["You have entered a wrong password"],
-      [AuthErrorCodes.TOO_MANY_ATTEMPTS_TRY_LATER]: [
-        "Too many attempts. Your Account has been temporarily disabled",
-        "Please contact your Admin for support",
-      ],
-    },
-  };
 
   function timeout(ms: number) {
     const promise = new Promise((resolve) => {
@@ -153,55 +122,17 @@ const ChangePassword = () => {
       });
   };
 
-  const handleKeyboard = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    const { key } = event;
-    const element = event.target;
-    if (key === "Enter") handleSubmit();
-    if (key === "Escape") {
-      setFormData((prev) => ({
-        ...prev,
-        [(element as HTMLInputElement).id]: "",
-      }));
-      console.log((element as HTMLInputElement).id);
-    }
-  };
-
   return (
-    <form style={{ maxWidth: componentMaxWidth, width: "100%" }}>
+    <form style={{ maxWidth: COMPONENT_MAX_WIDTH, width: "100%" }}>
       <Loading state={loading} />
       <FormContainer title="Change Password">
-        <PasswordField
-          id="oldPassword"
-          label="Old Password"
-          error={errors.oldPassword}
-          span={4}
-          value={formData.oldPassword}
-          onKeyDown={handleKeyboard}
-          onChange={(e) =>
-            setFormData((prev) => ({ ...prev, oldPassword: e.target.value }))
+        <ChangePasswordFormFields
+          values={formData}
+          errors={errors}
+          onChange={(name, value) =>
+            setFormData((prev) => ({ ...prev, [name]: value }))
           }
-        />
-        <PasswordField
-          id="newPassword"
-          label="New Password"
-          error={errors.newPassword}
-          span={4}
-          value={formData.newPassword}
-          onKeyDown={handleKeyboard}
-          onChange={(e) =>
-            setFormData((prev) => ({ ...prev, newPassword: e.target.value }))
-          }
-        />
-        <PasswordField
-          id="verifyPassword"
-          label="Verify New Password"
-          error={errors.verifyPassword}
-          span={4}
-          value={formData.verifyPassword}
-          onKeyDown={handleKeyboard}
-          onChange={(e) =>
-            setFormData((prev) => ({ ...prev, verifyPassword: e.target.value }))
-          }
+          onSubmit={handleSubmit}
         />
         <Box
           display="flex"
@@ -225,7 +156,7 @@ const ChangePassword = () => {
             disabled={disabled}
             onClick={handleSubmit}
             variant="contained"
-            sx={{ width: "100px" }}
+            sx={FORM_BUTTON_STYLE}
           >
             Save
           </Button>

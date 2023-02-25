@@ -11,8 +11,8 @@ import { FieldsPropsTypes } from "../../../globalTypes";
 
 // Constants
 import {
-  componentBoxShadow,
-  componentMaxWidth,
+  COMPONENT_BOX_SHADOW,
+  COMPONENT_MAX_WIDTH,
 } from "../../../globalConstants";
 
 type FormFieldsSorterProps = {
@@ -53,8 +53,8 @@ const FormFieldsSorter = ({ fields, onChange }: FormFieldsSorterProps) => {
               background: "#fefefe",
               gridColumn: "span 4",
               width: "100%",
-              maxWidth: componentMaxWidth,
-              boxShadow: componentBoxShadow,
+              maxWidth: COMPONENT_MAX_WIDTH,
+              boxShadow: COMPONENT_BOX_SHADOW,
               borderRadius: "10px",
             }}
           >

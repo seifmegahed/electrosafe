@@ -2,13 +2,11 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-// MUI
-import { Pagination } from "@mui/material";
-
 // Components
 import ItemCard from "../ItemCard";
 import SearchBar from "./SearchBar";
 import AddItemButton from "./NewItemButton";
+import PaginationComponent from "./PaginationComponent";
 
 // Constants
 import { COMPONENT_MAX_WIDTH } from "../../../globalConstants";
@@ -16,31 +14,13 @@ import { COMPONENT_MAX_WIDTH } from "../../../globalConstants";
 // Functions
 import { getHelperItems, HelperItemType } from "../firestore/items";
 
-type PaginationComponentProps = {
-  numberPages: number;
-  onChange: (value: number) => void;
-};
-
-const PaginationComponent = ({
-  numberPages,
-  onChange: handleChange,
-}: PaginationComponentProps) => {
-  return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
-      <Pagination
-        onChange={(event, value) => handleChange(value)}
-        count={numberPages}
-      />
-    </div>
-  );
-};
-
 const itemsPerPage = 10;
 
 const InventoryItems = () => {
   const navigate = useNavigate();
   const [items, setItems] = useState<HelperItemType[]>([]);
   const [pageItems, setPageItems] = useState<HelperItemType[]>([]);
+  const numberPages = Math.ceil(items.length / itemsPerPage);
 
   const handlePageChange = (page: number) => {
     const lastItemIndex = page * itemsPerPage;
@@ -73,7 +53,10 @@ const InventoryItems = () => {
       {pageItems.map((item) => (
         <ItemCard key={item.name} item={item} />
       ))}
-      <PaginationComponent numberPages={10} onChange={handlePageChange} />
+      <PaginationComponent
+        numberPages={numberPages}
+        onChange={handlePageChange}
+      />
     </div>
   );
 };

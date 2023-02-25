@@ -8,7 +8,6 @@ import CardContainer from "../../../components/Containers/CardContainer";
 import { HelperItemType } from "../firestore/items";
 
 // Functions
-import { textShrink } from "../../../utils/textFormatting";
 import OptionsMenu from "./OptionsMenu";
 
 const placeHolderImage = "../../../public/assets/images/imageplaceholder.png";
@@ -44,8 +43,12 @@ const ItemCard = ({ item }: { item: HelperItemType }) => {
           </Typography>
         </div>
         <div style={{ textAlign: "right" }}>
-          <Typography fontWeight={600} title={`Category: ${category.label}`}>
-            {textShrink(category.label, 6)}
+          <Typography
+            className="card-text-category"
+            fontWeight={600}
+            title={`Category: ${category.label}`}
+          >
+            {category.label}
           </Typography>
           <Typography fontWeight={500} fontSize={12} title="Quantity">
             {`${isNonMobile ? "Quantity: " : ""}${item.quantity ?? 0}`}

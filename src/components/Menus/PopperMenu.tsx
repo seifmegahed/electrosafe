@@ -8,10 +8,10 @@ import {
 
 type MenuItemType = {
   label: string;
-  arabic: boolean;
   callback: () => void;
-  disabled: boolean;
-  color?: "error" | "primary" | "secondary";
+  arabic?: boolean;
+  disabled?: boolean;
+  color?: string;
 };
 
 const MenuItemSelector = ({

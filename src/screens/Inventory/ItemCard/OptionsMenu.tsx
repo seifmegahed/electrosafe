@@ -8,6 +8,13 @@ import { IconButton } from "@mui/material";
 // Functions
 import PopperMenu from "../../../components/Menus/PopperMenu";
 
+const ARABIC_MENU = {
+  EDAFA: "إضافه",
+  SARF: "صرف",
+  KHOROOG: "خروج",
+  TALAB: "طلب شراء",
+};
+
 const OptionsMenu = () => {
   const [optionsMenuElement, setOptionsMenuElement] =
     useState<HTMLElement | null>(null);
@@ -19,32 +26,43 @@ const OptionsMenu = () => {
   const openOptionsMenu = (event: MouseEvent<HTMLElement>) => {
     setOptionsMenuElement(event.currentTarget);
   };
-  const userMenuItems = [
+  const errorColor = "error";
+  const menuItems = [
     {
-      label: "Account",
-      disabled: false,
-      arabic: false,
-      callback: () => {
-        console.log("user-account");
-      },
+      label: ARABIC_MENU.EDAFA,
+      arabic: true,
+      callback: () => console.log("edafa"),
     },
     {
-      label: "Change Password",
-      disabled: false,
-      arabic: false,
-      callback: () => {
-        console.log("change-password");
-      },
+      label: ARABIC_MENU.SARF,
+      arabic: true,
+      callback: () => console.log("SARF"),
     },
     {
-      label: "Logout",
-      disabled: false,
-      arabic: false,
-      callback: () => {
-        console.log("logout");
-      },
+      label: ARABIC_MENU.TALAB,
+      arabic: true,
+      callback: () => console.log("TALAB"),
+    },
+    {
+      label: ARABIC_MENU.KHOROOG,
+      arabic: true,
+      callback: () => console.log("edit"),
+    },
+    {
+      label: "Details",
+      callback: () => console.log("edit"),
+    },
+    {
+      label: "Edit",
+      callback: () => console.log("edit"),
+    },
+    {
+      label: "Delete",
+      callback: () => console.log("delete"),
+      color: errorColor,
     },
   ];
+
   return (
     <>
       <IconButton onClick={openOptionsMenu}>
@@ -53,7 +71,7 @@ const OptionsMenu = () => {
       <PopperMenu
         element={optionsMenuElement}
         handleClose={closeOptionsMenu}
-        menuItems={userMenuItems}
+        menuItems={menuItems}
       />
     </>
   );

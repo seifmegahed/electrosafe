@@ -52,18 +52,16 @@ export const createItem = async (itemData: GenericObject) => {
         make: itemData?.make as string,
         category: itemData?.category as OptionType,
       };
-      transaction.set(
-        helperItemsDocumentReference,
-        helperItemsDocument?.data
-          ? {
-              data: [...helperItemsDocument.data, newHelperItem],
-              count: helperItemsDocument.data.length + 1,
-            }
-          : {
-              data: [newHelperItem],
-              count: 1,
-            }
-      );
+      if (helperItemsDocument)
+        transaction.update(helperItemsDocumentReference, {
+          data: [...helperItemsDocument.data, newHelperItem],
+          count: helperItemsDocument.data.length + 1,
+        });
+      else
+        transaction.set(helperItemsDocumentReference, {
+          data: [newHelperItem],
+          count: 1,
+        });
       transaction.set(newItemDocumentReference, {
         ...itemData,
         dataOfCreation: serverTimestamp(),

@@ -13,9 +13,38 @@ import { COMPONENT_MAX_WIDTH } from "../../globalConstants";
 import { getHelperItems, HelperItemType } from "./firestore/items";
 import ItemCard from "./ItemCard";
 
+const SearchBar = () => {
+  return (
+    <Box
+      display="flex"
+      borderRadius="50px"
+      sx={{ backgroundColor: "background.paper" }}
+    >
+      <Input disableUnderline sx={{ ml: 2, flex: 1 }} placeholder="Search" />
+      <IconButton type="button" sx={{ p: 1 }}>
+        <Search />
+      </IconButton>
+    </Box>
+  );
+};
+
+const NewItemButton = ({ onClick: handleClick }: { onClick: () => void }) => {
+  return (
+    <Button
+      size="large"
+      variant="contained"
+      name="newItem"
+      onClick={handleClick}
+      sx={{ minWidth: "110px" }}
+    >
+      New Item
+    </Button>
+  );
+};
+
 const Inventory = () => {
   const navigate = useNavigate();
-  const [items, setItems] = useState<HelperItemType[]>();
+  const [items, setItems] = useState<HelperItemType[]>([]);
   useEffect(() => {
     getHelperItems().then((response) => {
       if (response !== undefined && response.data !== undefined)
@@ -23,47 +52,18 @@ const Inventory = () => {
     });
   }, []);
   return (
-    <Box
-      maxWidth={COMPONENT_MAX_WIDTH}
-      width="100%"
-      display="flex"
-      flexDirection="column"
-      gap="20px"
+    <div
+      className="floating-items-page-container"
+      style={{ maxWidth: COMPONENT_MAX_WIDTH }}
     >
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        gap="20px"
-        width="100%"
-      >
-        <Box
-          display="flex"
-          borderRadius="50px"
-          sx={{ backgroundColor: "background.paper" }}
-        >
-          <Input
-            disableUnderline
-            sx={{ ml: 2, flex: 1 }}
-            placeholder="Search"
-          />
-          <IconButton type="button" sx={{ p: 1 }}>
-            <Search />
-          </IconButton>
-        </Box>
-        <Button
-          size="large"
-          variant="contained"
-          name="newItem"
-          onClick={() => navigate("new")}
-          sx={{ minWidth: "110px" }}
-        >
-          New Item
-        </Button>
-      </Box>
-      {items?.map((item) => (
+      <div className="two-items-container">
+        <SearchBar />
+        <NewItemButton onClick={() => navigate("new")} />
+      </div>
+      {items.map((item) => (
         <ItemCard key={item.name} item={item} />
       ))}
-    </Box>
+    </div>
   );
 };
 

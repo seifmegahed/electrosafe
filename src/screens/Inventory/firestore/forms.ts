@@ -69,17 +69,28 @@ export const addForm = async (
       const categoriesDocument = (
         await transaction.get(categoriesDocumentReference)
       ).data();
-      if (categoriesDocument === undefined || !categoriesDocument?.data)
-        throw new Error("Unknown data format");
-      const categories = categoriesDocument.data as OptionType[];
-      const newCategories = isDuplicateOption(category, categories)
-        ? categories
-        : descendingSortObjectArray([...categories, category], "name");
-      transaction.update(categoriesDocumentReference, {
+      const formsDocument = (
+        await transaction.get(formsDocumentReference)
+      ).data();
+      // if (categoriesDocument === undefined || !categoriesDocument?.data)
+      //   throw new Error("Unknown data format");
+      const categories = categoriesDocument?.data as OptionType[];
+      let newCategories: OptionType[] = [];
+      if (categoriesDocument)
+        newCategories = isDuplicateOption(category, categories)
+          ? categories
+          : (descendingSortObjectArray(
+              [...categories, category],
+              "name"
+            ) as OptionType[]);
+      else newCategories = [category];
+      transaction.set(categoriesDocumentReference, {
         data: newCategories,
         length: newCategories.length,
       });
-      transaction.update(formsDocumentReference, { [category.name]: fields });
+      if (formsDocument)
+        transaction.update(formsDocumentReference, { [category.name]: fields });
+      else transaction.set(formsDocumentReference, { [category.name]: fields });
     });
   } catch (error) {
     console.warn(error);

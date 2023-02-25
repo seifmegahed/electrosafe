@@ -1,16 +1,12 @@
-/// <reference types="cypress" />
-
-import Chance from "chance";
-const chance = new Chance();
-import { labelToName } from "../../src/utils/conversions";
-const abb = [
+/* eslint-disable import/prefer-default-export */
+export const abb = [
   {
     mpn: "2CSR275151R0204",
     name: "DSE201 M C20 A10 - N Blue",
     category: "RCCB",
   },
-  { mpn: "2CDS253001R0324", name: "S 203 - C32", category: "MCB" },
-  { mpn: "2CDS251001R0204", name: "S 201 - C20", category: "MCB" },
+  { mpn: "2CDS253001R0324", name: "S203 - C32", category: "MCB" },
+  { mpn: "2CDS251001R0204", name: "S201 - C20", category: "MCB" },
   {
     mpn: "2CDS283001R0504",
     name: "S203P-C50 Miniature Circuit Breaker C-Ch",
@@ -80,7 +76,7 @@ const abb = [
   },
   {
     mpn: "1SDA072394R1",
-    name: "E2.2S 2000 Ekip Touch LI 3p WMP",
+    name: "E2.2S2000 Ekip Touch LI 3p WMP",
     category: "ACB",
   },
   {
@@ -176,7 +172,7 @@ const abb = [
   },
   {
     mpn: "1SDA068475R1",
-    name: "XT4S 250 Ekip LS/I In=250A 3p F F",
+    name: "XT4S250 Ekip LS/I In=250A 3p F F",
     category: "MCCB",
   },
   {
@@ -351,7 +347,7 @@ const abb = [
   },
   {
     mpn: "1SDA068480R1",
-    name: "XT4S 250 Ekip I In=250A 3p F F",
+    name: "XT4S250 Ekip I In=250A 3p F F",
     category: "MCCB",
   },
   {
@@ -371,7 +367,7 @@ const abb = [
   },
   {
     mpn: "1SDA068495R1",
-    name: "XT4S 250 Ekip LS/I In=250A 4p F F",
+    name: "XT4S250 Ekip LS/I In=250A 4p F F",
     category: "MCCB",
   },
   {
@@ -525,8 +521,8 @@ const abb = [
     name: "CONTACTOR UA30-30-10RA 230V 50/60Hz",
     category: "Contactor",
   },
-  { mpn: "2CDS251001R0254", name: "S 201 - C25", category: "MCB" },
-  { mpn: "2CDS251001R0634", name: "S 201 - C63", category: "MCB" },
+  { mpn: "2CDS251001R0254", name: "S201 - C25", category: "MCB" },
+  { mpn: "2CDS251001R0634", name: "S201 - C63", category: "MCB" },
   {
     mpn: "2CDS281001R0164",
     name: "S201P-C16 Miniature Circuit Breaker C-Ch",
@@ -542,7 +538,7 @@ const abb = [
     name: "S201P-C25 Miniature Circuit Breaker C-Ch",
     category: "MCB",
   },
-  { mpn: "2CDS253001R0504", name: "S 203 - C50", category: "MCB" },
+  { mpn: "2CDS253001R0504", name: "S203 - C50", category: "MCB" },
   {
     mpn: "2CDS273001R0324",
     name: "S203M-C 32 Mini Circuit Breaker C-Char.,",
@@ -575,7 +571,7 @@ const abb = [
     category: "RCCB",
   },
   { mpn: "2CDS211001R0254", name: "SH201-C 25", category: "MCB" },
-  { mpn: "2CDS253001R0404", name: "S 203 - C40", category: "MCB" },
+  { mpn: "2CDS253001R0404", name: "S203 - C40", category: "MCB" },
   {
     mpn: "2CSF202006R1400",
     name: "FH202 AC-40/0,03 - Residual Current Dev",
@@ -654,10 +650,10 @@ const abb = [
     name: "XT2N 160 Ekip LS/I In=100A 3p F F",
     category: "MCCB",
   },
-  { mpn: "2CDS253001R0254", name: "S 203 - C25", category: "MCB" },
-  { mpn: "2CDS253001R0164", name: "S 203 - C16", category: "MCB" },
-  { mpn: "2CDS251001R0324", name: "S 201 - C32", category: "MCB" },
-  { mpn: "2CDS251001R0164", name: "S 201 - C16", category: "MCB" },
+  { mpn: "2CDS253001R0254", name: "S203 - C25", category: "MCB" },
+  { mpn: "2CDS253001R0164", name: "S203 - C16", category: "MCB" },
+  { mpn: "2CDS251001R0324", name: "S201 - C32", category: "MCB" },
+  { mpn: "2CDS251001R0164", name: "S201 - C16", category: "MCB" },
   {
     mpn: "1SBL137001R1310",
     name: "CONTACTOR AF09-30-10-13 3P 100-250VAC/DC",
@@ -765,7 +761,7 @@ const abb = [
     name: "XT4N 250 Ekip I In=250A 3p F F",
     category: "MCCB",
   },
-  { mpn: "2CDS253001R0204", name: "S 203 - C20", category: "MCB" },
+  { mpn: "2CDS253001R0204", name: "S203 - C20", category: "MCB" },
   {
     mpn: "1SDA067398R1",
     name: "XT1C 160 TMD 125-1250 3p F F",
@@ -897,182 +893,3 @@ const abb = [
   },
   { mpn: "1SYG207591R4051", name: "M1M 12", category: "Device" },
 ];
-
-describe("Login spec", () => {
-  const fakeEmail = "wrong@email.com";
-  const testEmail = "test@cypress.com";
-  const password = "ValidPassword23";
-  const newOptionValue = chance.name();
-
-  beforeEach(() => {
-    cy.visit("http://localhost:5173/login");
-    const loginButton = cy.get("button").contains(/sign in/i);
-    const emailField = cy.get("input[name=email]");
-    const passwordField = cy.get("input[name=password]");
-    emailField.type(testEmail);
-    passwordField.type(password);
-    loginButton.click();
-    cy.location().should(({ href }) => {
-      expect(href).to.eq("http://localhost:5173/home");
-    });
-  });
-  it("inputs data to items", () => {
-    cy.visit("http://localhost:5173/inventory/new");
-    abb.forEach((item) => {
-      cy.get("#category").type(item.category);
-      cy.get("#category-option-0").click();
-      cy.get("input[name=name]").type(item.name);
-      cy.get("input[name=mpn]").type(item.mpn);
-      cy.get("input[name=make]").type("ABB");
-      cy.get("button[name=save]").click();
-    });
-  });
-  // it("Logs out and tests sign in functionality", () => {
-  //   cy.get("button[name='user-menu']").click();
-  //   cy.get("#menu-item-logout").click();
-  //   cy.location().should(({ href }) => {
-  //     expect(href).to.eq("http://localhost:5173/login");
-  //   });
-  //   const loginButton = cy.get("button").contains(/sign in/i);
-  //   const emailField = cy.get("input[name=email]");
-  //   const passwordField = cy.get("input[name=password]");
-  //   loginButton.click();
-  //   cy.contains("Please make sure you enter a valid Email and Password");
-  //   emailField.type(fakeEmail);
-  //   passwordField.type(password);
-  //   loginButton.click();
-  //   cy.contains("Email or Password are wrong!");
-  //   emailField.clear();
-  //   passwordField.clear();
-  //   emailField.type(testEmail);
-  //   passwordField.type(password);
-  //   loginButton.click();
-  //   cy.location().should(({ href }) => {
-  //     expect(href).to.eq("http://localhost:5173/home");
-  //   });
-  // });
-
-  // it("Adds a new category", () => {
-  //   const inventoryButton = cy.get("#nav-inventory");
-  //   inventoryButton.click();
-  //   const newItemButton = cy.get("button[name='newItem']");
-  //   newItemButton.click();
-  //   const newCategoryButton = cy.get("button[name='newCategory']");
-  //   newCategoryButton.click();
-  //   const newOptionInput = cy.get("input[name='newOption']");
-  //   const saveOptionButton = cy.get("button[name='saveOption']");
-  //   newOptionInput.type(newOptionValue);
-  //   saveOptionButton.click();
-  //   const categorySelectInput = cy.get("#category");
-  //   categorySelectInput.click();
-  //   cy.contains(newOptionValue);
-  // });
-
-  // it("Selects and edits category form", () => {
-  //   const textTabId = "#tab-0";
-  //   const selectTabId = "#tab-1";
-  //   const toggleTabId = "#tab-2";
-  //   const checkboxTabId = "#tab-3";
-
-  //   const inventoryButton = cy.get("#nav-inventory");
-  //   inventoryButton.click();
-  //   const newItemButton = cy.get("button[name='newItem']");
-  //   newItemButton.click();
-  //   const categorySelectInput = cy.get("#category");
-  //   categorySelectInput.click();
-  //   cy.get("#category-option-0").click();
-  //   cy.get("#edit-category-form").click();
-  //   const textFields = [chance.city(), chance.city(), chance.city()];
-  //   for (const field in textFields) {
-  //     cy.get("input[name='label']").type(textFields[field]);
-  //     cy.get("button[name='type-text']").click();
-  //     cy.get("input[name='required']").click();
-  //     cy.get("button[name='textfield-add']").click();
-  //     const newField = cy.get(
-  //       `input[name='${labelToName(textFields[field])}']`
-  //     );
-  //     newField.type("Testing text field");
-  //     newField.clear();
-  //   }
-  //   cy.get(selectTabId).click();
-  //   const selectFields = [
-  //     {
-  //       name: `${chance.name()} Pets`,
-  //       options: [chance.animal(), chance.animal(), chance.animal()],
-  //     },
-  //     {
-  //       name: `${chance.name()} Pets`,
-  //       options: [chance.animal(), chance.animal(), chance.animal()],
-  //     },
-  //     {
-  //       name: `${chance.name()} Pets`,
-  //       options: [chance.animal(), chance.animal(), chance.animal()],
-  //     },
-  //   ];
-  //   for (const field in selectFields) {
-  //     cy.get("input[name='label']").type(selectFields[field].name);
-  //     cy.get("input[name='required']").click();
-  //     for (const pet in selectFields[field].options) {
-  //       cy.get("input[name='options']").type(selectFields[field].options[pet]);
-  //       cy.get("button[name='add-lister-option']").click();
-  //     }
-  //     cy.get("button[name='selectField-add']").click();
-  //     const newInputName = labelToName(selectFields[field].name);
-  //     const newInput = cy.get(`input[name='${newInputName}']`);
-  //     newInput.click();
-  //     newInput.type(selectFields[field].options[0]);
-  //   }
-  //   const toggleFields = [
-  //     {
-  //       name: "toggle-0",
-  //       options: [chance.country(), chance.country()],
-  //     },
-  //     {
-  //       name: "toggle-1",
-  //       options: [chance.country(), chance.country()],
-  //     },
-  //     {
-  //       name: "toggle-2",
-  //       options: [chance.country(), chance.country()],
-  //     },
-  //   ];
-  //   cy.get(toggleTabId).click();
-  //   for (const field in toggleFields) {
-  //     cy.get("input[name='name']").eq(1).type(toggleFields[field].name);
-  //     cy.get("input[name='editable']").click();
-  //     for (const country in toggleFields[field].options) {
-  //       cy.get("input[name='options']").type(
-  //         toggleFields[field].options[country]
-  //       );
-  //       cy.get("button[name='add-lister-option']").click();
-  //     }
-  //     cy.get("button[name='toggleField-add']").click();
-  //     cy.get(
-  //       `button[name='${toggleFields[field].name}-${labelToName(
-  //         toggleFields[field].options[1]
-  //       )}']`
-  //     ).click();
-  //     cy.get(
-  //       `button[name='${toggleFields[field].name}-${labelToName(
-  //         toggleFields[field].options[0]
-  //       )}']`
-  //     ).click();
-  //   }
-  //   const checkboxFields = [
-  //     chance.month(),
-  //     chance.month(),
-  //     chance.month(),
-  //     chance.weekday(),
-  //     chance.weekday(),
-  //     chance.weekday(),
-  //   ];
-  //   checkboxFields.forEach((field) => {
-  //     cy.get(checkboxTabId).click();
-  //     cy.get("input[name='label']").type(field);
-  //     cy.get('[style="left: 25%;"]').click();
-  //     cy.get("button[name='checkboxField-add']").click();
-  //     cy.get(`input[name='${labelToName(field)}']`).click();
-  //     cy.get(`input[name='${labelToName(field)}']`).click();
-  //   });
-  // });
-});

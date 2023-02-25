@@ -61,7 +61,6 @@ const NewItem = () => {
       setErrors(initFormErrors(Object.keys(initValues)));
     }
   }, [category, forms]);
-
   const handleChange = (name: string, value: ValueType) => {
     setValues((prev) => ({ ...prev, [name]: value }));
   };

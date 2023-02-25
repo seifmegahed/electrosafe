@@ -44,6 +44,26 @@ const templateFields: FieldsPropsTypes[] = [
     editable: false,
     permanent: true,
   },
+  {
+    name: "description",
+    label: "Description",
+    input: "text",
+    type: "text",
+    span: 4,
+    required: true,
+    editable: true,
+    permanent: true,
+  },
+  {
+    name: "notes",
+    label: "Notes",
+    input: "text",
+    type: "text",
+    span: 4,
+    required: true,
+    editable: true,
+    permanent: true,
+  },
 ];
 
 type FormEditorProps = {

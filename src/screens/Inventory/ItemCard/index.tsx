@@ -1,5 +1,8 @@
+// React
+import { useNavigate } from "react-router-dom";
+
 // MUI
-import { Checkbox, Typography, useMediaQuery } from "@mui/material";
+import { Checkbox, Typography, useMediaQuery, Box } from "@mui/material";
 
 // Components
 import CardContainer from "../../../components/Containers/CardContainer";
@@ -13,20 +16,26 @@ import OptionsMenu from "./OptionsMenu";
 const placeHolderImage = "../../../public/assets/images/imageplaceholder.png";
 
 const ItemCard = ({ item }: { item: HelperItemType }) => {
-  const { name, make, mpn, category } = item;
+  const navigate = useNavigate();
+  const { name, make, mpn, category, id } = item;
   const isNonMobile = useMediaQuery("(min-width:500px)");
+
+  const handleClick = () => navigate("item", { state: { id } });
 
   return (
     <CardContainer height={100}>
       <Checkbox sx={{ "& .MuiSvgIcon-root": { fontSize: 28 } }} />
       {isNonMobile && (
-        <img className="card-image" alt="" src={placeHolderImage} />
+        <Box className="pointer" onClick={handleClick}>
+          <img className="card-image" alt="" src={placeHolderImage} />
+        </Box>
       )}
       <div className="card-content">
         <div>
           <Typography
             title={`Name: ${name}`}
-            className="card-text"
+            onClick={handleClick}
+            className="card-text pointer"
             fontWeight={600}
             variant="h6"
           >

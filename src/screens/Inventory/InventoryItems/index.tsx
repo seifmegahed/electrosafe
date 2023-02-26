@@ -4,9 +4,9 @@ import { useEffect, useMemo, useState } from "react";
 
 // Components
 import ItemCard from "../ItemCard";
-import SearchBar from "./SearchBar";
-import AddItemButton from "./NewItemButton";
-import PaginationComponent from "./PaginationComponent";
+import SearchBar from "../../../components/InputFields/SearchBar";
+import AddItemButton from "./AddItemButton";
+import PaginationComponent from "../../../components/Navigation/PaginationComponent";
 
 // Constants
 import { COMPONENT_MAX_WIDTH } from "../../../globalConstants";

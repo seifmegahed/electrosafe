@@ -38,7 +38,12 @@ const FormContainer = ({
       }}
     >
       {title && !iconButton && (
-        <Typography sx={{ gridColumn: "span 4" }} variant="h3">
+        <Typography
+          title={title}
+          className="container-title"
+          sx={{ gridColumn: "span 4" }}
+          variant="h3"
+        >
           {title}
         </Typography>
       )}
@@ -51,7 +56,14 @@ const FormContainer = ({
             alignItems: "center",
           }}
         >
-          <Typography variant="h3">{title}</Typography>
+          <Typography
+            title={title}
+            className="container-title"
+            sx={{ gridColumn: "span 4" }}
+            variant="h3"
+          >
+            {title}
+          </Typography>
           {iconButton}
         </div>
       )}

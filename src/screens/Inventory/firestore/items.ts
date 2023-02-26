@@ -86,7 +86,13 @@ export const createItem = async (itemData: GenericObject) => {
   }
 };
 
-export const getHelperItems: () => Promise<HelperDocument> = async () => {
+export const getHelperItems = async () => {
   const helperItemsDocument = await getDoc(helperItemsDocumentReference);
   return helperItemsDocument.data() as HelperDocument;
+};
+
+export const getItem = async (id: string) => {
+  const itemDocumentReference = doc(itemsCollectionReference, id);
+  const itemDocument = await getDoc(itemDocumentReference);
+  return itemDocument.data() as GenericObject;
 };

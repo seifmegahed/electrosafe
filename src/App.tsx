@@ -9,6 +9,7 @@ import NavComponents from "./components/Navigation/NavComponents";
 import Topbar from "./components/Navigation/Topbar";
 
 import { useAuth } from "./contexts/AuthProvider";
+import ItemPage from "./screens/Inventory/ItemPage";
 
 // Lazy Loading
 const Home = lazy(() => import("./screens/Home"));
@@ -34,6 +35,7 @@ const App = () => {
             <Route path="/change-password" element={<ChangePassword />} />
             <Route path="/inventory" element={<Inventory />} />
             <Route path="/inventory/new" element={<NewItem />} />
+            <Route path="/inventory/item" element={<ItemPage />} />
             <Route path="/inventory/edit-form" element={<EditPrototype />} />
           </Routes>
         </Suspense>

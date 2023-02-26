@@ -24,10 +24,6 @@ const InventoryItems = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const numberPages = Math.ceil(filteredItems.length / itemsPerPage);
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
-
   const pageItems = useMemo(() => {
     const lastItemIndex = currentPage * itemsPerPage;
     const firstItemIndex = lastItemIndex - itemsPerPage;
@@ -37,8 +33,12 @@ const InventoryItems = () => {
   const handleSearch = (value: string) => {
     setSearchKey(value);
     setFilteredItems(
-      items.filter((item) =>
-        item.name.toLowerCase().includes(value.toLowerCase())
+      items.filter(
+        (item) =>
+          item.category.label.toLowerCase().includes(value.toLowerCase()) ||
+          item.name.toLowerCase().includes(value.toLowerCase()) ||
+          item.make.toLowerCase().includes(value.toLowerCase()) ||
+          item.mpn.toLowerCase().includes(value.toLowerCase())
       )
     );
   };
@@ -67,7 +67,7 @@ const InventoryItems = () => {
       <PaginationComponent
         page={currentPage}
         numberPages={numberPages}
-        onChange={handlePageChange}
+        onChange={setCurrentPage}
       />
     </div>
   );

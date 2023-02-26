@@ -9,7 +9,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "emulate": "firebase emulators:start import=./mockdata --export-on-exit=./mockdata",
+    "emulate": "firebase emulators:start --import=./mockdata --export-on-exit=./mockdata",
     "export-mock": "firebase emulators:export ./mockdata/ --debug",
     "deploy": "firebase deploy --only hosting",
     "predeploy": "tsc && vite build"

@@ -1,6 +1,6 @@
 // React
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 // Components
 import ItemCard from "../ItemCard";
@@ -19,27 +19,38 @@ const itemsPerPage = 10;
 const InventoryItems = () => {
   const navigate = useNavigate();
   const [items, setItems] = useState<HelperItemType[]>([]);
-  const [pageItems, setPageItems] = useState<HelperItemType[]>([]);
-  const numberPages = Math.ceil(items.length / itemsPerPage);
+  const [filteredItems, setFilteredItems] = useState<HelperItemType[]>([]);
+  const [searchKey, setSearchKey] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const numberPages = Math.ceil(filteredItems.length / itemsPerPage);
 
   const handlePageChange = (page: number) => {
-    const lastItemIndex = page * itemsPerPage;
+    setCurrentPage(page);
+  };
+
+  const pageItems = useMemo(() => {
+    const lastItemIndex = currentPage * itemsPerPage;
     const firstItemIndex = lastItemIndex - itemsPerPage;
-    setPageItems(items.slice(firstItemIndex, lastItemIndex));
+    return filteredItems.slice(firstItemIndex, lastItemIndex);
+  }, [filteredItems, currentPage]);
+
+  const handleSearch = (value: string) => {
+    setSearchKey(value);
+    setFilteredItems(
+      items.filter((item) =>
+        item.name.toLowerCase().includes(value.toLowerCase())
+      )
+    );
   };
 
   useEffect(() => {
     getHelperItems().then((response) => {
       if (response !== undefined && response.data !== undefined) {
         setItems(response.data);
+        setFilteredItems(response.data);
       }
     });
   }, []);
-
-  useEffect(() => {
-    handlePageChange(1);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [items]);
 
   return (
     <div
@@ -47,13 +58,14 @@ const InventoryItems = () => {
       style={{ maxWidth: COMPONENT_MAX_WIDTH }}
     >
       <div className="two-items-container">
-        <SearchBar />
+        <SearchBar value={searchKey} onChange={handleSearch} />
         <AddItemButton onClick={() => navigate("new")} />
       </div>
       {pageItems.map((item) => (
         <ItemCard key={item.name} item={item} />
       ))}
       <PaginationComponent
+        page={currentPage}
         numberPages={numberPages}
         onChange={handlePageChange}
       />

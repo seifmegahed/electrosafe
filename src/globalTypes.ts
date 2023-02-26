@@ -1,7 +1,7 @@
 export type SpanType = 1 | 2 | 3 | 4;
 export type InputType = "text" | "select" | "toggle" | "lister" | "checkbox";
 
-export type TextFieldTypesType = "text" | "number" | OptionType;
+export type TextFieldTypesType = "text" | "number";
 export type ChangeEventCallbackReturnType = { name: string; value: OptionType };
 export type ChangeEventCallbackType = () => ChangeEventCallbackReturnType;
 export type ValueType =

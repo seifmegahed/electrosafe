@@ -86,7 +86,7 @@ export const addForm = async (
       else newCategories = [category];
       transaction.set(categoriesDocumentReference, {
         data: newCategories,
-        length: newCategories.length,
+        count: newCategories.length,
       });
       if (formsDocument)
         transaction.update(formsDocumentReference, { [category.name]: fields });

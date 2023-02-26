@@ -7,6 +7,7 @@ import {
 } from "firebase/firestore";
 import { firestore } from "../../../firebase-config";
 import { GenericObject, OptionType } from "../../../globalTypes";
+import { isDuplicateObject } from "../../../utils/validation";
 
 export type HelperItemType = {
   name: string;
@@ -14,7 +15,7 @@ export type HelperItemType = {
   id: string;
   mpn: string;
   category: OptionType;
-  quantity?: number;
+  quantity: number;
 };
 
 type HelperDocument = {
@@ -41,20 +42,33 @@ const helperItemsDocumentReference = doc(
 export const createItem = async (itemData: GenericObject) => {
   const newItemDocumentReference = doc(itemsCollectionReference);
   try {
+    // Get helper items
     await runTransaction(firestore, async (transaction) => {
       const helperItemsDocument = (
         await transaction.get(helperItemsDocumentReference)
       ).data();
+
+      // Create helper item
       const newHelperItem: HelperItemType = {
         id: newItemDocumentReference.id,
-        name: itemData?.name as string,
-        mpn: itemData?.mpn as string,
-        make: itemData?.make as string,
-        category: itemData?.category as OptionType,
+        name: itemData.name as string,
+        mpn: itemData.mpn as string,
+        make: itemData.make as string,
+        category: itemData.category as OptionType,
+        quantity: (itemData.quantity as number) || 0,
       };
+
+      // Check if item name already exists
+      if (
+        helperItemsDocument &&
+        isDuplicateObject(itemData, helperItemsDocument.data)
+      )
+        throw new Error("Item name exists!");
+
+      // Check if helper items exists
       if (helperItemsDocument)
         transaction.update(helperItemsDocumentReference, {
-          data: [...helperItemsDocument.data, newHelperItem],
+          data: [newHelperItem, ...helperItemsDocument.data],
           count: helperItemsDocument.data.length + 1,
         });
       else

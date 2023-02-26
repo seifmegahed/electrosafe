@@ -91,6 +91,10 @@ const NewItem = () => {
       createdBy: user?.displayName || "",
     })
       .catch((error) => {
+        if (error === "Item name already exists!") {
+          // TODO Error modal
+          // setCategory(undefined); // temp
+        }
         console.warn(error);
       })
       .then(() => {

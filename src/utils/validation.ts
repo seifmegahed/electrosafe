@@ -41,6 +41,15 @@ export const isDuplicateOption = (value: OptionType, array: OptionType[]) =>
     true
   );
 
+export const isDuplicateObject = (
+  value: GenericObject,
+  array: GenericObject[]
+) =>
+  !array.reduce(
+    (exists, currentValue) => exists && currentValue.name !== value.name,
+    true
+  );
+
 export const isDuplicateField = (
   value: FieldsPropsTypes,
   array: FieldsPropsTypes[]

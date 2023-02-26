@@ -15,7 +15,7 @@ const SaveButton = ({ onClick }: SaveButtonProps) => {
     >
       <Button
         variant="contained"
-        name="save"
+        name="saveItem"
         onClick={onClick}
         sx={{ maxWidth: "120px", width: "100%" }}
       >

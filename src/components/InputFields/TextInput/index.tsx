@@ -43,10 +43,14 @@ const TextInput = ({
       name={name}
       sx={{ gridColumn: `span ${span}` }}
       helperText={error && "Required"}
-      type={typeof type === "string" ? type : type?.name ?? "text"}
+      type={type}
       value={(value as string | number) || ""}
       error={error ?? false}
-      onChange={(event) => handleChange(name, event.target.value)}
+      onChange={(event) =>
+        type === "text"
+          ? handleChange(name, event.target.value)
+          : handleChange(name, +event.target.value)
+      }
       InputProps={getInputFixProps(preFix, postFix)}
     />
   );

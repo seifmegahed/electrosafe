@@ -39,6 +39,7 @@ const FormPreview = ({ fields, onSubmit }: FormTesterProps) => {
       <div style={singleButtonFormContainerStyle}>
         <Button
           variant="contained"
+          name="saveForm"
           sx={FORM_BUTTON_STYLE}
           onClick={handleSubmit}
         >

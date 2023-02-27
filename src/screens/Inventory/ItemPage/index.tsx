@@ -1,12 +1,10 @@
 // React
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Timestamp } from "firebase/firestore";
 
 // MUI
 
 // Components
-import GridWrapper from "../../../components/Containers/GridWrapper";
 import FormContainer from "../../../components/Containers/FormContainer";
 import TextFieldDisplay from "./TextFieldDisplay";
 
@@ -20,13 +18,12 @@ import {
   GenericObject,
   OptionType,
 } from "../../../globalTypes";
-import getFormattedDate from "../../../utils/dateFormatting";
 
 const autoFields = [
-  { name: "dataOfCreation", label: "Created On", type: "date" },
-  { name: "createdBy", label: "Created By", type: "text" },
-  { name: "modifiedOn", label: "Last Modified On", type: "date" },
-  { name: "modifiedBy", label: "Modified By", type: "text" },
+  { name: "dataOfCreation", label: "Created On", input: "date" },
+  { name: "createdBy", label: "Created By", input: "text" },
+  { name: "modifiedOn", label: "Last Modified On", input: "date" },
+  { name: "modifiedBy", label: "Modified By", input: "text" },
 ];
 
 const ItemPage = () => {
@@ -59,40 +56,24 @@ const ItemPage = () => {
   if (!fields || !itemData) return null;
   return (
     <FormContainer title={itemData.name as string}>
-      <GridWrapper>
-        {fields.map((field) => {
-          const { name, input } = field;
-          const value = itemData[name];
-          if (input === "text" && value !== "")
-            return (
-              <TextFieldDisplay
-                key={name}
-                label={field.label}
-                value={value as string}
-              />
-            );
-          return null;
-        })}
-      </GridWrapper>
-      <GridWrapper>
-        {autoFields.map(({ name, label, type }) => {
-          const value = itemData[name];
-          console.log(value);
-          if (value && value !== "")
-            return (
-              <TextFieldDisplay
-                key={name}
-                label={label}
-                value={
-                  type === "date"
-                    ? getFormattedDate(value as Timestamp)
-                    : (value as string)
-                }
-              />
-            );
-          return null;
-        })}
-      </GridWrapper>
+      {[...fields, ...autoFields].map((field) => {
+        const { name, input } = field;
+        const value = itemData[name];
+        if (
+          (input === "text" || input === "date") &&
+          value !== "" &&
+          value !== undefined
+        )
+          return (
+            <TextFieldDisplay
+              key={name}
+              type={input}
+              label={field.label}
+              value={value as string}
+            />
+          );
+        return null;
+      })}
     </FormContainer>
   );
 };

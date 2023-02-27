@@ -26,7 +26,12 @@ const ItemCard = ({ item }: { item: HelperItemType }) => {
     <CardContainer height={100}>
       <Checkbox sx={{ "& .MuiSvgIcon-root": { fontSize: 28 } }} />
       {isNonMobile && (
-        <Box className="pointer" onClick={handleClick}>
+        <Box
+          className="pointer"
+          display="flex"
+          alignItems="center"
+          onClick={handleClick}
+        >
           <img className="card-image" alt="" src={placeHolderImage} />
         </Box>
       )}
@@ -59,7 +64,12 @@ const ItemCard = ({ item }: { item: HelperItemType }) => {
           >
             {category.label}
           </Typography>
-          <Typography fontWeight={500} fontSize={12} title="Quantity">
+          <Typography
+            fontWeight={500}
+            fontSize={12}
+            title="Quantity"
+            color="text.secondary"
+          >
             {`${isNonMobile ? "Quantity: " : ""}${item.quantity ?? 0}`}
           </Typography>
         </div>

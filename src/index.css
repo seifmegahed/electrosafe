@@ -77,3 +77,16 @@ body,
 .pointer {
   cursor: pointer;
 }
+
+.flex-row-div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-bottom: 8px;
+  gap: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.data-display-key-div {
+  text-align: left;
+  /* border-right: 1px solid #ddd; */
+}

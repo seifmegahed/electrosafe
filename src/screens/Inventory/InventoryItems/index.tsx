@@ -41,6 +41,7 @@ const InventoryItems = () => {
           item.mpn.toLowerCase().includes(value.toLowerCase())
       )
     );
+    setCurrentPage(1);
   };
 
   useEffect(() => {

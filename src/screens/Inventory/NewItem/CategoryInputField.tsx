@@ -13,6 +13,7 @@ import GridWrapper from "../../../components/Containers/GridWrapper";
 
 // Types
 import { OptionType, SelectFieldPropsType } from "../../../globalTypes";
+import routes from "../../../routes";
 
 type CategoryFieldProps = {
   value?: OptionType;
@@ -38,7 +39,7 @@ const CategoryInputField = ({
   };
 
   const handleNewOption = (newValue: OptionType) => {
-    navigate("/inventory/edit-form", {
+    navigate(routes.editForm.path, {
       state: newValue,
     });
   };

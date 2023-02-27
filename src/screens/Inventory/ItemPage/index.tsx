@@ -2,8 +2,6 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-// MUI
-
 // Components
 import FormContainer from "../../../components/Containers/FormContainer";
 import TextFieldDisplay from "./TextFieldDisplay";
@@ -18,6 +16,8 @@ import {
   GenericObject,
   OptionType,
 } from "../../../globalTypes";
+import BreadNav from "../../../components/Navigation/BreadNav";
+import routes from "../../../routes";
 
 const autoFields = [
   { name: "dataOfCreation", label: "Created On", input: "date" },
@@ -41,40 +41,41 @@ const ItemPage = () => {
   }, [itemId]);
 
   useEffect(() => {
-    if (itemData && itemData.category) {
-      console.log(itemData);
-    }
-    getForms()
-      .catch((error) => console.error(error))
-      .then((response) => {
-        const forms = response?.data();
-        const categoryName = (itemData?.category as OptionType).name;
-        if (forms?.[categoryName]) setFields(forms[categoryName]);
-      });
+    if (itemData && itemData.category)
+      getForms()
+        .catch((error) => console.error(error))
+        .then((response) => {
+          const forms = response?.data();
+          const categoryName = (itemData.category as OptionType).name;
+          if (forms?.[categoryName]) setFields(forms[categoryName]);
+        });
   }, [itemData]);
 
   if (!fields || !itemData) return null;
   return (
-    <FormContainer title={itemData.name as string}>
-      {[...fields, ...autoFields].map((field) => {
-        const { name, input } = field;
-        const value = itemData[name];
-        if (
-          (input === "text" || input === "date") &&
-          value !== "" &&
-          value !== undefined
-        )
-          return (
-            <TextFieldDisplay
-              key={name}
-              type={input}
-              label={field.label}
-              value={value as string}
-            />
-          );
-        return null;
-      })}
-    </FormContainer>
+    <>
+      <BreadNav page={routes.item} />
+      <FormContainer title={itemData.name as string}>
+        {[...fields, ...autoFields].map((field) => {
+          const { name, input } = field;
+          const value = itemData[name];
+          if (
+            (input === "text" || input === "date") &&
+            value !== "" &&
+            value !== undefined
+          )
+            return (
+              <TextFieldDisplay
+                key={name}
+                type={input}
+                label={field.label}
+                value={value as string}
+              />
+            );
+          return null;
+        })}
+      </FormContainer>
+    </>
   );
 };
 

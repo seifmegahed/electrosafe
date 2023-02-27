@@ -12,6 +12,7 @@ import { HelperItemType } from "../firestore/items";
 
 // Functions
 import OptionsMenu from "./OptionsMenu";
+import routes from "../../../routes";
 
 const placeHolderImage = "../../../public/assets/images/imageplaceholder.png";
 
@@ -20,7 +21,7 @@ const ItemCard = ({ item }: { item: HelperItemType }) => {
   const { name, make, mpn, category, id } = item;
   const isNonMobile = useMediaQuery("(min-width:500px)");
 
-  const handleClick = () => navigate("item", { state: { id } });
+  const handleClick = () => navigate(routes.item.path, { state: { id } });
 
   return (
     <CardContainer height={100}>

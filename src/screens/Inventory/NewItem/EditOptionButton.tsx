@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { IconButton } from "@mui/material";
 import { Edit } from "@mui/icons-material";
 import { OptionType } from "../../../globalTypes";
+import routes from "../../../routes";
 
 const EditOptionButton = ({ category }: { category?: OptionType }) => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const EditOptionButton = ({ category }: { category?: OptionType }) => {
       id="edit-category-form"
       onClick={() => {
         if (category)
-          navigate("/inventory/edit-form", {
+          navigate(routes.editForm.path, {
             state: category,
           });
       }}

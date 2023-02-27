@@ -1,9 +1,6 @@
 // React
 import { useState } from "react";
 
-// MUI
-import { Typography } from "@mui/material";
-
 // Components
 import FieldGenerator from "../Generators/FieldGenerator";
 import FormFieldsSorter from "./FormFieldsSorter";
@@ -11,7 +8,6 @@ import FormPreview from "./FormPreview";
 
 // Types
 import { FieldsPropsTypes, OptionType } from "../../globalTypes";
-import { COMPONENT_MAX_WIDTH } from "../../globalConstants";
 
 const templateFields: FieldsPropsTypes[] = [
   {
@@ -87,10 +83,11 @@ const FormEditor = ({ category, onSubmit }: FormEditorProps) => {
 
   return (
     <>
-      <div style={{ width: "100%", maxWidth: COMPONENT_MAX_WIDTH }}>
-        <Typography variant="h3">{`${category.label} Form Editor`}</Typography>
-      </div>
-      <FormPreview fields={fields} onSubmit={handleSubmit} />
+      <FormPreview
+        label={category.label}
+        fields={fields}
+        onSubmit={handleSubmit}
+      />
       <FormFieldsSorter
         fields={fields}
         onChange={(values) => setFields(values)}

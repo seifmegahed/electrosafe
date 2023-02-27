@@ -27,6 +27,8 @@ import { checkFormValidity } from "../../../utils/validation";
 import { initFormErrors, initFormValues } from "../../../utils/formInit";
 import { createItem } from "../firestore/items";
 import Loading from "../../../components/Modals/Loading";
+import BreadNav from "../../../components/Navigation/BreadNav";
+import routes from "../../../routes";
 
 const NewItem = () => {
   const location = useLocation();
@@ -106,28 +108,31 @@ const NewItem = () => {
   };
 
   return (
-    <FormContainer
-      title="New Item"
-      iconButton={<EditOptionButton category={category} />}
-    >
-      <Loading state={loading} />
-      <CategoryInputField
-        value={category}
-        categories={categories}
-        onChange={(value) => setCategory(value)}
-      />
-      {forms && category && forms[category.name] ? (
-        <GridWrapper>
-          <AutoForm
-            fields={forms?.[category?.name]}
-            values={values ?? {}}
-            errors={errors}
-            onChange={handleChange}
-          />
-          <SaveButton onClick={handleSubmit} />
-        </GridWrapper>
-      ) : null}
-    </FormContainer>
+    <>
+      <BreadNav page={routes.newItem} />
+      <FormContainer
+        title="New Item"
+        iconButton={<EditOptionButton category={category} />}
+      >
+        <Loading state={loading} />
+        <CategoryInputField
+          value={category}
+          categories={categories}
+          onChange={(value) => setCategory(value)}
+        />
+        {forms && category && forms[category.name] ? (
+          <GridWrapper>
+            <AutoForm
+              fields={forms?.[category?.name]}
+              values={values ?? {}}
+              errors={errors}
+              onChange={handleChange}
+            />
+            <SaveButton onClick={handleSubmit} />
+          </GridWrapper>
+        ) : null}
+      </FormContainer>
+    </>
   );
 };
 

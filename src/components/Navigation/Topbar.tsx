@@ -11,6 +11,7 @@ import { Menu, Person } from "@mui/icons-material";
 // Components
 import { useAuth } from "../../contexts/AuthProvider";
 import PopperMenu from "../Menus/PopperMenu";
+import routes from "../../routes";
 
 // Types
 type TopbarProps = {
@@ -34,19 +35,19 @@ const Topbar = ({ openSideNav }: TopbarProps) => {
 
   const userMenuItems = [
     {
-      label: "Account",
+      label: routes.userAccount.label,
       disabled: false,
       arabic: false,
       callback: () => {
-        navigate("user-account");
+        navigate(routes.userAccount.path);
       },
     },
     {
-      label: "Change Password",
+      label: routes.changePassword.label,
       disabled: false,
       arabic: false,
       callback: () => {
-        navigate("change-password");
+        navigate(routes.changePassword.path);
       },
     },
     {

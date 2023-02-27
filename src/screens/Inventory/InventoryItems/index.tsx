@@ -13,6 +13,7 @@ import { COMPONENT_MAX_WIDTH } from "../../../globalConstants";
 
 // Functions
 import { getHelperItems, HelperItemType } from "../firestore/items";
+import routes from "../../../routes";
 
 const itemsPerPage = 10;
 
@@ -60,7 +61,7 @@ const InventoryItems = () => {
     >
       <div className="two-items-container">
         <SearchBar value={searchKey} onChange={handleSearch} />
-        <AddItemButton onClick={() => navigate("new")} />
+        <AddItemButton onClick={() => navigate(routes.newItem.path)} />
       </div>
       {pageItems.map((item) => (
         <ItemCard key={item.name} item={item} />

@@ -16,6 +16,7 @@ import { useAuth } from "../../contexts/AuthProvider";
 import Loading from "../../components/Modals/Loading";
 import FormContainer from "../../components/Containers/FormContainer";
 import PasswordField from "../../components/InputFields/PasswordField";
+import routes from "../../routes";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ const Login = () => {
       await login(email, password)
         .then(() => {
           setError(false);
-          navigate("/home");
+          navigate(routes.home.path);
         })
         .catch((loginError) => {
           setError(true);

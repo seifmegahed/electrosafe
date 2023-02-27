@@ -1,3 +1,5 @@
+import routes from "../../../routes";
+
 export type ItemType = {
   label: string;
   path: string;
@@ -7,16 +9,16 @@ export type ItemType = {
 export type PagesType = ItemType[];
 
 export const pages: PagesType = [
-  { label: "Home", path: "/home" },
+  { label: routes.home.label, path: routes.home.path },
   {
-    label: "Inventory",
-    path: "/inventory",
+    label: routes.inventory.label,
+    path: routes.inventory.path,
     subPages: [
-      { label: "All Items", path: "/inventory" },
-      { label: "NewItem", path: "/inventory/new" },
+      { label: "All Items", path: routes.inventory.path },
+      { label: routes.newItem.label, path: routes.newItem.path },
     ],
   },
-  { label: "Sales", path: "/sales" },
-  { label: "Treasury", path: "/treasury" },
-  { label: "Purchasing", path: "/purchasing" },
+  // { label: "Sales", path: "/sales" },
+  // { label: "Treasury", path: "/treasury" },
+  // { label: "Purchasing", path: "/purchasing" },
 ];

@@ -22,10 +22,11 @@ import {
 
 type FormTesterProps = {
   fields: FieldsPropsTypes[];
+  label: string;
   onSubmit: () => void;
 };
 
-const FormPreview = ({ fields, onSubmit }: FormTesterProps) => {
+const FormPreview = ({ fields, label, onSubmit }: FormTesterProps) => {
   const handleSubmit = onSubmit;
   const [values, setValues] = useState(initFormValues(fields));
 
@@ -34,7 +35,7 @@ const FormPreview = ({ fields, onSubmit }: FormTesterProps) => {
   };
 
   return (
-    <FormContainer title="Form Preview">
+    <FormContainer title={`${label} Form Preview`}>
       <AutoForm fields={fields} values={values} onChange={handleChange} />
       <div style={singleButtonFormContainerStyle}>
         <Button

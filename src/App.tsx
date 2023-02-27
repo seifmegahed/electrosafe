@@ -10,6 +10,7 @@ import Topbar from "./components/Navigation/Topbar";
 
 import { useAuth } from "./contexts/AuthProvider";
 import ItemPage from "./screens/Inventory/ItemPage";
+import routes from "./routes";
 
 // Lazy Loading
 const Home = lazy(() => import("./screens/Home"));
@@ -29,14 +30,20 @@ const App = () => {
       <PageWrapper>
         <Suspense fallback={<Loading />}>
           <Routes>
-            <Route path="/" element={<Navigate to="/home" />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/user-account" element={<UserAccount span={2} />} />
-            <Route path="/change-password" element={<ChangePassword />} />
-            <Route path="/inventory" element={<Inventory />} />
-            <Route path="/inventory/new" element={<NewItem />} />
-            <Route path="/inventory/item" element={<ItemPage />} />
-            <Route path="/inventory/edit-form" element={<EditPrototype />} />
+            <Route path="/" element={<Navigate to={routes.home.path} />} />
+            <Route path={routes.home.path} element={<Home />} />
+            <Route
+              path={routes.userAccount.path}
+              element={<UserAccount span={2} />}
+            />
+            <Route
+              path={routes.changePassword.path}
+              element={<ChangePassword />}
+            />
+            <Route path={routes.inventory.path} element={<Inventory />} />
+            <Route path={routes.newItem.path} element={<NewItem />} />
+            <Route path={routes.item.path} element={<ItemPage />} />
+            <Route path={routes.editForm.path} element={<EditPrototype />} />
           </Routes>
         </Suspense>
       </PageWrapper>

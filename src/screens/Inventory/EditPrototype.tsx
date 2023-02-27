@@ -9,6 +9,8 @@ import FormEditor from "../../components/Forms/FormEditor";
 import Loading from "../../components/Modals/Loading";
 // Types
 import { FieldsPropsTypes, OptionType } from "../../globalTypes";
+import BreadNav from "../../components/Navigation/BreadNav";
+import routes from "../../routes";
 // Constants
 
 const EditPrototype = () => {
@@ -30,6 +32,7 @@ const EditPrototype = () => {
   return (
     <>
       <Loading state={loading} />
+      <BreadNav page={routes.editForm} />
       <FormEditor category={category} onSubmit={handleSubmit} />
     </>
   );

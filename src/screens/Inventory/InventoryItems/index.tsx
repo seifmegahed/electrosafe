@@ -14,6 +14,7 @@ import { COMPONENT_MAX_WIDTH } from "../../../globalConstants";
 // Functions
 import { getHelperItems, HelperItemType } from "../firestore/items";
 import routes from "../../../routes";
+import ChipMenu from "./ChipMenu";
 
 const itemsPerPage = 10;
 
@@ -63,6 +64,7 @@ const InventoryItems = () => {
         <SearchBar value={searchKey} onChange={handleSearch} />
         <AddItemButton onClick={() => navigate(routes.newItem.path)} />
       </div>
+      <ChipMenu selectedCount={10} />
       {pageItems.map((item) => (
         <ItemCard key={item.name} item={item} />
       ))}

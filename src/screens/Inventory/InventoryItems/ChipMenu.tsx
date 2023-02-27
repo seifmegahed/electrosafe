@@ -1,15 +1,19 @@
 // React
-import { useState, MouseEvent } from "react";
-
+// Firebase
 // MUI
-import { MoreVert } from "@mui/icons-material";
-import { IconButton } from "@mui/material";
+// Components
+// Types
 
-// Functions
-import PopperMenu from "../../../components/Menus/PopperMenu";
+import { Chip } from "@mui/material";
+import { useState } from "react";
 import arabic from "../../../arabic";
+import PopperMenu from "../../../components/Menus/PopperMenu";
 
-const OptionsMenu = () => {
+type ChipMenuProps = {
+  selectedCount: number;
+};
+
+const ChipMenu = ({ selectedCount }: ChipMenuProps) => {
   const [optionsMenuElement, setOptionsMenuElement] =
     useState<HTMLElement | null>(null);
 
@@ -17,9 +21,6 @@ const OptionsMenu = () => {
     setOptionsMenuElement(null);
   };
 
-  const openOptionsMenu = (event: MouseEvent<HTMLElement>) => {
-    setOptionsMenuElement(event.currentTarget);
-  };
   const errorColor = "error";
   const menuItems = [
     {
@@ -43,32 +44,27 @@ const OptionsMenu = () => {
       callback: () => console.log("edit"),
     },
     {
-      label: "Details",
-      callback: () => console.log("edit"),
-    },
-    {
-      label: "Edit",
-      callback: () => console.log("edit"),
-    },
-    {
       label: "Delete",
       callback: () => console.log("delete"),
       color: errorColor,
     },
   ];
-
   return (
-    <>
-      <IconButton onClick={openOptionsMenu}>
-        <MoreVert fontSize="large" />
-      </IconButton>
+    <div style={{ display: "flex", justifyContent: "flex-start", gap: "20px" }}>
+      <Chip
+        onClick={(event) => setOptionsMenuElement(event.currentTarget)}
+        onDelete={() => console.log("clearSelected")}
+        label={`${selectedCount} Item${
+          selectedCount === 1 ? "" : "s"
+        } Selected`}
+      />
       <PopperMenu
         element={optionsMenuElement}
         handleClose={closeOptionsMenu}
         menuItems={menuItems}
       />
-    </>
+    </div>
   );
 };
 
-export default OptionsMenu;
+export default ChipMenu;

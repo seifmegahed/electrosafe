@@ -1,8 +1,9 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Timestamp } from "@firebase/firestore";
+import { GenericObject } from "../globalTypes";
 
 // returns date in MMM dd, yyyy format
-type DateMultiType = Date | Timestamp;
+export type DateMultiType = Date | Timestamp;
 
 const months = [
   "Jan",
@@ -21,8 +22,10 @@ const months = [
 
 function getFormattedDate(val: DateMultiType) {
   let date: DateMultiType;
-  if ((val as Timestamp)?.nanoseconds)
-    date = new Date((val as Timestamp).seconds * 1000);
+  if ((val as Timestamp | GenericObject)?.nanoseconds)
+    date = new Date(
+      ((val as Timestamp | GenericObject)?.seconds as number) * 1000
+    );
   else date = new Date(val as Date);
 
   const month = months[date.getMonth()];

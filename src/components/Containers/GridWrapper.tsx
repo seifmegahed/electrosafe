@@ -2,7 +2,7 @@ import { Box, useMediaQuery } from "@mui/material";
 import { ReactElement } from "react";
 
 type GridWrapperProps = {
-  children: ReactElement[] | ReactElement;
+  children: (ReactElement | null)[] | ReactElement;
 };
 
 const GridWrapper = ({ children }: GridWrapperProps) => {

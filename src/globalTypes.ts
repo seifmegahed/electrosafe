@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase/firestore";
+
 export type SpanType = 1 | 2 | 3 | 4;
 export type InputType = "text" | "select" | "toggle" | "lister" | "checkbox";
 
@@ -10,6 +12,7 @@ export type ValueType =
   | number
   | OptionType
   | OptionType[]
+  | Timestamp
   | null;
 
 export type GenericObject = { [key: string]: ValueType };

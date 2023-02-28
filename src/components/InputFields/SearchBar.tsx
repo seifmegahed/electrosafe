@@ -3,11 +3,10 @@ import { Box, Input, IconButton } from "@mui/material";
 import { Search } from "@mui/icons-material";
 
 type SearchBarProps = {
-  value: string;
   onChange: (value: string) => void;
 };
 
-const SearchBar = ({ value, onChange: handleChange }: SearchBarProps) => {
+const SearchBar = ({ onChange: handleChange }: SearchBarProps) => {
   return (
     <Box
       display="flex"
@@ -17,7 +16,7 @@ const SearchBar = ({ value, onChange: handleChange }: SearchBarProps) => {
       <Input
         disableUnderline
         sx={{ ml: 2, flex: 1 }}
-        value={value}
+        // value={value}
         onChange={(event) => handleChange(event.target.value)}
         placeholder="Search"
       />

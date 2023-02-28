@@ -11,9 +11,10 @@ import PopperMenu from "../../../components/Menus/PopperMenu";
 
 type ChipMenuProps = {
   selectedCount: number;
+  onClear: () => void;
 };
 
-const ChipMenu = ({ selectedCount }: ChipMenuProps) => {
+const ChipMenu = ({ selectedCount, onClear: handleClear }: ChipMenuProps) => {
   const [optionsMenuElement, setOptionsMenuElement] =
     useState<HTMLElement | null>(null);
 
@@ -53,7 +54,7 @@ const ChipMenu = ({ selectedCount }: ChipMenuProps) => {
     <div style={{ display: "flex", justifyContent: "flex-start", gap: "20px" }}>
       <Chip
         onClick={(event) => setOptionsMenuElement(event.currentTarget)}
-        onDelete={() => console.log("clearSelected")}
+        onDelete={() => handleClear()}
         label={`${selectedCount} Item${
           selectedCount === 1 ? "" : "s"
         } Selected`}

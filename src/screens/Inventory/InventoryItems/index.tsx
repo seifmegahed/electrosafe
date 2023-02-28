@@ -22,9 +22,13 @@ const InventoryItems = () => {
   const navigate = useNavigate();
   const [items, setItems] = useState<HelperItemType[]>([]);
   const [filteredItems, setFilteredItems] = useState<HelperItemType[]>([]);
-  const [searchKey, setSearchKey] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [checkedMap, setCheckedMap] = useState(
+    new Map<HelperItemType, boolean>()
+  );
+
   const numberPages = Math.ceil(filteredItems.length / itemsPerPage);
+  const amountChecked = [...checkedMap.keys()].length;
 
   const pageItems = useMemo(() => {
     const lastItemIndex = currentPage * itemsPerPage;
@@ -33,7 +37,6 @@ const InventoryItems = () => {
   }, [filteredItems, currentPage]);
 
   const handleSearch = (value: string) => {
-    setSearchKey(value);
     setFilteredItems(
       items.filter(
         (item) =>
@@ -45,6 +48,17 @@ const InventoryItems = () => {
     );
     setCurrentPage(1);
   };
+
+  const handleChecked = (item: HelperItemType, value: boolean) => {
+    setCheckedMap((prev) => {
+      const newCheckedMap = new Map(prev);
+      if (value) newCheckedMap.set(item, value);
+      else newCheckedMap.delete(item);
+      return newCheckedMap;
+    });
+  };
+
+  const handleClear = () => setCheckedMap(new Map<HelperItemType, boolean>());
 
   useEffect(() => {
     getHelperItems().then((response) => {
@@ -61,12 +75,19 @@ const InventoryItems = () => {
       style={{ maxWidth: COMPONENT_MAX_WIDTH }}
     >
       <div className="two-items-container">
-        <SearchBar value={searchKey} onChange={handleSearch} />
+        <SearchBar onChange={handleSearch} />
         <AddItemButton onClick={() => navigate(routes.newItem.path)} />
       </div>
-      <ChipMenu selectedCount={10} />
+      {amountChecked > 0 && (
+        <ChipMenu selectedCount={amountChecked} onClear={handleClear} />
+      )}
       {pageItems.map((item) => (
-        <ItemCard key={item.name} item={item} />
+        <ItemCard
+          key={item.id}
+          item={item}
+          checked={checkedMap.get(item) ?? false}
+          onChecked={handleChecked}
+        />
       ))}
       <PaginationComponent
         page={currentPage}

@@ -15,8 +15,16 @@ import OptionsMenu from "./OptionsMenu";
 import routes from "../../../routes";
 
 const placeHolderImage = "../../../public/assets/images/imageplaceholder.png";
-
-const ItemCard = ({ item }: { item: HelperItemType }) => {
+type ItemCardProps = {
+  item: HelperItemType;
+  checked: boolean;
+  onChecked: (id: HelperItemType, value: boolean) => void;
+};
+const ItemCard = ({
+  item,
+  checked,
+  onChecked: handleChecked,
+}: ItemCardProps) => {
   const navigate = useNavigate();
   const { name, make, mpn, category, id } = item;
   const isNonMobile = useMediaQuery("(min-width:500px)");
@@ -25,7 +33,11 @@ const ItemCard = ({ item }: { item: HelperItemType }) => {
 
   return (
     <CardContainer height={100}>
-      <Checkbox sx={{ "& .MuiSvgIcon-root": { fontSize: 28 } }} />
+      <Checkbox
+        checked={checked}
+        onChange={(event, value) => handleChecked(item, value)}
+        sx={{ "& .MuiSvgIcon-root": { fontSize: 28 } }}
+      />
       {isNonMobile && (
         <Box
           className="pointer"

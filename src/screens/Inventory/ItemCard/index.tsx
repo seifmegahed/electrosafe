@@ -14,7 +14,7 @@ import { HelperItemType } from "../firestore/items";
 import OptionsMenu from "./OptionsMenu";
 import routes from "../../../routes";
 
-const placeHolderImage = "../../../public/assets/images/imageplaceholder.png";
+const placeHolderImage = "assets/images/imageplaceholder.png";
 type ItemCardProps = {
   item: HelperItemType;
   checked: boolean;

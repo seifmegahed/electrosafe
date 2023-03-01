@@ -15,6 +15,7 @@ import { COMPONENT_MAX_WIDTH } from "../../../globalConstants";
 import { getHelperItems, HelperItemType } from "../firestore/items";
 import routes from "../../../routes";
 import ChipMenu from "./ChipMenu";
+import arabic from "../../../arabic";
 
 const itemsPerPage = 10;
 
@@ -23,12 +24,10 @@ const InventoryItems = () => {
   const [items, setItems] = useState<HelperItemType[]>([]);
   const [filteredItems, setFilteredItems] = useState<HelperItemType[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [checkedMap, setCheckedMap] = useState(
-    new Map<HelperItemType, boolean>()
-  );
+  const [selected, setSelected] = useState(new Map<HelperItemType, boolean>());
 
   const numberPages = Math.ceil(filteredItems.length / itemsPerPage);
-  const amountChecked = [...checkedMap.keys()].length;
+  const amountChecked = [...selected.keys()].length;
 
   const pageItems = useMemo(() => {
     const lastItemIndex = currentPage * itemsPerPage;
@@ -49,8 +48,8 @@ const InventoryItems = () => {
     setCurrentPage(1);
   };
 
-  const handleChecked = (item: HelperItemType, value: boolean) => {
-    setCheckedMap((prev) => {
+  const handleSelected = (item: HelperItemType, value: boolean) => {
+    setSelected((prev) => {
       const newCheckedMap = new Map(prev);
       if (value) newCheckedMap.set(item, value);
       else newCheckedMap.delete(item);
@@ -58,7 +57,7 @@ const InventoryItems = () => {
     });
   };
 
-  const handleClear = () => setCheckedMap(new Map<HelperItemType, boolean>());
+  const handleClear = () => setSelected(new Map<HelperItemType, boolean>());
 
   useEffect(() => {
     getHelperItems().then((response) => {
@@ -68,6 +67,35 @@ const InventoryItems = () => {
       }
     });
   }, []);
+
+  const errorColor = "error";
+  const menuItems = [
+    {
+      label: arabic.EDAFA,
+      arabic: true,
+      callback: () => console.log([...selected.keys()]),
+    },
+    {
+      label: arabic.SARF,
+      arabic: true,
+      callback: () => console.log([...selected.keys()]),
+    },
+    {
+      label: arabic.TALAB,
+      arabic: true,
+      callback: () => console.log([...selected.keys()]),
+    },
+    {
+      label: arabic.KHOROOG,
+      arabic: true,
+      callback: () => console.log([...selected.keys()]),
+    },
+    {
+      label: "Delete",
+      callback: () => console.log([...selected.keys()]),
+      color: errorColor,
+    },
+  ];
 
   return (
     <div
@@ -79,14 +107,18 @@ const InventoryItems = () => {
         <AddItemButton onClick={() => navigate(routes.newItem.path)} />
       </div>
       {amountChecked > 0 && (
-        <ChipMenu selectedCount={amountChecked} onClear={handleClear} />
+        <ChipMenu
+          menuItems={menuItems}
+          selectedCount={amountChecked}
+          onClear={handleClear}
+        />
       )}
       {pageItems.map((item) => (
         <ItemCard
           key={item.id}
           item={item}
-          checked={checkedMap.get(item) ?? false}
-          onChecked={handleChecked}
+          checked={selected.get(item) ?? false}
+          onChecked={handleSelected}
         />
       ))}
       <PaginationComponent

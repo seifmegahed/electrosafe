@@ -6,7 +6,7 @@ import {
   Typography,
 } from "@mui/material";
 
-type MenuItemType = {
+export type MenuItemType = {
   label: string;
   callback: () => void;
   arabic?: boolean;

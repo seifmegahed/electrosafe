@@ -70,7 +70,7 @@ const initValues: TextFieldPropsType = {
   span: 2,
   label: "",
   name: "",
-  type: { name: "text", label: "Text" },
+  type: "text",
   required: false,
   editable: false,
   preFix: "",

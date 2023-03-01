@@ -29,7 +29,10 @@ import {
 } from "../../../globalConstants";
 
 // Functions
-import { mirrorNameToLabel } from "../../../utils/conversions";
+import {
+  extractPureDataFromForm,
+  mirrorNameToLabel,
+} from "../../../utils/conversions";
 import { checkFormValidity } from "../../../utils/validation";
 import { initFormErrors } from "../../../utils/formInit";
 
@@ -107,7 +110,7 @@ const TextFieldGenerator = ({ onSubmit }: TextFieldGeneratorProps) => {
 
   return (
     <GridWrapper>
-      <FieldDemo fieldData={values} />
+      <FieldDemo fieldData={extractPureDataFromForm(values)} />
       <SpanSlider
         value={values.span}
         onChange={(value) => handleChange("span", value)}

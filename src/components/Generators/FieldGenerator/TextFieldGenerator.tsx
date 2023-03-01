@@ -110,7 +110,9 @@ const TextFieldGenerator = ({ onSubmit }: TextFieldGeneratorProps) => {
 
   return (
     <GridWrapper>
-      <FieldDemo fieldData={extractPureDataFromForm(values)} />
+      <FieldDemo
+        fieldData={extractPureDataFromForm(values) as FieldsPropsTypes}
+      />
       <SpanSlider
         value={values.span}
         onChange={(value) => handleChange("span", value)}

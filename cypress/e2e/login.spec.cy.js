@@ -6,8 +6,8 @@ import { labelToName } from "../../src/utils/conversions";
 
 describe("Login spec", () => {
   const fakeEmail = "wrong@email.com";
-  const testEmail = "test@electrosafe.com";
-  const password = "ValidPassword23";
+  const testEmail = "guest@electrosafe.com";
+  const password = "ValidPassword1";
   const newOptionValue = chance.name();
 
   beforeEach(() => {

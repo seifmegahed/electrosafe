@@ -910,8 +910,8 @@ const categories = [
 ];
 
 describe("Create categories and items from data", () => {
-  const testEmail = "test@electrosafe.com";
-  const password = "ValidPassword23";
+  const testEmail = "guest@electrosafe.com";
+  const password = "ValidPassword1";
   const ABB = "ABB";
   const AUTO_GENERATED = "This item was automatically generated";
   const randomNumber = (max) => Math.ceil(Math.random() * max);

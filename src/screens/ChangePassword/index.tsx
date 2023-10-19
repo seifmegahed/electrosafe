@@ -147,13 +147,28 @@ const ChangePassword = () => {
             </Typography>
           ))}
         </Box>
+        {user?.email === "guest@electrosafe.com" ? (
+          <Box
+            display="flex"
+            textAlign="center"
+            flexDirection="column"
+            sx={{ gridColumn: "span 4" }}
+            visibility={
+              user?.email === "guest@electrosafe.com" ? "visible" : "hidden"
+            }
+          >
+            <Typography color="error">
+              Operation not allowed for this user.
+            </Typography>
+          </Box>
+        ) : null}
         <Box
           display="flex"
           justifyContent="flex-end"
           sx={{ gridColumn: "span 4" }}
         >
           <Button
-            disabled={disabled}
+            disabled={user?.email === "guest@electrosafe.com" ? true : disabled}
             onClick={handleSubmit}
             variant="contained"
             sx={FORM_BUTTON_STYLE}
